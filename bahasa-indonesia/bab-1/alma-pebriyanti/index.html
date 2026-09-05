@@ -100,9 +100,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0
 </head>
 <body>
 
-
-
-
 <div class="submitted-banner show" id="submittedBanner">
   ✅ JAWABAN SUMATIF BERHASIL TERKIRIM
   <small id="submittedInfo">Siswa: Alma pebriyanti • 5/9/2026, 08.59.53 • ID: 26ad33cb-22ca-420d-aef8-75f2e45dea6c</small>
@@ -623,14 +620,13 @@ input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0
     <textarea name="soal25" rows="4" placeholder="Tuliskan tiga langkah runtut..." readonly="readonly" style="pointer-events: none;">kalimat  yang membutuhkan kalimat  keterrangan </textarea>
   </div>
 
-  
 </section>
 </form>
 
 <!-- PANEL PENILAIAN GURU -->
 <section class="sheet grade-panel show" id="gradePanel" style="display: block;">
   <div class="section-title"><div class="num">★</div><h2>Panel Validasi &amp; Penilaian Guru</h2></div>
-  <div class="teacher-status" id="teacherStatus">🔓 Penilaian belum diperiksa. Klik tombol <b>"Periksa Jawaban"</b> untuk mengoreksi otomatis soal 1-15, memunculkan kolom validasi manual soal 16-25, dan mengakumulasikan nilai.</div>
+  <div class="teacher-status" id="teacherStatus">Memeriksa data nilai dari server...</div>
   
   <div class="teacher-tools" style="margin-bottom:18px">
     <button type="button" class="btn-blue" id="inspectExamBtn">🔍 Periksa Jawaban</button>
@@ -661,15 +657,10 @@ input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0
   </div>
 </section>
 
-
-
-
-
 <script>(function(){
     const ENDPOINT='https://script.google.com/macros/s/AKfycbw_4ZBfSYYAubKD-83hrovWoyZz4aJ1Ew3dP9Gbsb7TPpsfmIAFH07MjViuzOL7bRoX/exec',SUBJECT='Bahasa Indonesia',FOLDER_NAME='PENILAIAN SUMATIF',FOLDER_ID='1s6LjJguI6RITgQyRSC8H_8OiJsMCT2fu',LKPD_ID='Sumatif-Bab1-BIndo',SUBMISSION_ID='26ad33cb-22ca-420d-aef8-75f2e45dea6c',KKM=75;
     const key='sumatif_bindonesia_bab1_'+SUBMISSION_ID;
 
-    // Pastikan seluruh elemen di luar gradePanel dapat dibaca nilainya secara normal oleh mesin peramban
     document.querySelectorAll("input,select,textarea").forEach(el=>{
       if(!el.closest("#gradePanel")){
         el.disabled=false;
@@ -677,7 +668,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0
       }
     });
 
-    // Injeksi Baris Validasi Guru untuk Soal 16-25
     const manualConfig=[
       {id:'card_soal16',input:'score_soal16',max:3,label:'Validasi Guru (Isian Singkat No. 16):'},
       {id:'card_soal17',input:'score_soal17',max:3,label:'Validasi Guru (TTS Mendatar No. 17):'},
@@ -735,7 +725,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0
       }
 
       let varScore=0;
-      // No 11: PG Kompleks (A dan C) -> 2 Poin
       const s11Checked=[...document.querySelectorAll("input[name='soal11']:checked")].map(x=>x.value).sort().join(',');
       const fb11=document.getElementById("fb_soal11");
       if(fb11){
@@ -751,7 +740,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0
         }
       }
 
-      // No 12: Benar/Salah (1:B, 2:S, 3:B) -> 2 Poin
       const s12_1=(document.querySelector("input[name='soal12_1']:checked")||{}).value;
       const s12_2=(document.querySelector("input[name='soal12_2']:checked")||{}).value;
       const s12_3=(document.querySelector("input[name='soal12_3']:checked")||{}).value;
@@ -767,7 +755,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0
         else {fb12.innerHTML="<span style='color:var(--red)'>❌ Salah (Kunci: Benar, Salah, Benar)</span>";}
       }
 
-      // No 13: Menjodohkan (1-B, 2-C, 3-A) -> 2 Poin
       const s13_1=(document.querySelector("select[name='soal13_1']")||{}).value;
       const s13_2=(document.querySelector("select[name='soal13_2']")||{}).value;
       const s13_3=(document.querySelector("select[name='soal13_3']")||{}).value;
@@ -783,7 +770,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0
         else {fb13.innerHTML="<span style='color:var(--red)'>❌ Salah (Kunci: 1-B, 2-C, 3-A)</span>";}
       }
 
-      // No 14: Menjodohkan (1-A, 2-B) -> 2 Poin
       const s14_1=(document.querySelector("select[name='soal14_1']")||{}).value;
       const s14_2=(document.querySelector("select[name='soal14_2']")||{}).value;
       const fb14=document.getElementById("fb_soal14");
@@ -794,7 +780,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0
         else {fb14.innerHTML="<span style='color:var(--red)'>❌ Salah (Kunci: 1-A, 2-B)</span>";}
       }
 
-      // No 15: PG Kompleks (A dan C) -> 2 Poin
       const s15Checked=[...document.querySelectorAll("input[name='soal15']:checked")].map(x=>x.value).sort().join(',');
       const fb15=document.getElementById("fb_soal15");
       if(fb15){
@@ -856,12 +841,13 @@ input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0
       if(!inspected){
         if(noteIn){noteIn.disabled=true;noteIn.readOnly=true;}
         if(editBtn)editBtn.disabled=true; if(finBtn)finBtn.disabled=true;
+        if(status)status.innerHTML='🔓 Penilaian belum diperiksa. Klik tombol <b>"Periksa Jawaban"</b> untuk mengoreksi otomatis soal 1-15, memunculkan kolom validasi manual soal 16-25, dan mengakumulasikan nilai.';
         return;
       }
       if(noteIn){noteIn.disabled=locked;noteIn.readOnly=locked;}
       if(editBtn)editBtn.disabled=locked; if(finBtn)finBtn.disabled=locked;
       if(finBtn)finBtn.textContent=locked?'🔒 Penilaian Selesai & Dikunci':'🔒 Akhiri Penilaian & Kunci Permanen';
-      if(status)status.innerHTML=locked?'🔒 <b>Penilaian Bab 1 resmi diakhiri & dikunci.</b> Nilai akhir telah tercatat permanen.':'🔓 <b>Mode pemeriksaan aktif.</b> Silakan validasi soal isian dan uraian di atas lembar soal.';
+      if(status)status.innerHTML=locked?'🔒 <b>Penilaian Bab 1 resmi diakhiri & dikunci.</b> Nilai akhir telah tercatat permanen di database server.':'🔓 <b>Mode pemeriksaan aktif.</b> Silakan validasi soal isian dan uraian di atas lembar soal.';
       recapBox.style.display='block';
       updateDisplayCard();
     }
@@ -873,6 +859,38 @@ input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0
       });
       localStorage.setItem(key,JSON.stringify(payload));
       updateDisplayCard();
+    }
+
+    // ==========================================
+    // AMBIL DATA DARI SERVER (GOOGLE SHEETS)
+    // ==========================================
+    async function loadFromServer(){
+      try{
+        const url=`${ENDPOINT}?action=getSumatifGrade&submissionId=${encodeURIComponent(SUBMISSION_ID)}`;
+        const res=await fetch(url);
+        const data=await res.json();
+        if(data && data.status==='found' && data.locked){
+          inspected=true;
+          locked=true;
+          localStorage.setItem(key+'_inspected','1');
+          localStorage.setItem(key+'_locked','1');
+          
+          if(data.manualScores){
+            manualConfig.forEach(item=>{
+              const el=document.getElementById(item.input);
+              if(el && data.manualScores[item.input]!==undefined){
+                el.value=data.manualScores[item.input];
+              }
+            });
+          }
+          if(noteIn && data.note) noteIn.value=data.note;
+          saveLocal();
+        }
+      }catch(e){
+        console.warn('Gagal memuat status dari server:', e);
+      }finally{
+        applyState();
+      }
     }
 
     if(inspectBtn)inspectBtn.onclick=()=>{
@@ -900,16 +918,51 @@ input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0
 
     if(finBtn)finBtn.onclick=async()=>{
       if(locked)return;
+      finBtn.disabled=true;
+      finBtn.textContent='⏳ Menyimpan ke server...';
       saveLocal();
       const res=computeFinal();
+
+      const manualScores={};
+      manualConfig.forEach(item=>{
+        manualScores[item.input]=document.getElementById(item.input)?.value||0;
+      });
+
+      const payload={
+        action:'saveSumatifGrade',
+        studentName:(document.querySelector("input[name=nama]")||{}).value||'Siswa',
+        subject:SUBJECT,
+        folderName:FOLDER_NAME,
+        folderId:FOLDER_ID,
+        lkpdId:LKPD_ID,
+        submissionId:SUBMISSION_ID,
+        finalScore:res.total,
+        earnedScore:res.earned,
+        pgScore:res.pgScore,
+        varScore:res.varScore,
+        isianScore:res.isian,
+        uraianScore:res.uraian,
+        manualScores:manualScores,
+        note:noteIn?.value||'',
+        locked:true
+      };
+
       try{
-        await fetch(ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'saveSumatifGrade',studentName:(document.querySelector("input[name=nama]")||{}).value||'Siswa',subject:SUBJECT,folderName:FOLDER_NAME,folderId:FOLDER_ID,lkpdId:LKPD_ID,submissionId:SUBMISSION_ID,finalScore:res.total,note:noteIn?.value})});
-      }catch(e){}
-      localStorage.setItem(key+'_locked','1');
-      locked=true;
-      applyState();
-      alert('Penilaian Bab 1 berhasil diakhiri dan dikunci permanen!');
+        await fetch(ENDPOINT,{
+          method:'POST',
+          headers:{'Content-Type':'text/plain;charset=utf-8'},
+          body:JSON.stringify(payload)
+        });
+        localStorage.setItem(key+'_locked','1');
+        locked=true;
+        alert('Penilaian Bab 1 berhasil diakhiri dan dikunci permanen di server Google Sheets!');
+      }catch(e){
+        alert('Data tersimpan secara lokal, namun gagal terhubung ke server Google Sheets: '+e);
+      }finally{
+        applyState();
+      }
     };
 
-    if(inspected) applyState();
+    // Jalankan pengecekan server saat halaman dimuat
+    loadFromServer();
   })();</script></body></html>
