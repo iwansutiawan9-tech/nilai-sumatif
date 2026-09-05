@@ -658,7 +658,8 @@ input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0
 </section>
 
 <script>(function(){
-    const ENDPOINT='https://script.google.com/macros/s/AKfycbw_4ZBfSYYAubKD-83hrovWoyZz4aJ1Ew3dP9Gbsb7TPpsfmIAFH07MjViuzOL7bRoX/exec',SUBJECT='Bahasa Indonesia',FOLDER_NAME='PENILAIAN SUMATIF',FOLDER_ID='1s6LjJguI6RITgQyRSC8H_8OiJsMCT2fu',LKPD_ID='Sumatif-Bab1-BIndo',SUBMISSION_ID='26ad33cb-22ca-420d-aef8-75f2e45dea6c',KKM=75;
+    const SCRIPT_URL='https://script.google.com/macros/s/AKfycbzBk7ozXD5YgH5VgAGXVdkPF5tDPsawdtK5yJ-l52yDlvwypIChrVUB8piE8eueLsqiug/exec';
+    const SUBJECT='Bahasa Indonesia',FOLDER_NAME='PENILAIAN SUMATIF',FOLDER_ID='1s6LjJguI6RITgQyRSC8H_8OiJsMCT2fu',LKPD_ID='Sumatif-Bab1-BIndo',SUBMISSION_ID='26ad33cb-22ca-420d-aef8-75f2e45dea6c',KKM=75;
     const key='sumatif_bindonesia_bab1_'+SUBMISSION_ID;
 
     document.querySelectorAll("input,select,textarea").forEach(el=>{
@@ -861,12 +862,9 @@ input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0
       updateDisplayCard();
     }
 
-    // ==========================================
-    // AMBIL DATA DARI SERVER (GOOGLE SHEETS)
-    // ==========================================
     async function loadFromServer(){
       try{
-        const url=`${ENDPOINT}?action=getSumatifGrade&submissionId=${encodeURIComponent(SUBMISSION_ID)}`;
+        const url=`${SCRIPT_URL}?action=getSumatifGrade&submissionId=${encodeURIComponent(SUBMISSION_ID)}`;
         const res=await fetch(url);
         const data=await res.json();
         if(data && data.status==='found' && data.locked){
@@ -948,7 +946,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0
       };
 
       try{
-        await fetch(ENDPOINT,{
+        await fetch(SCRIPT_URL,{
           method:'POST',
           headers:{'Content-Type':'text/plain;charset=utf-8'},
           body:JSON.stringify(payload)
@@ -963,6 +961,5 @@ input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0
       }
     };
 
-    // Jalankan pengecekan server saat halaman dimuat
     loadFromServer();
   })();</script></body></html>
