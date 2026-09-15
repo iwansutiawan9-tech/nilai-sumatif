@@ -88,15 +88,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0
  body{background:#fff}.sheet{box-shadow:none;width:210mm;margin:0;border-radius:0}
  input,textarea,select{border:0!important;box-shadow:none!important}
 }
-/* Kunci seluruh interaksi elemen */
-  input, textarea, select, button, .option-item {
-    pointer-events: none !important;
-    user-select: text !important;
-  }
-  input, textarea, select, button {
-    cursor: not-allowed !important;
-    background-color: #f8fafc !important;
-  }
 </style>
 </head>
 <body>
@@ -770,18 +761,65 @@ input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0
       alert('Penilaian berhasil diakhiri! Rincian skor butir soal & capaian TP1/TP2 berhasil diperbarui di Google Sheet.');
     };
 
-    if(inspected) applyState();
-  })();
- <script>
-  window.addEventListener("load", function() {
-    document.querySelectorAll("input, textarea, select, button").forEach(function(el) {
-      el.setAttribute("readonly", "readonly");
-      el.style.setProperty("pointer-events", "none", "important");
-      if (el.tagName === "BUTTON" || el.type === "radio" || el.type === "checkbox") {
-        el.disabled = true;
+   <script>
+  window.addEventListener("DOMContentLoaded", function() {
+    // 1. Ambil ID Ujian dari data bawaan dokumen
+    const SUBMISSION_ID = 'b18a914c-5258-4432-bb84-0a7a69f561aa';
+    const key = 'sumatif_grade_koding_' + SUBMISSION_ID;
+
+    // 2. Set status localStorage agar otomatis dianggap sudah diperiksa & dikunci
+    localStorage.setItem(key + '_inspected', '1');
+    localStorage.setItem(key + '_locked', '1');
+
+    // 3. Simpan nilai esai yang ada ke storage jika belum tercatat
+    let localGrades = {};
+    try { localGrades = JSON.parse(localStorage.getItem(key) || '{}'); } catch(e){}
+    
+    // Pastikan nilai esai 16-20 tetap ada jika sudah terisi di form
+    document.querySelectorAll(".question-card[data-scoring='manual']").forEach(c => {
+      const qnum = c.dataset.qnum;
+      const inp = document.getElementById('score_s' + qnum);
+      if (inp && inp.value !== '') {
+        localGrades['s' + qnum] = inp.value;
       }
     });
+    localStorage.setItem(key, JSON.stringify(localGrades));
+
+    // 4. Picu klik tombol "Periksa Jawaban" secara otomatis di latar belakang
+    const inspectBtn = document.getElementById('inspectExamBtn');
+    if (inspectBtn) {
+      inspectBtn.click();
+    }
+
+    // 5. Pastikan panel hasil, banner, dan kartu nilai dipaksa tampil
+    const gradePanel = document.getElementById('gradePanel');
+    if (gradePanel) gradePanel.style.display = 'block';
+    
+    const recapBox = document.getElementById('recapBox');
+    if (recapBox) recapBox.style.display = 'block';
+
+    const scoreCard = document.getElementById('scoreCardDisplay');
+    if (scoreCard) scoreCard.style.display = 'block';
+
+    // 6. KUNCI TOTAL seluruh elemen (Read Only & Nonaktifkan tombol)
+    setTimeout(function() {
+      document.querySelectorAll("input, textarea, select, button, .option-item").forEach(function(el) {
+        el.setAttribute("readonly", "readonly");
+        el.style.setProperty("pointer-events", "none", "important");
+        if (el.tagName === "BUTTON" || el.type === "radio" || el.type === "checkbox") {
+          el.disabled = true;
+        }
+      });
+      // Berikan style visual terkunci
+      const lockStyle = document.createElement('style');
+      lockStyle.innerHTML = `
+        input, textarea, select, button, .option-item { pointer-events: none !important; }
+        button { opacity: 0.6 !important; cursor: not-allowed !important; }
+      `;
+      document.head.appendChild(lockStyle);
+    }, 150);
   });
+</script>
 </script>
 </script>
 </body></html>
