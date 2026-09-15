@@ -1,0 +1,765 @@
+<!doctype html>
+<html lang="id"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Penilaian Sumatif Bab 1 Koding - Kelas V</title>
+<style>
+:root{--green:#0b9f75;--green2:#087f60;--mint:#e9fbf5;--pink:#ffdfe4;--ink:#24313a;--muted:#64748b;--yellow:#fff36a;--line:#e5e7eb;--white:#fff;--blue:#2563eb;--gold:#f59e0b;--orange:#ea580c;--red:#dc2626}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(135deg,#eefcf7,#fff7f8 55%,#eef6ff);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);overflow-x:hidden}
+body:before,body:after{content:"";position:fixed;z-index:-1;border-radius:50%;filter:blur(2px);opacity:.45;pointer-events:none}
+body:before{width:180px;height:180px;background:#bff4df;left:-70px;top:120px;animation:float1 7s ease-in-out infinite}
+body:after{width:150px;height:150px;background:#ffd4dc;right:-50px;bottom:100px;animation:float2 9s ease-in-out infinite}
+@keyframes float1{50%{transform:translate(25px,18px) scale(1.08)}} @keyframes float2{50%{transform:translate(-20px,-25px) scale(1.12)}}
+.appbar{position:sticky;top:0;z-index:20;display:flex;gap:10px;align-items:center;padding:12px 16px;background:#ffffffee;backdrop-filter:blur(12px);border-bottom:1px solid #dfe7e4}
+.brand{font-weight:900;color:var(--green2);margin-right:auto}
+button{border:0;border-radius:12px;padding:10px 15px;font-weight:800;cursor:pointer;transition:.2s transform,.2s box-shadow}
+button:hover{transform:translateY(-2px);box-shadow:0 8px 18px #00000012}
+button:active{transform:scale(.98)}
+.btn-light{background:#f1f5f9;color:#334155}.btn-green{background:var(--green);color:#fff}.btn-blue{background:var(--blue);color:#fff}.btn-gold{background:#fef3c7;color:#92400e}.btn-red{background:#fee2e2;color:var(--red)}
+.progress{height:5px;background:#dcefe9}.progress i{display:block;height:100%;width:0;background:var(--green);transition:.25s}
+.sheet{width:min(1000px,calc(100% - 24px));margin:18px auto;background:#fff;border-radius:24px;box-shadow:0 12px 35px #24483b16;padding:28px}
+.hero{display:grid;grid-template-columns:1.7fr .8fr;gap:20px;align-items:stretch}
+.hero-card{background:linear-gradient(135deg,#effcf7,#fff0f3);border-radius:22px;padding:28px}
+.badge{display:inline-block;background:var(--green);color:#fff;padding:7px 12px;border-radius:999px;font-weight:900;font-size:13px}
+h1{font-size:clamp(22px,3.8vw,38px);line-height:1.1;margin:16px 0 8px} h2{margin:0} p{line-height:1.75}
+.mission{background:#f7fafc;border-radius:20px;padding:22px;display:flex;flex-direction:column;justify-content:center;text-align:center;font-size:18px}
+.mission-icon{font-size:64px;animation:bob 2.8s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-9px) rotate(2deg)}}
+.idgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.field label{display:block;font-size:13px;font-weight:900;color:#475569;margin-bottom:6px}
+input,textarea,select{width:100%;font:inherit;border:2px solid #dbe4e1;border-radius:13px;padding:12px 14px;outline:none;background:#fff}
+input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0 0 3px #0b9f7520}
+.idgrid input{min-height:52px;min-width:0}.idgrid .field{min-width:0}
+.section-title{display:flex;align-items:center;gap:12px;border-bottom:3px solid var(--mint);padding-bottom:12px;margin-bottom:18px}
+.num{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--green);color:#fff;font-weight:900;flex:0 0 auto}
+.tip{background:#fff9d6;border-left:5px solid #f2d73a;padding:14px 16px;border-radius:12px;margin:18px 0}
+.stimulus-box{background:#f8fafc;border:2px solid #e2e8f0;border-left:5px solid var(--green);border-radius:12px;padding:16px;margin:12px 0;line-height:1.7}
+
+/* KARTU SOAL & METADATA */
+.question-card{background:#f8fafc;border:2px solid #e2e8f0;border-radius:18px;padding:20px;margin-bottom:20px}
+.question-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+.q-meta{display:flex;gap:8px;align-items:center}
+.q-number{font-weight:900;color:var(--green2);background:var(--mint);padding:5px 12px;border-radius:8px;font-size:13px}
+.q-tp{font-weight:800;color:var(--blue);background:#eff6ff;border:1px solid #bfdbfe;padding:4px 10px;border-radius:8px;font-size:12px}
+.q-weight{font-size:12px;font-weight:800;color:var(--muted);background:#e2e8f0;padding:4px 10px;border-radius:6px}
+.options-list{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.option-item{display:flex;align-items:center;gap:12px;background:#fff;border:2px solid #e2e8f0;padding:12px 14px;border-radius:12px;cursor:pointer;transition:.15s}
+.option-item:hover{border-color:var(--green);background:#f0fdf4}
+.option-item input{width:auto;min-height:auto}
+
+/* VALIDASI GURU */
+.grading-row{display:none;gap:12px;align-items:center;margin-top:14px;background:#fff;padding:12px;border-radius:12px;border:2px dashed #cbd5e1}
+.grading-row.teacher-visible{display:flex}
+.grading-row input[type="number"]{width:110px;text-align:center;font-weight:900;color:var(--green2)}
+
+/* KARTU NILAI BESAR */
+.score-card-display{display:none;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:3px solid var(--green);border-radius:20px;padding:20px;text-align:center;margin-top:20px}
+.score-card-display.red-theme{background:linear-gradient(135deg,#fef2f2,#fee2e2);border-color:var(--red)}
+.score-big{font-size:56px;font-weight:900;color:var(--green2);line-height:1;margin:8px 0}
+.score-card-display.red-theme .score-big{color:var(--red)}
+
+.actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:22px 0 8px}
+.modal{position:fixed;inset:0;background:#0f172a88;display:none;place-items:center;z-index:50;padding:18px}
+.modal-card{width:min(560px,100%);background:#fff;border-radius:22px;padding:24px;text-align:center;box-shadow:0 20px 60px #0003}
+.spinner{width:42px;height:42px;border:5px solid #dbeee8;border-top-color:var(--green);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 14px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.submitted-banner{display:none;margin:16px auto;max-width:900px;background:var(--green2);color:#fff;padding:14px 18px;border-radius:16px;text-align:center;font-weight:900}
+.submitted-banner.show{display:block}
+.submitted-banner small{display:block;font-weight:600;margin-top:4px}
+.grade-panel{display:none;background:#f8fafc;border:2px solid #dbe4e1;border-radius:20px;padding:20px;margin:18px auto;max-width:900px}
+.grade-panel.show{display:block}
+.teacher-tools{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.teacher-status{background:#fff9d6;border-left:5px solid #f2d73a;border-radius:12px;padding:11px 14px;margin:0 0 16px;font-size:14px}
+
+.recap-box{background:#fff;border:2px solid #cbd5e1;border-radius:16px;padding:16px;margin-top:20px}
+.recap-table{width:100%;border-collapse:collapse;margin-top:10px}
+.recap-table th,.recap-table td{border:1px solid #e2e8f0;padding:10px 12px;font-size:14px;text-align:left}
+.recap-table th{background:var(--mint);color:var(--green2);font-weight:900}
+
+@media(max-width:700px){
+ .appbar{flex-wrap:wrap}.brand{width:100%;text-align:center}
+ .sheet{padding:18px;border-radius:18px}
+ .hero{grid-template-columns:1fr}.idgrid{grid-template-columns:1fr}
+ .actions button{width:100%}
+}
+@media print{
+ .appbar,.progress,.actions,.modal,.teacher-tools{display:none!important}
+ body{background:#fff}.sheet{box-shadow:none;width:210mm;margin:0;border-radius:0}
+ input,textarea,select{border:0!important;box-shadow:none!important}
+}
+</style>
+</head>
+<body>
+
+
+
+
+<div class="submitted-banner show" id="submittedBanner">
+  ✅ JAWABAN SUMATIF BERHASIL TERKIRIM
+  <small id="submittedInfo">Siswa: Raena Putri Pratiwi • 9/9/2026, 09.35.21 • ID: f30d5e22-348f-4642-acdc-51b3d96b52ce</small>
+</div>
+
+<form id="examForm">
+<!-- HALAMAN 1: IDENTITAS -->
+<section class="sheet">
+  <div class="hero">
+    <div class="hero-card">
+      <span class="badge">ASESMEN SUMATIF / ULANGAN HARIAN</span>
+      <h1 id="examTitle">Penilaian Sumatif BAB 1</h1>
+      <p><b>Mata Pelajaran:</b> <span id="labelMapel">Koding</span> • <span id="labelKelas">Kelas V (Lima)</span></p>
+      
+      <div style="font-size:13px;background:#fff;padding:12px;border-radius:12px;margin:10px 0;line-height:1.6">
+        <b>Tujuan Pembelajaran (TP):</b>
+        <ul style="margin:6px 0 0;padding-left:18px" id="tpList">
+          <li><b>TP1:</b> Memahami konsep dasar berpikir komputasional beserta empat fondasinya (dekomposisi, pengenalan pola, abstraksi, dan algoritma).</li>
+          <li><b>TP2:</b> Menerapkan prinsip berpikir komputasional dalam menyelesaikan persoalan nyata pada kehidupan sehari-hari.</li>
+        </ul>
+      </div>
+      
+      <!-- KARTU NILAI BESAR -->
+      <div class="score-card-display" id="scoreCardDisplay">
+        <div style="font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:1px">Nilai Perolehan Akhir</div>
+        <div class="score-big" id="displayFinalScore">0</div>
+        <div id="scoreStatusBadge" style="font-weight:800;font-size:14px"></div>
+      </div>
+
+      <div class="idgrid">
+        <div class="field"><label>Nama Lengkap Siswa <span style="color:var(--red)">*</span></label><input name="nama" placeholder="Tuliskan nama lengkap" required="" autocomplete="name" readonly="readonly" style="pointer-events: none;" value="Raena Putri Pratiwi"></div>
+        <div class="field"><label>Hari / Tanggal <span style="color:var(--red)">*</span></label><input name="tanggal" placeholder="Contoh: Rabu, 9 September 2026" required="" readonly="readonly" style="pointer-events: none;" value="Rabu 9 September 2026"></div>
+        <div class="field"><label>Nomor Absen</label><input name="absen" placeholder="Nomor absen" type="number" readonly="readonly" style="pointer-events: none;" value="13"></div>
+        <div class="field"><label>Kelas</label><input name="kelas" value="V (Lima)" readonly="readonly" style="pointer-events: none;"></div>
+      </div>
+    </div>
+    <div class="mission">
+      <div class="mission-icon">🤖</div>
+      <b>🛡️ Mode Ujian Aktif</b>
+      <p>Gunakan logika berpikir komputasional secara mandiri dan teliti. Dilarang membuka tab lain!</p>
+    </div>
+  </div>
+</section>
+
+<!-- HALAMAN 2: PETUNJUK -->
+<section class="sheet">
+  <div class="section-title"><div class="num">2</div><h2>📋 Petunjuk Pengerjaan &amp; Sistem Penilaian</h2></div>
+  <div class="tip"><b>Ketentuan Pengerjaan:</b> Kerjakan setiap butir soal sesuai petunjuk. Kriteria Ketuntasan Minimal (KKM): <b><span id="kkmDisplay" style="color:var(--blue)">75</span></b>.</div>
+  
+  <h3 style="margin-top:20px">⚖️ Rincian Komposisi Soal (Total: 25 Poin):</h3>
+  <table style="width:100%;border-collapse:collapse;margin-top:10px;background:#f8fafc;border-radius:12px;overflow:hidden">
+    <thead>
+      <tr style="background:var(--mint);text-align:left">
+        <th style="padding:10px 14px">Jenis Soal</th><th style="padding:10px 14px">Nomor Soal</th><th style="padding:10px 14px">Bobot / Butir</th><th style="padding:10px 14px">Sistem Koreksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #e2e8f0"><td style="padding:10px 14px">Pilihan Ganda</td><td style="padding:10px 14px">No. 1 s.d. 5 (5 Soal)</td><td style="padding:10px 14px"><b>1 Poin</b></td><td style="padding:10px 14px">Koreksi Otomatis Sistem</td></tr>
+      <tr style="border-bottom:1px solid #e2e8f0"><td style="padding:10px 14px">Benar / Salah</td><td style="padding:10px 14px">No. 6 s.d. 15 (10 Soal)</td><td style="padding:10px 14px"><b>1 Poin</b></td><td style="padding:10px 14px">Koreksi Otomatis Sistem</td></tr>
+      <tr><td style="padding:10px 14px">Esai / Uraian Logika</td><td style="padding:10px 14px">No. 16 s.d. 20 (5 Soal)</td><td style="padding:10px 14px"><b>2 Poin</b></td><td style="padding:10px 14px">Validasi Manual Guru</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:14px;font-size:14px"><b>Rumus Nilai Akhir:</b> (Total Skor Perolehan / 25) × 100</p>
+</section>
+
+<!-- HALAMAN 3: LEMBAR SOAL -->
+<section class="sheet">
+  <div class="section-title"><div class="num">3</div><h2>✍️ Lembar Soal Sumatif</h2></div>
+
+  <!-- BAGIAN I: PILIHAN GANDA (NO 1 - 5) -->
+  <h3 style="color:var(--green2);border-bottom:2px solid #e2e8f0;padding-bottom:6px;margin-bottom:16px">BAGIAN I: Pilihan Ganda (Nomor 1 - 5)</h3>
+
+  <!-- SOAL 1 -->
+  <div class="question-card" data-qnum="1" data-tp="TP1" data-type="PG" data-weight="1" data-scoring="auto" data-key="b">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 1 • Pilihan Ganda</span><span class="q-tp">Target: TP1</span></div>
+      <span class="q-weight">Bobot: 1 Poin</span>
+    </div>
+    <div class="stimulus-box">
+      <b>Stimulus Isu Tata Kelola Kota:</b><br>
+      Untuk mengatasi banjir tahunan, pemerintah kota tidak langsung membeli pompa raksasa, melainkan mengumpulkan data curah hujan, menelusuri selokan yang tersumbat, dan merancang perbaikan saluran air secara terencana dan terstruktur.
+    </div>
+    <p>Pendekatan menyelesaikan masalah dengan cara yang logis dan sistematis seperti pada wacana di atas disebut ....</p>
+    <div class="options-list">
+      <label class="option-item"><input type="radio" name="soal1" value="a" readonly="readonly" style="pointer-events: none;"> a. cara berpikir seperti robot yang tidak bisa salah</label>
+      <label class="option-item"><input type="radio" name="soal1" value="b" readonly="readonly" style="pointer-events: none;" checked="checked"> b. cara menyelesaikan masalah dengan langkah logis dan sistematis</label>
+      <label class="option-item"><input type="radio" name="soal1" value="c" readonly="readonly" style="pointer-events: none;"> c. menggunakan komputer untuk semua pekerjaan</label>
+      <label class="option-item"><input type="radio" name="soal1" value="d" readonly="readonly" style="pointer-events: none;"> d. menyalin langkah-langkah dari orang lain</label>
+    </div>
+    <div class="grading-feedback-box" id="fb_soal1" style="display:none;margin-top:10px;font-weight:800"></div>
+  </div>
+
+  <!-- SOAL 2 -->
+  <div class="question-card" data-qnum="2" data-tp="TP1" data-type="PG" data-weight="1" data-scoring="auto" data-key="b">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 2 • Pilihan Ganda</span><span class="q-tp">Target: TP1</span></div>
+      <span class="q-weight">Bobot: 1 Poin</span>
+    </div>
+    <div class="stimulus-box">
+      <b>Stimulus Fakta Lingkungan Hidup:</b><br>
+      Timbunan sampah plastik di lingkungan sekolah mencapai ratusan kilogram tiap minggu. Untuk menanganinya, pihak sekolah membagi penanganan ke dalam program kecil: kampanye membawa tumbler minum, penyediaan tempat sampah pilah, dan kerja sama dengan bank sampah.
+    </div>
+    <p>Tindakan memecah satu masalah besar menjadi bagian-bagian yang lebih kecil dan mudah dikelola merupakan contoh dari ....</p>
+    <div class="options-list">
+      <label class="option-item"><input type="radio" name="soal2" value="a" readonly="readonly" style="pointer-events: none;"> a. menggabungkan semua masalah menjadi satu</label>
+      <label class="option-item"><input type="radio" name="soal2" value="b" readonly="readonly" style="pointer-events: none;" checked="checked"> b. memecah masalah besar menjadi bagian kecil</label>
+      <label class="option-item"><input type="radio" name="soal2" value="c" readonly="readonly" style="pointer-events: none;"> c. mengulang langkah yang sama terus-menerus</label>
+      <label class="option-item"><input type="radio" name="soal2" value="d" readonly="readonly" style="pointer-events: none;"> d. mengabaikan masalah kecil</label>
+    </div>
+    <div class="grading-feedback-box" id="fb_soal2" style="display:none;margin-top:10px;font-weight:800"></div>
+  </div>
+
+  <!-- SOAL 3 -->
+  <div class="question-card" data-qnum="3" data-tp="TP1" data-type="PG" data-weight="1" data-scoring="auto" data-key="c">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 3 • Pilihan Ganda</span><span class="q-tp">Target: TP1</span></div>
+      <span class="q-weight">Bobot: 1 Poin</span>
+    </div>
+    <div class="stimulus-box">
+      <b>Stimulus Fenomena Sosial:</b><br>
+      Berdasarkan pantauan petugas lalu lintas, kemacetan di sekitar sekolah selalu terjadi berulang pada jam yang sama, yaitu pukul 06.40–07.00 WIB pada hari Senin hingga Jumat.
+    </div>
+    <p>Keteraturan kejadian yang berulang atau memiliki kesamaan waktu seperti pada pengamatan di atas disebut ....</p>
+    <div class="options-list">
+      <label class="option-item"><input type="radio" name="soal3" value="a" readonly="readonly" style="pointer-events: none;"> a. langkah untuk menyelesaikan masalah</label>
+      <label class="option-item"><input type="radio" name="soal3" value="b" readonly="readonly" style="pointer-events: none;"> b. hal yang terjadi hanya satu kali</label>
+      <label class="option-item"><input type="radio" name="soal3" value="c" readonly="readonly" style="pointer-events: none;" checked="checked"> c. sesuatu yang berulang atau memiliki kesamaan</label>
+      <label class="option-item"><input type="radio" name="soal3" value="d" readonly="readonly" style="pointer-events: none;"> d. membuang langkah yang tidak perlu</label>
+    </div>
+    <div class="grading-feedback-box" id="fb_soal3" style="display:none;margin-top:10px;font-weight:800"></div>
+  </div>
+
+  <!-- SOAL 4 -->
+  <div class="question-card" data-qnum="4" data-tp="TP2" data-type="PG" data-weight="1" data-scoring="auto" data-key="b">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 4 • Pilihan Ganda</span><span class="q-tp">Target: TP2</span></div>
+      <span class="q-weight">Bobot: 1 Poin</span>
+    </div>
+    <div class="stimulus-box">
+      <b>Stimulus Kebiasaan Hidup Bersih:</b><br>
+      Agar kamar tidur rapi dan bebas dari sarang nyamuk DBD, Lani membiasakan diri bekerja secara teratur: mengambil sapu, menyapu dari kolong tempat tidur, mengelap meja belajar, lalu membuang sampah ke luar.
+    </div>
+    <p>Langkah-langkah berurutan yang dilakukan Lani merupakan penerapan dari ....</p>
+    <div class="options-list">
+      <label class="option-item"><input type="radio" name="soal4" value="a" readonly="readonly" style="pointer-events: none;" checked="checked"> a. pola</label>
+      <label class="option-item"><input type="radio" name="soal4" value="b" readonly="readonly" style="pointer-events: none;"> b. algoritma</label>
+      <label class="option-item"><input type="radio" name="soal4" value="c" readonly="readonly" style="pointer-events: none;"> c. abstraksi</label>
+      <label class="option-item"><input type="radio" name="soal4" value="d" readonly="readonly" style="pointer-events: none;"> d. klasifikasi</label>
+    </div>
+    <div class="grading-feedback-box" id="fb_soal4" style="display:none;margin-top:10px;font-weight:800"></div>
+  </div>
+
+  <!-- SOAL 5 -->
+  <div class="question-card" data-qnum="5" data-tp="TP1" data-type="PG" data-weight="1" data-scoring="auto" data-key="b">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 5 • Pilihan Ganda</span><span class="q-tp">Target: TP1</span></div>
+      <span class="q-weight">Bobot: 1 Poin</span>
+    </div>
+    <div class="stimulus-box">
+      <b>Stimulus Fakta Informasi:</b><br>
+      Saat menggunakan peta digital (Google Maps) untuk mencari rute bus sekolah, aplikasi hanya menampilkan rute jalan dan kondisi lalu lintas macet/lancar tanpa menunjukkan jenis cat rumah atau warna pohon di pinggir jalan.
+    </div>
+    <p>Prinsip abstraksi seperti pada sistem peta digital membantu pengguna untuk ....</p>
+    <div class="options-list">
+      <label class="option-item"><input type="radio" name="soal5" value="a" readonly="readonly" style="pointer-events: none;"> a. memperbesar masalah</label>
+      <label class="option-item"><input type="radio" name="soal5" value="b" readonly="readonly" style="pointer-events: none;" checked="checked"> b. fokus pada hal penting dan mengabaikan yang tidak perlu</label>
+      <label class="option-item"><input type="radio" name="soal5" value="c" readonly="readonly" style="pointer-events: none;"> c. mengubah urutan</label>
+      <label class="option-item"><input type="radio" name="soal5" value="d" readonly="readonly" style="pointer-events: none;"> d. menghapus semua informasi</label>
+    </div>
+    <div class="grading-feedback-box" id="fb_soal5" style="display:none;margin-top:10px;font-weight:800"></div>
+  </div>
+
+  <!-- BAGIAN II: BENAR / SALAH (NO 6 - 15) -->
+  <h3 style="color:var(--green2);border-bottom:2px solid #e2e8f0;padding-bottom:6px;margin:28px 0 16px">BAGIAN II: Analisis Benar atau Salah (Nomor 6 - 15)</h3>
+
+  <!-- SOAL 6 -->
+  <div class="question-card" data-qnum="6" data-tp="TP1" data-type="BS" data-weight="1" data-scoring="auto" data-key="S">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 6 • Benar / Salah</span><span class="q-tp">Target: TP1</span></div>
+      <span class="q-weight">Bobot: 1 Poin</span>
+    </div>
+    <div class="stimulus-box">
+      <b>Stimulus Isu Kecerdasan Buatan:</b><br>
+      Banyak orang mengira anak-anak yang belajar logika komputer akan tumbuh menjadi kaku dan kehilangan empati kemanusiaan seperti mesin.
+    </div>
+    <p><b>Pernyataan:</b> Berpikir komputasional adalah cara berpikir kaku seperti robot.</p>
+    <div class="options-list">
+      <label class="option-item"><input type="radio" name="soal6" value="B" readonly="readonly" style="pointer-events: none;"> Benar (✓)</label>
+      <label class="option-item"><input type="radio" name="soal6" value="S" readonly="readonly" style="pointer-events: none;" checked="checked"> Salah (✗)</label>
+    </div>
+    <div class="grading-feedback-box" id="fb_soal6" style="display:none;margin-top:10px;font-weight:800"></div>
+  </div>
+
+  <!-- SOAL 7 -->
+  <div class="question-card" data-qnum="7" data-tp="TP1" data-type="BS" data-weight="1" data-scoring="auto" data-key="S">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 7 • Benar / Salah</span><span class="q-tp">Target: TP1</span></div>
+      <span class="q-weight">Bobot: 1 Poin</span>
+    </div>
+    <div class="stimulus-box">
+      <b>Stimulus Masalah Fasilitas Sekolah:</b><br>
+      Buku-buku bacaan di pojok perpustakaan kelas sangat berantakan dan halamannya banyak yang robek sehingga siswa enggan membaca.
+    </div>
+    <p><b>Pernyataan:</b> Dekomposisi adalah menyatukan beberapa masalah menjadi satu masalah besar.</p>
+    <div class="options-list">
+      <label class="option-item"><input type="radio" name="soal7" value="B" readonly="readonly" style="pointer-events: none;" checked="checked"> Benar (✓)</label>
+      <label class="option-item"><input type="radio" name="soal7" value="S" readonly="readonly" style="pointer-events: none;"> Salah (✗)</label>
+    </div>
+    <div class="grading-feedback-box" id="fb_soal7" style="display:none;margin-top:10px;font-weight:800"></div>
+  </div>
+
+  <!-- SOAL 8 -->
+  <div class="question-card" data-qnum="8" data-tp="TP1" data-type="BS" data-weight="1" data-scoring="auto" data-key="B">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 8 • Benar / Salah</span><span class="q-tp">Target: TP1</span></div>
+      <span class="q-weight">Bobot: 1 Poin</span>
+    </div>
+    <div class="stimulus-box">
+      <b>Stimulus Hemat Energi:</b><br>
+      Untuk mengurangi tagihan listrik dan pemanasan global, keluarga Dedi menyusun panduan jadwal mencabut steker elektronik yang tidak digunakan secara terencana.
+    </div>
+    <p><b>Pernyataan:</b> Menyusun langkah-langkah untuk menyelesaikan masalah adalah bagian dari berpikir komputasional.</p>
+    <div class="options-list">
+      <label class="option-item"><input type="radio" name="soal8" value="B" readonly="readonly" style="pointer-events: none;" checked="checked"> Benar (✓)</label>
+      <label class="option-item"><input type="radio" name="soal8" value="S" readonly="readonly" style="pointer-events: none;"> Salah (✗)</label>
+    </div>
+    <div class="grading-feedback-box" id="fb_soal8" style="display:none;margin-top:10px;font-weight:800"></div>
+  </div>
+
+  <!-- SOAL 9 -->
+  <div class="question-card" data-qnum="9" data-tp="TP2" data-type="BS" data-weight="1" data-scoring="auto" data-key="B">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 9 • Benar / Salah</span><span class="q-tp">Target: TP2</span></div>
+      <span class="q-weight">Bobot: 1 Poin</span>
+    </div>
+    <div class="stimulus-box">
+      <b>Stimulus Menjaga Kebersihan:</b><br>
+      Ketika membersihkan area dapur yang berminyak setelah memasak, ibu menyeka bagian kompor yang paling berkerak terlebih dahulu sebelum mengepel seluruh lantai dapur.
+    </div>
+    <p><b>Pernyataan:</b> Ketika kita membersihkan kamar dan memulainya dari bagian paling kotor dulu, itu contoh algoritma.</p>
+    <div class="options-list">
+      <label class="option-item"><input type="radio" name="soal9" value="B" readonly="readonly" style="pointer-events: none;" checked="checked"> Benar (✓)</label>
+      <label class="option-item"><input type="radio" name="soal9" value="S" readonly="readonly" style="pointer-events: none;"> Salah (✗)</label>
+    </div>
+    <div class="grading-feedback-box" id="fb_soal9" style="display:none;margin-top:10px;font-weight:800"></div>
+  </div>
+
+  <!-- SOAL 10 -->
+  <div class="question-card" data-qnum="10" data-tp="TP1" data-type="BS" data-weight="1" data-scoring="auto" data-key="S">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 10 • Benar / Salah</span><span class="q-tp">Target: TP1</span></div>
+      <span class="q-weight">Bobot: 1 Poin</span>
+    </div>
+    <div class="stimulus-box">
+      <b>Stimulus Isu Perubahan Iklim:</b><br>
+      BMKG memantau bahwa musim kemarau dan musim hujan selalu memiliki siklus waktu tertentu yang berulang sepanjang tahun di kepulauan Indonesia.
+    </div>
+    <p><b>Pernyataan:</b> Pola adalah sesuatu yang muncul hanya satu kali saja.</p>
+    <div class="options-list">
+      <label class="option-item"><input type="radio" name="soal10" value="B" readonly="readonly" style="pointer-events: none;"> Benar (✓)</label>
+      <label class="option-item"><input type="radio" name="soal10" value="S" readonly="readonly" style="pointer-events: none;" checked="checked"> Salah (✗)</label>
+    </div>
+    <div class="grading-feedback-box" id="fb_soal10" style="display:none;margin-top:10px;font-weight:800"></div>
+  </div>
+
+  <!-- SOAL 11 -->
+  <div class="question-card" data-qnum="11" data-tp="TP1" data-type="BS" data-weight="1" data-scoring="auto" data-key="B">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 11 • Benar / Salah</span><span class="q-tp">Target: TP1</span></div>
+      <span class="q-weight">Bobot: 1 Poin</span>
+    </div>
+    <div class="stimulus-box">
+      <b>Stimulus Informasi Digital:</b><br>
+      Saat membuat poster peringatan bahaya makanan tinggi gula, siswa hanya menyorot kadar gula dan risikonya tanpa mencantumkan rincian pabrik pembuatnya.
+    </div>
+    <p><b>Pernyataan:</b> Abstraksi membantu kita fokus pada hal penting dan mengabaikan yang tidak perlu.</p>
+    <div class="options-list">
+      <label class="option-item"><input type="radio" name="soal11" value="B" readonly="readonly" style="pointer-events: none;" checked="checked"> Benar (✓)</label>
+      <label class="option-item"><input type="radio" name="soal11" value="S" readonly="readonly" style="pointer-events: none;"> Salah (✗)</label>
+    </div>
+    <div class="grading-feedback-box" id="fb_soal11" style="display:none;margin-top:10px;font-weight:800"></div>
+  </div>
+
+  <!-- SOAL 12 -->
+  <div class="question-card" data-qnum="12" data-tp="TP1" data-type="BS" data-weight="1" data-scoring="auto" data-key="S">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 12 • Benar / Salah</span><span class="q-tp">Target: TP1</span></div>
+      <span class="q-weight">Bobot: 1 Poin</span>
+    </div>
+    <div class="stimulus-box">
+      <b>Stimulus Prosedur Medis:</b><br>
+      Saat memberikan pertolongan pertama pada korban yang tersedak, tahapan tepukan punggung dan dorongan perut harus dilakukan secara tertib dan tidak boleh terbalik.
+    </div>
+    <p><b>Pernyataan:</b> Urutan yang acak bisa tetap menghasilkan solusi yang benar.</p>
+    <div class="options-list">
+      <label class="option-item"><input type="radio" name="soal12" value="B" readonly="readonly" style="pointer-events: none;"> Benar (✓)</label>
+      <label class="option-item"><input type="radio" name="soal12" value="S" readonly="readonly" style="pointer-events: none;" checked="checked"> Salah (✗)</label>
+    </div>
+    <div class="grading-feedback-box" id="fb_soal12" style="display:none;margin-top:10px;font-weight:800"></div>
+  </div>
+
+  <!-- SOAL 13 -->
+  <div class="question-card" data-qnum="13" data-tp="TP2" data-type="BS" data-weight="1" data-scoring="auto" data-key="B">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 13 • Benar / Salah</span><span class="q-tp">Target: TP2</span></div>
+      <span class="q-weight">Bobot: 1 Poin</span>
+    </div>
+    <div class="stimulus-box">
+      <b>Stimulus Gerakan Donasi:</b><br>
+      Siswa kelas empat menghitung alokasi uang saku mingguan dan menyisihkan sebagian dana untuk korban bencana alam melalui soal cerita anggaran.
+    </div>
+    <p><b>Pernyataan:</b> Saat menyelesaikan soal cerita matematika, kita juga bisa memakai berpikir komputasional.</p>
+    <div class="options-list">
+      <label class="option-item"><input type="radio" name="soal13" value="B" readonly="readonly" style="pointer-events: none;" checked="checked"> Benar (✓)</label>
+      <label class="option-item"><input type="radio" name="soal13" value="S" readonly="readonly" style="pointer-events: none;"> Salah (✗)</label>
+    </div>
+    <div class="grading-feedback-box" id="fb_soal13" style="display:none;margin-top:10px;font-weight:800"></div>
+  </div>
+
+  <!-- SOAL 14 -->
+  <div class="question-card" data-qnum="14" data-tp="TP1" data-type="BS" data-weight="1" data-scoring="auto" data-key="B">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 14 • Benar / Salah</span><span class="q-tp">Target: TP1</span></div>
+      <span class="q-weight">Bobot: 1 Poin</span>
+    </div>
+    <div class="stimulus-box">
+      <b>Stimulus Kehidupan Modern:</b><br>
+      Dokter mendiagnosis pasien, petani menentukan waktu tanam, dan koki meracik resep masakan dengan memanfaatkan logika penalaran yang terstruktur.
+    </div>
+    <p><b>Pernyataan:</b> Semua orang bisa belajar cara berpikir komputasional, tidak hanya programmer.</p>
+    <div class="options-list">
+      <label class="option-item"><input type="radio" name="soal14" value="B" readonly="readonly" style="pointer-events: none;" checked="checked"> Benar (✓)</label>
+      <label class="option-item"><input type="radio" name="soal14" value="S" readonly="readonly" style="pointer-events: none;"> Salah (✗)</label>
+    </div>
+    <div class="grading-feedback-box" id="fb_soal14" style="display:none;margin-top:10px;font-weight:800"></div>
+  </div>
+
+  <!-- SOAL 15 -->
+  <div class="question-card" data-qnum="15" data-tp="TP1" data-type="BS" data-weight="1" data-scoring="auto" data-key="S">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 15 • Benar / Salah</span><span class="q-tp">Target: TP1</span></div>
+      <span class="q-weight">Bobot: 1 Poin</span>
+    </div>
+    <div class="stimulus-box">
+      <b>Stimulus Otomasi Industri:</b><br>
+      Robot pemadam kebakaran memerlukan pemetaan lokasi api dan titik panas melalui sensor agar alat semprot bekerja tepat sasaran.
+    </div>
+    <p><b>Pernyataan:</b> Robot tidak perlu tahu masalah untuk bisa menyelesaikannya.</p>
+    <div class="options-list">
+      <label class="option-item"><input type="radio" name="soal15" value="B" readonly="readonly" style="pointer-events: none;"> Benar (✓)</label>
+      <label class="option-item"><input type="radio" name="soal15" value="S" readonly="readonly" style="pointer-events: none;" checked="checked"> Salah (✗)</label>
+    </div>
+    <div class="grading-feedback-box" id="fb_soal15" style="display:none;margin-top:10px;font-weight:800"></div>
+  </div>
+
+  <!-- BAGIAN III: ESAI (NO 16 - 20) -->
+  <h3 style="color:var(--green2);border-bottom:2px solid #e2e8f0;padding-bottom:6px;margin:28px 0 16px">BAGIAN III: Uraian &amp; Pemecahan Masalah (Nomor 16 - 20)</h3>
+
+  <!-- SOAL 16 -->
+  <div class="question-card" data-qnum="16" data-tp="TP1" data-type="Esai" data-weight="2" data-scoring="manual">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 16 • Esai</span><span class="q-tp">Target: TP1</span></div>
+      <span class="q-weight">Maks. Bobot: 2 Poin</span>
+    </div>
+    <div class="stimulus-box">
+      <b>Stimulus Isu Abad ke-21:</b><br>
+      Di era kecerdasan buatan, kita menghadapi banyak tantangan informasi palsu (hoaks) dan masalah lingkungan yang rumit. Menghadapinya membutuhkan kecakapan nalar berpikir yang runtut dan berbasis logika.
+    </div>
+    <p>Berdasarkan hal tersebut, apa yang dimaksud dengan berpikir komputasional?</p>
+    <textarea name="soal16" rows="3" placeholder="Tuliskan jawaban penjelasanmu secara lengkap..." readonly="readonly" style="pointer-events: none;">Berpikir komputasional adalah metode atau proses kognitif untuk menyelesaikan masalah secara logis, sistematis, Dan terstruktur dengan menerapkan konsep dasar ilmu komputer, meskipun tidak harus selalu memakai komputer.</textarea>
+  </div>
+
+  <!-- SOAL 17 -->
+  <div class="question-card" data-qnum="17" data-tp="TP2" data-type="Esai" data-weight="2" data-scoring="manual">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 17 • Esai</span><span class="q-tp">Target: TP2</span></div>
+      <span class="q-weight">Maks. Bobot: 2 Poin</span>
+    </div>
+    <div class="stimulus-box">
+      <b>Stimulus Gaya Hidup di Rumah:</b><br>
+      Banyak rumah tangga menghasilkan limbah sisa makanan (<i>food waste</i>) atau mengalami penumpukan barang-barang yang tidak tertata rapi di rumah.
+    </div>
+    <p>Sebutkan satu contoh masalah sederhana yang kamu temui di rumah dan bagaimana kamu menyadarinya!</p>
+    <textarea name="soal17" rows="3" placeholder="Tuliskan masalah di rumah dan bagaimana caramu menyadarinya..." readonly="readonly" style="pointer-events: none;">Saat bangun tidur aku tidak langsung membereskan tempat tidur, bagaimana aku menyadarinya? aku tersadar ketika aku pulang sekolah "mengapa aku tidak membereskannya sebelum berangkat?" meskipun lelah aku tetap menyelesaikan kewajibanku hari itu juga.</textarea>
+  </div>
+
+  <!-- SOAL 18 -->
+  <div class="question-card" data-qnum="18" data-tp="TP1" data-type="Esai" data-weight="2" data-scoring="manual">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 18 • Esai</span><span class="q-tp">Target: TP1</span></div>
+      <span class="q-weight">Maks. Bobot: 2 Poin</span>
+    </div>
+    <div class="stimulus-box">
+      <b>Stimulus Aksi Lingkungan:</b><br>
+      Gerakan membersihkan tumpukan sampah plastik di sungai desa akan terasa sangat berat dan membingungkan jika dikerjakan begitu saja tanpa membagi tugas lapangan.
+    </div>
+    <p>Berdasarkan situasi di atas, mengapa kita perlu memecah masalah besar menjadi bagian-bagian kecil (dekomposisi)?</p>
+    <textarea name="soal18" rows="3" placeholder="Tuliskan alasan pentingnya memecah masalah..." readonly="readonly" style="pointer-events: none;">pekerjaan itu akan terasa sangat berat Dan membingungkan jika dikerjakan begitu saja tanpa membagi tugas lapangan Dan tanpa membelah masalah itu menjadi bagian-bagian kecil.</textarea>
+  </div>
+
+  <!-- SOAL 19 -->
+  <div class="question-card" data-qnum="19" data-tp="TP2" data-type="Esai" data-weight="2" data-scoring="manual">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 19 • Esai</span><span class="q-tp">Target: TP2</span></div>
+      <span class="q-weight">Maks. Bobot: 2 Poin</span>
+    </div>
+    <div class="stimulus-box">
+      <b>Stimulus Disiplin Waktu:</b><br>
+      Keterlambatan tiba di sekolah sering mengakibatkan siswa terburu-buru, tertinggal materi pembuka, dan tidak fokus mengikuti pembelajaran pagi.
+    </div>
+    <p>Tulislah urutan kegiatan (algoritma) yang logis dan runut yang kamu lakukan di pagi hari saat bersiap ke sekolah!</p>
+    <textarea name="soal19" rows="3" placeholder="Tuliskan urutan langkah-langkah di pagi hari..." readonly="readonly" style="pointer-events: none;">siapkan perlengkapan sekolah dari malam sebelumnya, bangun tidur dilanjut mandi, membereskan tempat tidur, sarapan pakai baju seragam Dan sepatu, setelah itu kalian boleh berangkat langsung atau mungkin memiliki kegiatan Lain. </textarea>
+  </div>
+
+  <!-- SOAL 20 -->
+  <div class="question-card" data-qnum="20" data-tp="TP1" data-type="Esai" data-weight="2" data-scoring="manual">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 20 • Esai</span><span class="q-tp">Target: TP1</span></div>
+      <span class="q-weight">Maks. Bobot: 2 Poin</span>
+    </div>
+    <div class="stimulus-box">
+      <b>Stimulus Kesiapsiagaan Bencana:</b><br>
+      Buku saku mitigasi gempa mencantumkan panduan evakuasi darurat: 1. Lindungi kepala, 2. Berlindung di bawah meja kokoh, 3. Matikan kompor, 4. Keluar melalui tangga darurat secara tertib.
+    </div>
+    <p>Mengapa kita perlu menulis atau menyusun instruksi secara logis dan berurutan?</p>
+    <textarea name="soal20" rows="3" placeholder="Tuliskan penjelasan alasan instruksi harus berurutan..." readonly="readonly" style="pointer-events: none;">karena jika kita tidak menuliskan secara logis Dan berurutan apa yang kita rencanakan untuk menyelamatkan diri itu pun tidak behasil Dan akan sangat berantakan. itulah kenapa jika melakukan sesuatu harus dengan logis Dan berurutan supaya rencana itu berhasil.</textarea>
+  </div>
+
+  
+</section>
+</form>
+
+<!-- PANEL PENILAIAN GURU -->
+<section class="sheet grade-panel show" id="gradePanel" style="display: block;">
+  <div class="section-title"><div class="num">★</div><h2>Panel Validasi &amp; Penilaian Guru</h2></div>
+  <div class="teacher-status" id="teacherStatus">🔓 Penilaian belum diperiksa. Klik <b>"Periksa Jawaban"</b> untuk mengoreksi otomatis soal 1-15, memunculkan form validasi esai 16-20, dan mengakumulasikan nilai capaian TP.</div>
+  
+  <div class="teacher-tools" style="margin-bottom:18px">
+    <button type="button" class="btn-blue" id="inspectExamBtn">🔍 Periksa Jawaban</button>
+  </div>
+
+  <div class="field" style="margin-bottom:16px">
+    <label>Catatan / Umpan Balik Guru untuk Siswa</label>
+    <textarea id="teacherNote" rows="3" placeholder="Tuliskan catatan apresiasi atau arahan perbaikan untuk siswa..." disabled=""></textarea>
+  </div>
+
+  <!-- TABEL REKAPITULASI -->
+  <div class="recap-box" id="recapBox" style="display:none">
+    <h3 style="margin:0 0 10px;color:var(--green2)">📊 Rekapitulasi Hasil Penilaian Sumatif Bab 1</h3>
+    <table class="recap-table" id="recapTable">
+      <thead>
+        <tr><th>Komponen Penilaian</th><th>Perolehan Skor</th><th>Keterangan</th></tr>
+      </thead>
+      <tbody id="recapTableBody"></tbody>
+      <tfoot>
+        <tr style="font-weight:900;background:#f8fafc"><td>Total Skor Perolehan</td><td id="recapTotalScore" colspan="2">0 / 25</td></tr>
+        <tr style="font-weight:900;background:#f8fafc"><td>Status Ketuntasan (KKM 75)</td><td id="recapStatus" colspan="2">-</td></tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="teacher-tools" style="margin-top:20px">
+    <button type="button" class="btn-light" id="editGradeBtn" disabled="">✏️ Edit Validasi</button>
+    <button type="button" class="btn-gold" id="finalizeGradeBtn" disabled="">🔒 Akhiri Penilaian &amp; Kirim ke Sheet</button>
+  </div>
+</section>
+
+
+
+
+
+<script>(function(){
+    const ENDPOINT='https://script.google.com/macros/s/AKfycbyOM-aeLODahPaeBukqGKlUmOVkPRijBtTatFADL3pqgZB_OvUCZ9dzb5eaN2Fl7ABC/exec',SUBJECT='Koding',FOLDER_NAME='PENILAIAN SUMATIF',FOLDER_ID='1s6LjJguI6RITgQyRSC8H_8OiJsMCT2fu',LKPD_ID='Sumatif-Bab1-Koding-Kls5',EXAM_TITLE='Penilaian Sumatif BAB 1',SUBMISSION_ID='f30d5e22-348f-4642-acdc-51b3d96b52ce',KKM=75;
+    const key='sumatif_grade_koding_'+SUBMISSION_ID;
+
+    document.querySelectorAll("input,select,textarea").forEach(el=>{
+      if(!el.closest("#gradePanel")){
+        el.disabled=false;
+        el.style.pointerEvents="none";
+      }
+    });
+
+    // Injeksi Dinamis Baris Validasi Esai (No 16-20)
+    document.querySelectorAll(".question-card[data-scoring='manual']").forEach(c=>{
+      const qnum=c.dataset.qnum, max=c.dataset.weight||2, tp=c.dataset.tp||"";
+      if(!document.getElementById('gradeRow_s'+qnum)){
+        const r=document.createElement('div');
+        r.className='grading-row teacher-visible';
+        r.id='gradeRow_s'+qnum;
+        r.innerHTML='<span style="font-size:13px;font-weight:900">Validasi Guru (Esai Soal '+qnum+' • '+tp+'):</span>'+
+                    '<input type="number" id="score_s'+qnum+'" min="0" max="'+max+'" step="1" placeholder="Skor (0-'+max+')">'+
+                    '<span style="font-size:12px;color:var(--muted)">Maks: '+max+' Poin</span>';
+        c.appendChild(r);
+      }
+    });
+
+    const noteIn=document.getElementById('teacherNote'),editBtn=document.getElementById('editGradeBtn'),finBtn=document.getElementById('finalizeGradeBtn'),status=document.getElementById('teacherStatus');
+    const inspectBtn=document.getElementById('inspectExamBtn'),recapBox=document.getElementById('recapBox');
+    const scoreCard=document.getElementById('scoreCardDisplay'),finalScoreEl=document.getElementById('displayFinalScore'),scoreBadge=document.getElementById('scoreStatusBadge');
+
+    let inspected=localStorage.getItem(key+'_inspected')==='1';
+    let locked=localStorage.getItem(key+'_locked')==='1';
+    let localGrades={}; try{localGrades=JSON.parse(localStorage.getItem(key)||'{}');}catch(e){}
+
+    document.querySelectorAll(".question-card[data-scoring='manual']").forEach(c=>{
+      const qnum=c.dataset.qnum;
+      const inp=document.getElementById('score_s'+qnum);
+      if(inp && localGrades['s'+qnum]!==undefined) inp.value=localGrades['s'+qnum];
+    });
+    if(noteIn) noteIn.value=localGrades.note||'';
+
+    function evaluateAllItems(){
+      const itemScores=[];
+      let earnedScore=0, maxTotalScore=0;
+
+      document.querySelectorAll(".question-card").forEach(c=>{
+        const qnum=c.dataset.qnum, tp=c.dataset.tp||"TP", weight=parseInt(c.dataset.weight||1);
+        const scoring=c.dataset.scoring;
+        const label="S"+qnum+" ("+tp+")";
+        maxTotalScore+=weight;
+
+        if(scoring==="auto"){
+          const key=c.dataset.key;
+          const checked=document.querySelector("input[name='soal"+qnum+"']:checked");
+          const val=checked?checked.value:"";
+          const s=(val===key)?weight:0;
+          earnedScore+=s;
+
+          const fb=document.getElementById("fb_soal"+qnum);
+          if(fb){
+            fb.style.display="block";
+            fb.innerHTML=(s===weight)?"<span style='color:var(--green)'>✅ Benar (+"+s+" Poin)</span>":"<span style='color:var(--red)'>❌ Salah (Kunci: "+key+")</span>";
+          }
+          itemScores.push({qnum,label,tp,score:s,scoring});
+        } else {
+          const inp=document.getElementById("score_s"+qnum);
+          const s=parseInt(inp?.value||0);
+          earnedScore+=s;
+          itemScores.push({qnum,label,tp,score:s,scoring});
+        }
+      });
+
+      const finalScore=maxTotalScore>0?Math.round((earnedScore/maxTotalScore)*100):0;
+      return {itemScores,earnedScore,maxTotalScore,finalScore};
+    }
+
+    function renderRecapTable(res){
+      const tbody=document.getElementById("recapTableBody");
+      if(!tbody) return;
+      tbody.innerHTML="";
+
+      const tpMap={};
+      res.itemScores.forEach(i=>{
+        if(!tpMap[i.tp]) tpMap[i.tp]={earned:0,max:0};
+        const c=document.querySelector('.question-card[data-qnum="'+i.qnum+'"]');
+        const w=parseInt(c?.dataset.weight||1);
+        tpMap[i.tp].earned+=i.score;
+        tpMap[i.tp].max+=w;
+      });
+
+      for(const tp in tpMap){
+        const tr=document.createElement("tr");
+        const persentase=tpMap[tp].max>0?Math.round((tpMap[tp].earned/tpMap[tp].max)*100):0;
+        tr.innerHTML='<td>Capaian '+tp+'</td><td>'+tpMap[tp].earned+' / '+tpMap[tp].max+'</td><td>'+persentase+'% Ketercapaian Kompetensi</td>';
+        tbody.appendChild(tr);
+      }
+
+      document.getElementById('recapTotalScore').textContent=res.earnedScore+" / "+res.maxTotalScore+" ("+res.finalScore+"%)";
+      const tuntas=res.finalScore>=KKM;
+      document.getElementById('recapStatus').innerHTML=tuntas?"<span style='color:var(--green2)'>TUNTAS</span>":"<span style='color:var(--red)'>REMEDIAL</span>";
+
+      if(finalScoreEl) finalScoreEl.textContent=res.finalScore;
+      if(scoreCard) scoreCard.style.display='block';
+      if(!tuntas){
+        scoreCard.classList.add('red-theme');
+        if(scoreBadge) scoreBadge.innerHTML="<span style='color:var(--red)'>⚠️ Belum Mencapai KKM ("+KKM+")</span>";
+      } else {
+        scoreCard.classList.remove('red-theme');
+        if(scoreBadge) scoreBadge.innerHTML="<span style='color:var(--green2)'>🎉 Tuntas / Mencapai KKM ("+KKM+")</span>";
+      }
+    }
+
+    function applyState(){
+      document.querySelectorAll(".question-card[data-scoring='manual']").forEach(c=>{
+        const qnum=c.dataset.qnum;
+        const inp=document.getElementById('score_s'+qnum);
+        if(inp) inp.disabled=!inspected || locked;
+      });
+      if(!inspected){
+        if(noteIn){noteIn.disabled=true;noteIn.readOnly=true;}
+        if(editBtn)editBtn.disabled=true; if(finBtn)finBtn.disabled=true;
+        return;
+      }
+      if(noteIn){noteIn.disabled=locked;noteIn.readOnly=locked;}
+      if(editBtn)editBtn.disabled=locked; if(finBtn)finBtn.disabled=locked;
+      if(finBtn)finBtn.textContent=locked?'🔒 Penilaian Selesai & Tercatat di Sheets':'🔒 Akhiri Penilaian & Kirim ke Sheet';
+      if(status)status.innerHTML=locked?'🔒 <b>Penilaian Sumatif Bab 1 resmi diakhiri & dikunci.</b> Data nilai butir soal & capaian TP berhasil diperbarui di Google Sheet.':'🔓 <b>Mode pemeriksaan aktif.</b> Silakan berikan skor esai 16-20.';
+      recapBox.style.display='block';
+      const res=evaluateAllItems();
+      renderRecapTable(res);
+    }
+
+    function saveLocal(){
+      const payload={note:noteIn?.value,savedAt:new Date().toISOString()};
+      document.querySelectorAll(".question-card[data-scoring='manual']").forEach(c=>{
+        const qnum=c.dataset.qnum;
+        payload['s'+qnum]=document.getElementById('score_s'+qnum)?.value;
+      });
+      localStorage.setItem(key,JSON.stringify(payload));
+      const res=evaluateAllItems();
+      renderRecapTable(res);
+    }
+
+    if(inspectBtn) inspectBtn.onclick=()=>{
+      inspected=true;
+      localStorage.setItem(key+'_inspected','1');
+      applyState();
+      alert('Pemeriksaan berhasil! Soal PG & Benar/Salah telah dikoreksi otomatis. Kolom validasi esai telah aktif.');
+    };
+
+    document.querySelectorAll(".question-card[data-scoring='manual']").forEach(c=>{
+      const qnum=c.dataset.qnum;
+      const inp=document.getElementById('score_s'+qnum);
+      if(inp) inp.oninput=saveLocal;
+    });
+    if(noteIn) noteIn.oninput=saveLocal;
+
+    if(editBtn) editBtn.onclick=()=>{
+      if(locked) return;
+      document.querySelectorAll(".question-card[data-scoring='manual']").forEach(c=>{
+        const qnum=c.dataset.qnum;
+        const inp=document.getElementById('score_s'+qnum);
+        if(inp) inp.disabled=false;
+      });
+      if(noteIn){noteIn.disabled=false;noteIn.readOnly=false;}
+      if(status) status.innerHTML='✏️ <b>Edit validasi aktif.</b> Sesuaikan nilai esai, lalu kunci & kirim kembali.';
+    };
+
+    // TAHAP 2: KIRIM PEMBARUAN KE GOOGLE SPREADSHEET
+    if(finBtn) finBtn.onclick=async()=>{
+      if(locked) return;
+      saveLocal();
+      const res=evaluateAllItems();
+      const payload={
+        action:'saveSumatifGrade',
+        submissionId:SUBMISSION_ID,
+        studentName:(document.querySelector("input[name=nama]")||{}).value||'Siswa',
+        subject:SUBJECT,
+        lkpdId:LKPD_ID,
+        itemScores:res.itemScores,
+        earnedScore:res.earnedScore,
+        finalScore:res.finalScore,
+        status:(res.finalScore>=KKM)?'Tuntas':'Remedial',
+        note:noteIn?.value||''
+      };
+
+      try{
+        await fetch(ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
+      }catch(e){}
+
+      localStorage.setItem(key+'_locked','1');
+      locked=true;
+      applyState();
+      alert('Penilaian berhasil diakhiri! Rincian skor butir soal & capaian TP1/TP2 berhasil diperbarui di Google Sheet.');
+    };
+
+    if(inspected) applyState();
+  })();</script></body></html>
