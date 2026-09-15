@@ -765,45 +765,80 @@ input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0
   })();
 
 // UPGRADE MULAI DARI SINI
+
 window.addEventListener("load", async function() {
   const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyOM-aeLODahPaeBukqGKlUmOVkPRijBtTatFADL3pqgZB_OvUCZ9dzb5eaN2Fl7ABC/exec';
-  const SUBMISSION_ID = 'b18a914c-5258-4432-bb84-0a7a69f561aa';
-  const key = 'sumatif_grade_koding_' + SUBMISSION_ID;
+  
+  // 1. Dapatkan Submission ID siswa
+  let subId = '';
+  const infoEl = document.getElementById('submittedInfo');
+  if (infoEl && infoEl.textContent.includes('ID:')) {
+    subId = infoEl.textContent.split('ID:')[1].trim();
+  } else {
+    subId = (typeof SUBMISSION_ID !== 'undefined') ? SUBMISSION_ID : '';
+  }
+  const key = 'sumatif_grade_koding_' + subId;
 
-  // 1. Coba ambil data penilaian yang sudah tersimpan di Google Sheet
-  try {
-    const response = await fetch(`${ENDPOINT}?action=getSumatifGrade&submissionId=${SUBMISSION_ID}`);
-    if (response.ok) {
-      const result = await response.json();
-      if (result && (result.data || result.itemScores)) {
-        const data = result.data || result;
-        // Simpan ke storage lokal
-        let grades = { note: data.note || '' };
-        if (data.itemScores) {
-          data.itemScores.forEach(item => {
-            grades['s' + item.qnum] = item.score;
+  // 2. Tarik Data Penilaian dari Google Apps Script
+  let remoteGrades = {};
+  if (subId) {
+    try {
+      const resp = await fetch(`${ENDPOINT}?action=getSumatifGrade&submissionId=${subId}`);
+      if (resp.ok) {
+        const json = await resp.json();
+        const data = json.data || json;
+
+        // Petakan nilai esai & catatan dari format respons server
+        if (data.note) remoteGrades.note = data.note;
+        if (data.itemScores && Array.isArray(data.itemScores)) {
+          data.itemScores.forEach(i => {
+            remoteGrades['s' + i.qnum] = i.score;
           });
+        } else {
+          // Jika format data langsung key s16, s17, dst
+          for (let k = 16; k <= 20; k++) {
+            if (data['s' + k] !== undefined) remoteGrades['s' + k] = data['s' + k];
+            if (data['soal' + k] !== undefined) remoteGrades['s' + k] = data['soal' + k];
+          }
         }
-        localStorage.setItem(key, JSON.stringify(grades));
-        localStorage.setItem(key + '_inspected', '1');
-        localStorage.setItem(key + '_locked', '1');
       }
+    } catch (e) {
+      console.log("Menggunakan cadangan lokal...");
     }
-  } catch (err) {
-    console.log("Memuat data lokal...");
   }
 
-  // 2. Set status agar sistem mengeksekusi tampilan 'Sudah Selesai Dinilai'
+  // Gabungkan dengan cadangan local storage jika ada
+  let localGrades = {};
+  try { localGrades = JSON.parse(localStorage.getItem(key) || '{}'); } catch(e){}
+  const mergedGrades = Object.assign({}, localGrades, remoteGrades);
+
+  // Simpan kembali ke localStorage
+  localStorage.setItem(key, JSON.stringify(mergedGrades));
   localStorage.setItem(key + '_inspected', '1');
   localStorage.setItem(key + '_locked', '1');
 
-  // 3. Picu klik pemeriksaan sistem bawaan
+  // 3. INJEKSI SKOR ESAI LANGSUNG KE KOTAK INPUT (NO 16 s.d. 20)
+  for (let q = 16; q <= 20; q++) {
+    const inp = document.getElementById('score_s' + q);
+    if (inp) {
+      // Masukkan skor yang tersimpan, jika ada
+      if (mergedGrades['s' + q] !== undefined && mergedGrades['s' + q] !== '') {
+        inp.value = mergedGrades['s' + q];
+      }
+    }
+  }
+  const noteArea = document.getElementById('teacherNote');
+  if (noteArea && mergedGrades.note) {
+    noteArea.value = mergedGrades.note;
+  }
+
+  // 4. Picu Pemeriksaan & Hitung Ulang Nilai
   const inspectBtn = document.getElementById('inspectExamBtn');
   if (inspectBtn) {
     inspectBtn.click();
   }
 
-  // 4. Pastikan semua elemen hasil penilaian tampil di layar
+  // Tampilkan seluruh panel rekap & kartu nilai
   const gradePanel = document.getElementById('gradePanel');
   if (gradePanel) gradePanel.style.display = 'block';
 
@@ -813,7 +848,7 @@ window.addEventListener("load", async function() {
   const scoreCard = document.getElementById('scoreCardDisplay');
   if (scoreCard) scoreCard.style.display = 'block';
 
-  // 5. KUNCI TOTAL (Read-Only) seluruh formulir & tombol
+  // 5. KUNCI TOTAL (Read-Only)
   setTimeout(function() {
     document.querySelectorAll("input, textarea, select, button, .option-item").forEach(el => {
       el.setAttribute("readonly", "readonly");
@@ -823,16 +858,14 @@ window.addEventListener("load", async function() {
       }
     });
 
-    // Pasang style kunci visual
     const lockStyle = document.createElement('style');
     lockStyle.innerHTML = `
       input, textarea, select, button, .option-item { pointer-events: none !important; }
       button { opacity: 0.6 !important; cursor: not-allowed !important; }
     `;
     document.head.appendChild(lockStyle);
-  }, 300);
+  }, 350);
 });
-
 </script>
 </body>
 </html>
