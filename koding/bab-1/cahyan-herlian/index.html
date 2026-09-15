@@ -88,6 +88,15 @@ input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0
  body{background:#fff}.sheet{box-shadow:none;width:210mm;margin:0;border-radius:0}
  input,textarea,select{border:0!important;box-shadow:none!important}
 }
+/* Kunci seluruh interaksi elemen */
+  input, textarea, select, button, .option-item {
+    pointer-events: none !important;
+    user-select: text !important;
+  }
+  input, textarea, select, button {
+    cursor: not-allowed !important;
+    background-color: #f8fafc !important;
+  }
 </style>
 </head>
 <body>
@@ -762,4 +771,17 @@ input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0
     };
 
     if(inspected) applyState();
-  })();</script></body></html>
+  })();
+ <script>
+  window.addEventListener("load", function() {
+    document.querySelectorAll("input, textarea, select, button").forEach(function(el) {
+      el.setAttribute("readonly", "readonly");
+      el.style.setProperty("pointer-events", "none", "important");
+      if (el.tagName === "BUTTON" || el.type === "radio" || el.type === "checkbox") {
+        el.disabled = true;
+      }
+    });
+  });
+</script>
+</script>
+</body></html>
