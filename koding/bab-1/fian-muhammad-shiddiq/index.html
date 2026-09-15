@@ -762,4 +762,77 @@ input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0
     };
 
     if(inspected) applyState();
-  })();</script></body></html>
+  })();
+
+ // UPGRADE MULAI DARI SINI
+window.addEventListener("load", async function() {
+  const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyOM-aeLODahPaeBukqGKlUmOVkPRijBtTatFADL3pqgZB_OvUCZ9dzb5eaN2Fl7ABC/exec';
+  const SUBMISSION_ID = '58017603-98b7-464a-a5c5-67cef74ec16e';
+  const key = 'sumatif_grade_koding_' + SUBMISSION_ID;
+
+  // 1. Coba ambil data penilaian yang sudah tersimpan di Google Sheet
+  try {
+    const response = await fetch(`${ENDPOINT}?action=getSumatifGrade&submissionId=${SUBMISSION_ID}`);
+    if (response.ok) {
+      const result = await response.json();
+      if (result && (result.data || result.itemScores)) {
+        const data = result.data || result;
+        // Simpan ke storage lokal
+        let grades = { note: data.note || '' };
+        if (data.itemScores) {
+          data.itemScores.forEach(item => {
+            grades['s' + item.qnum] = item.score;
+          });
+        }
+        localStorage.setItem(key, JSON.stringify(grades));
+        localStorage.setItem(key + '_inspected', '1');
+        localStorage.setItem(key + '_locked', '1');
+      }
+    }
+  } catch (err) {
+    console.log("Memuat data lokal...");
+  }
+
+  // 2. Set status agar sistem mengeksekusi tampilan 'Sudah Selesai Dinilai'
+  localStorage.setItem(key + '_inspected', '1');
+  localStorage.setItem(key + '_locked', '1');
+
+  // 3. Picu klik pemeriksaan sistem bawaan
+  const inspectBtn = document.getElementById('inspectExamBtn');
+  if (inspectBtn) {
+    inspectBtn.click();
+  }
+
+  // 4. Pastikan semua elemen hasil penilaian tampil di layar
+  const gradePanel = document.getElementById('gradePanel');
+  if (gradePanel) gradePanel.style.display = 'block';
+
+  const recapBox = document.getElementById('recapBox');
+  if (recapBox) recapBox.style.display = 'block';
+
+  const scoreCard = document.getElementById('scoreCardDisplay');
+  if (scoreCard) scoreCard.style.display = 'block';
+
+  // 5. KUNCI TOTAL (Read-Only) seluruh formulir & tombol
+  setTimeout(function() {
+    document.querySelectorAll("input, textarea, select, button, .option-item").forEach(el => {
+      el.setAttribute("readonly", "readonly");
+      el.style.setProperty("pointer-events", "none", "important");
+      if (el.tagName === "BUTTON" || el.type === "radio" || el.type === "checkbox") {
+        el.disabled = true;
+      }
+    });
+
+    // Pasang style kunci visual
+    const lockStyle = document.createElement('style');
+    lockStyle.innerHTML = `
+      input, textarea, select, button, .option-item { pointer-events: none !important; }
+      button { opacity: 0.6 !important; cursor: not-allowed !important; }
+    `;
+    document.head.appendChild(lockStyle);
+  }, 300);
+});
+
+</script>
+</body>
+</html>
