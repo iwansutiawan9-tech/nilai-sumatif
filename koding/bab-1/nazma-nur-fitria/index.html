@@ -764,4 +764,83 @@ bangun pagi-pergi ke kamar mandi untuk ber cuci muka-lalu mengambil sebuah nasi 
     };
 
     if(inspected) applyState();
-  })();</script></body></html>
+  })();
+ // UPGRADE MULAI DARI SINI
+window.addEventListener("load", function() {
+  // 1. DATABASE NILAI ESAI DARI GOOGLE SHEET (OTOMATIS BERDASARKAN ID)
+  const databaseNilai = {
+    "b18a914c-5258-4432-bb84-0a7a69f561aa": { s16: 1, s17: 0, s18: 1, s19: 0, s20: 0 }, // Cahyan
+    "729136e6-f37a-48e3-b38c-5892fa1dfb55": { s16: 1, s17: 1, s18: 0, s19: 1, s20: 1 },
+    "f30d5e22-348f-4642-acdc-51b3d96b52ce": { s16: 2, s17: 2, s18: 1, s19: 2, s20: 2 },
+    "37968125-931c-4989-9ac1-3a1a80030cb6": { s16: 2, s17: 1, s18: 2, s19: 2, s20: 2 },
+    "7b3b5cb4-2b76-4a07-92c7-cac39a41eb54": { s16: 2, s17: 2, s18: 1, s19: 2, s20: 2 },
+    "897b71df-e377-439b-ab9e-c167b6d96ece": { s16: 2, s17: 1, s18: 2, s19: 2, s20: 2 },
+    "ced02876-2a2c-4978-9428-8a3813eeaef9": { s16: 0, s17: 1, s18: 1, s19: 1, s20: 0 },
+    "4baebf3f-420e-404c-bb20-e7ef26d90ca8": { s16: 1, s17: 2, s18: 2, s19: 2, s20: 2 },
+    "f7cf9ba3-1ba6-4c5a-89d9-a6efda498f35": { s16: 1, s17: 1, s18: 1, s19: 2, s20: 1 },
+    "d376bbf0-cdcb-4f41-b323-d81671ac2728": { s16: 2, s17: 2, s18: 2, s19: 2, s20: 2 },
+    "58017603-98b7-464a-a5c5-67cef74ec16e": { s16: 0, s17: 1, s18: 1, s19: 2, s20: 1 },
+    "67ae62f6-e77d-48a3-bd9d-9e2695e89204": { s16: 2, s17: 1, s18: 2, s19: 1, s20: 1 },
+    "afe9795c-75c9-41e5-98b5-46591b93625e": { s16: 2, s17: 1, s18: 1, s19: 2, s20: 1 }
+  };
+
+  // 2. Deteksi otomatis Submission ID pada file yang sedang dibuka
+  let subId = '';
+  const infoEl = document.getElementById('submittedInfo');
+  if (infoEl && infoEl.textContent.includes('ID:')) {
+    subId = infoEl.textContent.split('ID:')[1].trim(); //[cite: 1]
+  } else {
+    subId = (typeof SUBMISSION_ID !== 'undefined') ? SUBMISSION_ID : ''; //[cite: 1]
+  }
+
+  const key = 'sumatif_grade_koding_' + subId; //[cite: 1]
+  const skorSiswa = databaseNilai[subId] || {};
+
+  // 3. Masukkan skor esai ke input form & localStorage[cite: 1]
+  let localGrades = {};
+  for (let q = 16; q <= 20; q++) {
+    const val = (skorSiswa['s' + q] !== undefined) ? skorSiswa['s' + q] : 0;
+    localGrades['s' + q] = val;
+    const inp = document.getElementById('score_s' + q); //[cite: 1]
+    if (inp) inp.value = val;
+  }
+
+  localStorage.setItem(key, JSON.stringify(localGrades)); //[cite: 1]
+  localStorage.setItem(key + '_inspected', '1'); //[cite: 1]
+  localStorage.setItem(key + '_locked', '1'); //[cite: 1]
+
+  // 4. Picu tombol koreksi bawaan agar rekap TP & kartu nilai dihitung[cite: 1]
+  const inspectBtn = document.getElementById('inspectExamBtn'); //[cite: 1]
+  if (inspectBtn) inspectBtn.click(); //[cite: 1]
+
+  // Pastikan panel penilaian dan tabel tampil[cite: 1]
+  const gradePanel = document.getElementById('gradePanel'); //[cite: 1]
+  if (gradePanel) gradePanel.style.display = 'block'; //[cite: 1]
+
+  const recapBox = document.getElementById('recapBox'); //[cite: 1]
+  if (recapBox) recapBox.style.display = 'block'; //[cite: 1]
+
+  const scoreCard = document.getElementById('scoreCardDisplay'); //[cite: 1]
+  if (scoreCard) scoreCard.style.display = 'block'; //[cite: 1]
+
+  // 5. Kunci total seluruh elemen halaman (Read-Only)
+  setTimeout(function() {
+    document.querySelectorAll("input, textarea, select, button, .option-item").forEach(el => {
+      el.setAttribute("readonly", "readonly");
+      el.style.setProperty("pointer-events", "none", "important");
+      if (el.tagName === "BUTTON" || el.type === "radio" || el.type === "checkbox") {
+        el.disabled = true;
+      }
+    });
+
+    const lockStyle = document.createElement('style');
+    lockStyle.innerHTML = `
+      input, textarea, select, button, .option-item { pointer-events: none !important; }
+      button { opacity: 0.6 !important; cursor: not-allowed !important; }
+    `;
+    document.head.appendChild(lockStyle);
+  }, 100);
+});
+
+ 
+</script></body></html>
