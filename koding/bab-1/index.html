@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Portal Ketercapaian Pembelajaran Koding Kelas V - SDN 1 Sukahaji</title>
+<style>
+  :root {
+    --primary: #1e4d40;
+    --primary-light: #2d6a56;
+    --mint: #e9fbf5;
+    --accent: #d97706;
+    --bg-page: #f4f7f5;
+    --card-bg: #ffffff;
+    --text-main: #1f2937;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --green-badge: #dcfce7;
+    --green-text: #166534;
+    --yellow-badge: #fef3c7;
+    --yellow-text: #92400e;
+    --red-badge: #fee2e2;
+    --red-text: #991b1b;
+    --blue-badge: #e0f2fe;
+    --blue-text: #075985;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    background: linear-gradient(135deg, #eefcf7 0%, #f8fafc 50%, #eff6ff 100%);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 16px;
+  }
+
+  .wrapper {
+    width: 100%;
+    max-width: 920px;
+    margin: 0 auto;
+  }
+
+  /* HEADER MODERN BERSIH (NON-KOP) */
+  .portal-header-clean {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 28px 24px;
+    box-shadow: 0 10px 30px rgba(30, 77, 64, 0.05);
+    border: 1px solid var(--border-color);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .school-logo-clean {
+    width: 78px;
+    height: 78px;
+    object-fit: contain;
+    flex-shrink: 0;
+    background: #f8fafc;
+    border-radius: 18px;
+    padding: 6px;
+    border: 1px solid #e2e8f0;
+  }
+  .header-content {
+    flex-grow: 1;
+  }
+  .header-badge {
+    display: inline-block;
+    background: var(--mint);
+    color: var(--primary);
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+    border: 1px solid #a7f3d0;
+  }
+  .portal-header-clean h1 {
+    font-size: clamp(1.2rem, 2.8vw, 1.55rem);
+    color: var(--primary);
+    font-weight: 900;
+    line-height: 1.25;
+    margin-bottom: 4px;
+  }
+  .portal-header-clean p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  /* LOGIN CARD */
+  .login-card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 40px 30px;
+    max-width: 480px;
+    margin: 20px auto 40px;
+    box-shadow: 0 15px 35px rgba(30, 77, 64, 0.08);
+    border: 1px solid var(--border-color);
+    text-align: center;
+  }
+  .login-icon {
+    font-size: 52px;
+    margin-bottom: 12px;
+    display: inline-block;
+  }
+  .login-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 6px;
+  }
+  .login-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+  .form-group {
+    text-align: left;
+    margin-bottom: 18px;
+  }
+  .form-group label {
+    display: block;
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: #334155;
+    margin-bottom: 6px;
+  }
+  .form-control {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    border: 2px solid #cbd5e1;
+    border-radius: 12px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .form-control:focus {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 4px rgba(45, 106, 86, 0.15);
+  }
+  .hint-text {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+  .btn-login {
+    width: 100%;
+    padding: 14px 20px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+    box-shadow: 0 6px 18px rgba(30, 77, 64, 0.2);
+    transition: all 0.2s;
+  }
+  .btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(30, 77, 64, 0.3);
+  }
+  .error-alert {
+    display: none;
+    background: var(--red-badge);
+    color: var(--red-text);
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    margin-bottom: 18px;
+    border: 1px solid #fca5a5;
+  }
+
+  /* DASHBOARD MURID */
+  .dashboard-card {
+    display: none;
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 34px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+    border: 1px solid var(--border-color);
+    margin-bottom: 40px;
+  }
+  .user-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--mint);
+    padding-bottom: 18px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .user-badge-role {
+    display: inline-block;
+    background: var(--mint);
+    color: var(--primary);
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .user-fullname {
+    font-size: 1.45rem;
+    font-weight: 900;
+    color: var(--primary);
+  }
+  .user-subinfo {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+  .btn-logout {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    padding: 9px 18px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-logout:hover {
+    background: #e2e8f0;
+    color: #1e293b;
+  }
+
+  /* PENDING STATUS AZHAR */
+  .pending-banner {
+    background: #fffbeb;
+    border-left: 5px solid #f59e0b;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 24px;
+    border-right: 1px solid #fde68a;
+    border-top: 1px solid #fde68a;
+    border-bottom: 1px solid #fde68a;
+  }
+  .pending-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #b45309;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .pending-desc {
+    font-size: 0.92rem;
+    color: #92400e;
+    line-height: 1.6;
+  }
+
+  /* SCORE SUMMARY CARDS */
+  .score-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .score-box {
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 18px;
+    text-align: center;
+  }
+  .score-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .score-val {
+    font-size: 2.3rem;
+    font-weight: 900;
+    color: var(--primary);
+    margin: 4px 0;
+  }
+  .score-status {
+    display: inline-block;
+    font-size: 0.82rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+
+  /* REPORT SECTIONS */
+  .report-section {
+    margin-bottom: 26px;
+  }
+  .report-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .eval-card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+  }
+  .eval-card.success {
+    border-left: 5px solid #10b981;
+    background: #f0fdf4;
+  }
+  .eval-card.improve {
+    border-left: 5px solid #f59e0b;
+    background: #fffbeb;
+  }
+  .eval-card.misconception {
+    border-left: 5px solid #ef4444;
+    background: #fef2f2;
+  }
+  .eval-heading {
+    font-size: 0.95rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .eval-heading.success { color: #065f46; }
+  .eval-heading.improve { color: #92400e; }
+  .eval-heading.misconception { color: #991b1b; }
+  .eval-text {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: #334155;
+  }
+
+  /* TP CAPAIAN BADGES */
+  .tp-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+  .tp-pill {
+    flex: 1;
+    min-width: 280px;
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 14px 16px;
+  }
+  .tp-pill-code {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--primary);
+  }
+  .tp-pill-desc {
+    font-size: 0.86rem;
+    margin: 4px 0 8px;
+    color: #334155;
+    font-weight: 600;
+  }
+  .tp-badge-level {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+
+  /* NAVIGATION ACTION BUTTONS */
+  .portal-nav-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    flex-wrap: wrap;
+  }
+  .btn-action-primary {
+    flex: 1;
+    min-width: 240px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 13px 20px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    box-shadow: 0 4px 14px rgba(30, 77, 64, 0.2);
+    transition: all 0.2s;
+  }
+  .btn-action-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(30, 77, 64, 0.3);
+  }
+  .btn-action-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 13px 20px;
+    background: #f1f5f9;
+    color: #334155;
+    text-decoration: none;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border: 1px solid #cbd5e1;
+    transition: all 0.2s;
+  }
+  .btn-action-secondary:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+  }
+
+  /* FOOTER */
+  .portal-footer {
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-top: auto;
+    padding: 16px;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 650px) {
+    .portal-header-clean { flex-direction: column; text-align: center; padding: 20px; }
+    .school-logo-clean { width: 68px; height: 68px; }
+    .dashboard-card { padding: 20px; }
+    .user-fullname { font-size: 1.25rem; }
+    .score-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HEADER MODERN BERSIH (DENGAN LOGO SEKOLAH RESMI) -->
+  <header class="portal-header-clean">
+    <img src="https://raw.githubusercontent.com/iwansutiawan9-tech/asset/main/logo.23.png" alt="Logo SDN 1 Sukahaji" class="school-logo-clean" onerror="this.style.display='none'">
+    <div class="header-content">
+      <span class="header-badge">SD NEGERI 1 SUKAHAJI</span>
+      <h1>Portal Ketercapaian Pembelajaran Koding</h1>
+      <p>Laporan Penilaian Sumatif Bab 1: Berpikir Komputasional • Kelas V (Fase C) • TP 2026/2027</p>
+    </div>
+  </header>
+
+  <!-- FORM LOGIN SISWA -->
+  <section class="login-card" id="loginCard">
+    <div class="login-icon">🔐</div>
+    <h2 class="login-title">Masuk ke Portal Siswa</h2>
+    <p class="login-desc">Gunakan <b>NISN</b> sebagai Username dan <b>Tanggal Lahir</b> Anda sebagai Kata Sandi.</p>
+    
+    <div class="error-alert" id="errorAlert">
+      ⚠️ NISN atau Tanggal Lahir tidak cocok. Mohon periksa kembali kartu siswa Anda.
+    </div>
+
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label for="inputNisn">Nomor Induk Siswa Nasional (NISN)</label>
+        <input type="text" id="inputNisn" class="form-control" placeholder="Contoh: 3150382995" required autocomplete="username">
+      </div>
+      <div class="form-group">
+        <label for="inputTgl">Tanggal Lahir</label>
+        <input type="date" id="inputTgl" class="form-control" required autocomplete="current-password">
+        <div class="hint-text">Format: Tanggal / Bulan / Tahun (Pilih pada kalender)</div>
+      </div>
+      <button type="submit" class="btn-login">🔓 Buka Laporan Capaian Saya</button>
+    </form>
+  </section>
+
+  <!-- DASHBOARD LAPORAN SISWA -->
+  <section class="dashboard-card" id="dashboardCard">
+    <div class="user-bar">
+      <div>
+        <span class="user-badge-role">PESERTA DIDIK KELAS V</span>
+        <h2 class="user-fullname" id="dispNama">-</h2>
+        <div class="user-subinfo" id="dispIdentitas">-</div>
+      </div>
+      <button class="btn-logout" onclick="handleLogout()">🚪 Keluar / Ganti Siswa</button>
+    </div>
+
+    <!-- BANNER PENDING JIKA AZHAR -->
+    <div class="pending-banner" id="azharPendingBanner" style="display:none">
+      <div class="pending-title">
+        <span>⏳</span> STATUS: DALAM PROSES ASESMEN SUSULAN
+      </div>
+      <div class="pending-desc">
+        Halo <b>Muhammad Azhar Maula Rizki</b>, data penilaian Anda saat ini tercatat dalam status <b>menunggu jadwal ujian susulan</b> karena berhalangan hadir pada asesmen reguler. Halaman hasil pengerjaan Anda tetap dapat ditinjau melalui tombol di bawah.
+      </div>
+    </div>
+
+    <!-- RINGKASAN NILAI SUMATIF -->
+    <div class="score-grid" id="scoreGrid">
+      <div class="score-box">
+        <div class="score-label">Nilai Akhir Sumatif</div>
+        <div class="score-val" id="dispNilai">-</div>
+        <div class="score-status" id="dispStatusBadge">-</div>
+      </div>
+      <div class="score-box">
+        <div class="score-label">Skor Objektif (PG & B/S)</div>
+        <div class="score-val" id="dispSkorObjektif" style="font-size:1.8rem;color:#0369a1">-</div>
+        <div style="font-size:0.78rem;color:var(--text-muted)">Maksimal 15 Poin</div>
+      </div>
+      <div class="score-box">
+        <div class="score-label">Skor Validasi Esai Guru</div>
+        <div class="score-val" id="dispSkorEsai" style="font-size:1.8rem;color:#7c3aed">-</div>
+        <div style="font-size:0.78rem;color:var(--text-muted)">Maksimal 10 Poin</div>
+      </div>
+    </div>
+
+    <!-- TARGET TUJUAN PEMBELAJARAN -->
+    <div class="report-section">
+      <div class="report-title">
+        <span>🎯</span> Pemetaan Ketercapaian Tujuan Pembelajaran (TP)
+      </div>
+      <div class="tp-row">
+        <div class="tp-pill">
+          <div class="tp-pill-code">TP 1: FONDASI BERPIKIR KOMPUTASIONAL</div>
+          <div class="tp-pill-desc">Memahami konsep dasar berpikir komputasional beserta empat fondasinya (dekomposisi, pola, abstraksi, dan algoritma).</div>
+          <span class="tp-badge-level" id="dispTp1Badge">-</span>
+        </div>
+        <div class="tp-pill">
+          <div class="tp-pill-code">TP 2: PENERAPAN PADA KEHIDUPAN NYATA</div>
+          <div class="tp-pill-desc">Menerapkan prinsip berpikir komputasional dalam menyelesaikan persoalan nyata pada kehidupan sehari-hari.</div>
+          <span class="tp-badge-level" id="dispTp2Badge">-</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EVALUASI MENDALAM -->
+    <div class="report-section">
+      <div class="report-title">
+        <span>📋</span> Analisis Kualitatif Capaian Belajar & Umpan Balik Guru
+      </div>
+
+      <!-- Hal yang sudah dicapai dengan baik -->
+      <div class="eval-card success">
+        <div class="eval-heading success">🌟 Hal-Hal yang Telah Dikuasai / Dicapai dengan Baik:</div>
+        <div class="eval-text" id="dispHalDikuasai">-</div>
+      </div>
+
+      <!-- Hal yang harus ditingkatkan -->
+      <div class="eval-card improve">
+        <div class="eval-heading improve">📈 Area yang Perlu Ditingkatkan / Dikuasai Lebih Lanjut:</div>
+        <div class="eval-text" id="dispHalDitingkatkan">-</div>
+      </div>
+
+      <!-- Miskonsepsi jika ada -->
+      <div class="eval-card misconception" id="boxMiskonsepsi">
+        <div class="eval-heading misconception">💡 Catatan Miskonsepsi / Hal yang Perlu Diluruskan:</div>
+        <div class="eval-text" id="dispMiskonsepsi">-</div>
+      </div>
+    </div>
+
+    <!-- TOMBOL AKSI & TAUTAN HALAMAN HASIL -->
+    <div class="portal-nav-actions">
+      <a href="#" target="_blank" class="btn-action-primary" id="btnLinkHasil">
+        <span>📑</span> Buka Lembar Hasil Ujian Sumatif Asli
+      </a>
+      <a href="https://iwansutiawan9-tech.github.io/nilai-sumatif/koding/bab-1/index.html" class="btn-action-secondary">
+        <span>↩️</span> Halaman Utama Penilaian Sumatif
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="portal-footer">
+    SD Negeri 1 Sukahaji • Penilaian Berkeadilan, Otentik, Transparan, dan Akuntabel<br>
+    Guru Mata Pelajaran: Iwan Sutiawan, S.Pd.I., Gr. (NIP. 198610132025211115) • Kepala Sekolah: Iis Gustini Ratna Nengsih, S.Pd.SD. (NIP. 197108172014082002)
+  </footer>
+</div>
+
+<script>
+// Database siswa sinkron 100% dengan data Excel resmi
+const DB_SISWA = [
+  {"nama": "CAHYAN HERLIAN", "nisn": "3150382995", "tgl_lahir": "2015-09-01", "link": "https://iwansutiawan9-tech.github.io/nilai-sumatif/koding/bab-1/cahyan-herlian/index.html", "status_ujian": "Selesai", "skor_pg": 5, "skor_bs": 7, "skor_esai": 2, "total_skor": 14, "nilai": 56, "status_tuntas": "Perlu Bimbingan (Remedial)", "tp1_capaian": "Cukup", "tp2_capaian": "Perlu Bimbingan", "hal_dikuasai": "Sempurna pada soal pilihan ganda (5/5). Mengenali istilah dasar berpikir komputasional, dekomposisi, pola, algoritma, dan abstraksi.", "hal_ditingkatkan": "Meningkatkan kemampuan analisis pernyataan benar/salah serta mengasah keterampilan menyusun langkah algoritma kegiatan secara konkret.", "miskonsepsi": "Menganggap berpikir komputasional sebagai cara berpikir kaku seperti robot, dan masih kesulitan merumuskan langkah kegiatan harian secara teratur pada lembar esai."},
+  {"nama": "FIAN MUHAMMAD SHIDDIQ", "nisn": "3153890784", "tgl_lahir": "2015-05-25", "link": "https://iwansutiawan9-tech.github.io/nilai-sumatif/koding/bab-1/fian-muhammad-shiddiq/index.html", "status_ujian": "Selesai", "skor_pg": 4, "skor_bs": 4, "skor_esai": 5, "total_skor": 13, "nilai": 52, "status_tuntas": "Perlu Bimbingan (Remedial)", "tp1_capaian": "Perlu Bimbingan", "tp2_capaian": "Cukup", "hal_dikuasai": "Sangat terampil merumuskan urutan logis persiapan pagi hari secara runtut pada lembar esai (bangun, mandi, sarapan, berangkat).", "hal_ditingkatkan": "Perlu penguatan pada pemahaman teoretis 4 pilar komputasi serta alasan pentingnya keterurutan instruksi penyelamatan bencana.", "miskonsepsi": "Masih terjebak anggapan bahwa berpikir komputasional adalah cara berpikir kaku seperti robot serta mengira dekomposisi adalah menyatukan masalah menjadi besar."},
+  {"nama": "HAIKAL RIVANDRA PURNAMA", "nisn": "0153651331", "tgl_lahir": "2015-11-16", "link": "https://iwansutiawan9-tech.github.io/nilai-sumatif/koding/bab-1/haikal-rivandra-purnama/index.html", "status_ujian": "Selesai", "skor_pg": 3, "skor_bs": 6, "skor_esai": 6, "total_skor": 15, "nilai": 60, "status_tuntas": "Cukup (Remedial Parsial)", "tp1_capaian": "Cukup", "tp2_capaian": "Cakap", "hal_dikuasai": "Sangat unggul dalam merancang algoritma aktivitas persiapan pagi hari dengan 7 tahapan yang sangat runtut, rinci, dan logis.", "hal_ditingkatkan": "Perlu ketelitian dalam mengidentifikasi konsep keteraturan pola dan abstraksi pada wacana soal pilihan ganda dan benar/salah.", "miskonsepsi": "Mengira urutan instruksi yang acak tetap bisa menghasilkan solusi yang benar dan kesulitan mendeteksi cara menyadari masalah di rumah."},
+  {"nama": "KIKI AULIA SEPTIANI", "nisn": "0136504780", "tgl_lahir": "2015-09-01", "link": "https://iwansutiawan9-tech.github.io/nilai-sumatif/koding/bab-1/kiki-aulia-septiani/index.html", "status_ujian": "Selesai", "skor_pg": 4, "skor_bs": 6, "skor_esai": 4, "total_skor": 14, "nilai": 56, "status_tuntas": "Perlu Bimbingan (Remedial)", "tp1_capaian": "Perlu Bimbingan", "tp2_capaian": "Cukup", "hal_dikuasai": "Mengenali pendekatan pemecahan masalah dan menunjukkan pemikiran antisipatif/preventif menyiapkan perlengkapan sekolah dari malam hari.", "hal_ditingkatkan": "Perlu penguatan pada konsep dekomposisi (soal esai 18 tidak dijawab) dan fokus menjawab algoritma sesuai instruksi waktu (pagi hari).", "miskonsepsi": "Menganggap pola hanya muncul satu kali dan mengira robot tidak perlu tahu masalah untuk menyelesaikannya."},
+  {"nama": "MUHAMAD RIZKI FADDILAH", "nisn": "3152808193", "tgl_lahir": "2015-06-14", "link": "https://iwansutiawan9-tech.github.io/nilai-sumatif/koding/bab-1/muhamad-rizki-faddilah/index.html", "status_ujian": "Selesai", "skor_pg": 5, "skor_bs": 9, "skor_esai": 9, "total_skor": 23, "nilai": 92, "status_tuntas": "Mahir (Tuntas Sangat Baik)", "tp1_capaian": "Mahir", "tp2_capaian": "Mahir", "hal_dikuasai": "Penalaran kritis luar biasa. Mampu mendeteksi masalah teras kotor lewat panca indra, menguasai dekomposisi, dan menyusun algoritma berbasis waktu presisi.", "hal_ditingkatkan": "Diberikan materi pengayaan pembuatan proyek koding visual blok terstruktur (Scratch).", "miskonsepsi": "Tidak ada miskonsepsi prinsipil; hanya terdapat sedikit kekeliruan pada butir urutan acak di lembar Benar/Salah."},
+  {"nama": "MUHAMMAD AZHAR MAULA RIZKI", "nisn": "3159734351", "tgl_lahir": "2015-01-15", "link": "https://iwansutiawan9-tech.github.io/nilai-sumatif/koding/bab-1/muhammad-azhar-maula-rizki/index.html", "status_ujian": "Dalam Proses Susulan", "skor_pg": "-", "skor_bs": "-", "skor_esai": "-", "total_skor": "-", "nilai": "-", "status_tuntas": "Menunggu Asesmen Susulan", "tp1_capaian": "Dalam Proses", "tp2_capaian": "Dalam Proses", "hal_dikuasai": "Peserta didik terdaftar aktif dan dijadwalkan mengikuti asesmen sumatif susulan oleh guru pengampu.", "hal_ditingkatkan": "Mempersiapkan diri mempelajari kembali 4 pilar berpikir komputasional sebelum ujian susulan dilaksanakan.", "miskonsepsi": "Data evaluasi capaian akan diperbarui segera setelah pengerjaan susulan selesai divalidasi guru."},
+  {"nama": "MUHAMMAD GIAN", "nisn": "3152552407", "tgl_lahir": "2015-06-02", "link": "https://iwansutiawan9-tech.github.io/nilai-sumatif/koding/bab-1/muhammad-gian/index.html", "status_ujian": "Selesai", "skor_pg": 5, "skor_bs": 6, "skor_esai": 9, "total_skor": 20, "nilai": 80, "status_tuntas": "Cakap (Tuntas)", "tp1_capaian": "Cakap", "tp2_capaian": "Mahir", "hal_dikuasai": "Sangat matang dalam olah pikir logis. Penjelasan definisi komputasi, dekomposisi, dan algoritma tersusun sangat rapi dan berurutan.", "hal_ditingkatkan": "Mempertajam ketelitian membaca pernyataan benar/salah pada siklus cuaca dan abstraksi informasi digital.", "miskonsepsi": "Sempat keliru pada butir Benar/Salah terkait definisi dekomposisi, namun pada esai terbukti mampu menguraikan dekomposisi dengan sangat tepat."},
+  {"nama": "NAZMA NUR FITRIA", "nisn": "3151490115", "tgl_lahir": "2015-07-24", "link": "https://iwansutiawan9-tech.github.io/nilai-sumatif/koding/bab-1/nazma-nur-fitria/index.html", "status_ujian": "Selesai", "skor_pg": 5, "skor_bs": 8, "skor_esai": 10, "total_skor": 23, "nilai": 92, "status_tuntas": "Mahir (Tuntas Sangat Baik)", "tp1_capaian": "Mahir", "tp2_capaian": "Mahir", "hal_dikuasai": "Skor esai sempurna (10/10). Definisi sistematis, algoritma terstruktur dengan simbol 'mulai', dan penalaran kausalitas sangat kuat.", "hal_ditingkatkan": "Dilibatkan sebagai tutor sebaya di kelas dan diberikan tantangan koding mandiri yang lebih kompleks.", "miskonsepsi": "Tidak ada miskonsepsi prinsipil; hanya terdapat sedikit ketidaktelitian pada 2 butir pernyataan Benar/Salah."},
+  {"nama": "NIZAM MUNTAHA", "nisn": "3157108215", "tgl_lahir": "2015-03-06", "link": "https://iwansutiawan9-tech.github.io/nilai-sumatif/koding/bab-1/nizam-muntaha/index.html", "status_ujian": "Selesai", "skor_pg": 4, "skor_bs": 5, "skor_esai": 7, "total_skor": 16, "nilai": 64, "status_tuntas": "Cukup (Remedial Parsial)", "tp1_capaian": "Cukup", "tp2_capaian": "Cukup", "hal_dikuasai": "Mampu merumuskan definisi berpikir komputasional dan fungsi dekomposisi tugas secara lugas, jelas, dan tepat.", "hal_ditingkatkan": "Melatih ketelitian pada pernyataan Benar/Salah serta membiasakan merinci urutan langkah kegiatan mandiri secara kronologis.", "miskonsepsi": "Menjawab opsi 'Benar' pada hampir seluruh butir Benar/Salah dan belum menyusun algoritma tindakan pribadi secara berurutan."},
+  {"nama": "NIZMA MAULIDA AZ ZAHRA", "nisn": "3153335342", "tgl_lahir": "2015-04-06", "link": "https://iwansutiawan9-tech.github.io/nilai-sumatif/koding/bab-1/nizma-maulida-azzahra/index.html", "status_ujian": "Selesai", "skor_pg": 4, "skor_bs": 9, "skor_esai": 9, "total_skor": 22, "nilai": 88, "status_tuntas": "Mahir (Tuntas Sangat Baik)", "tp1_capaian": "Mahir", "tp2_capaian": "Mahir", "hal_dikuasai": "Sangat cakap menghubungkan komputasi dengan 4 pilar CT. Algoritma pagi hari sangat lengkap, runtut, dan sarat nilai pembiasaan karakter positif.", "hal_ditingkatkan": "Meningkatkan ketelitian dalam membedakan konsep pola dan algoritma pada soal pilihan ganda.", "miskonsepsi": "Sempat memilih 'Benar' pada pernyataan bahwa berpikir komputasional seperti robot, namun di lembar esai mampu menjelaskan definisi berpikir teratur secara mendalam."},
+  {"nama": "OQSHABIAN ABIYYU PRANAJA", "nisn": "0156459064", "tgl_lahir": "2015-04-06", "link": "https://iwansutiawan9-tech.github.io/nilai-sumatif/koding/bab-1/oqshabian-abiyyu-pranaja/index.html", "status_ujian": "Selesai", "skor_pg": 5, "skor_bs": 4, "skor_esai": 7, "total_skor": 16, "nilai": 64, "status_tuntas": "Cukup (Remedial Parsial)", "tp1_capaian": "Cukup", "tp2_capaian": "Cukup", "hal_dikuasai": "Sempurna pada soal pilihan ganda (5/5) dan mampu menjelaskan esensi berpikir komputasional dengan 4 pilarnya secara terstruktur.", "hal_ditingkatkan": "Perlu ketelitian dalam membedakan pernyataan Benar/Salah serta memperdalam elaborasi kausalitas pentingnya keterurutan instruksi.", "miskonsepsi": "Kerap memilih opsi 'Benar' pada butir negatif Benar/Salah dan memberikan jawaban yang terlalu singkat pada esai nomor 20."},
+  {"nama": "RADELLA AULIA PUTRI", "nisn": "3154438980", "tgl_lahir": "2015-07-27", "link": "https://iwansutiawan9-tech.github.io/nilai-sumatif/koding/bab-1/radella-aulia-putri/index.html", "status_ujian": "Selesai", "skor_pg": 4, "skor_bs": 8, "skor_esai": 9, "total_skor": 21, "nilai": 84, "status_tuntas": "Cakap (Tuntas)", "tp1_capaian": "Cakap", "tp2_capaian": "Mahir", "hal_dikuasai": "Sangat baik dalam pemahaman konsep. Uraian esai sangat sistematis dengan bahasa yang runtut, logis, dan penuh kesadaran reflektif.", "hal_ditingkatkan": "Memperdalam konsep dekomposisi masalah terpadu dan siap melangkah ke materi koding tingkat lanjut.", "miskonsepsi": "Tidak ada miskonsepsi berarti; hanya sedikit keliru pada salah satu butir pilihan ganda terkait identifikasi konsep pola."},
+  {"nama": "RAENA PUTRI PRATIWI", "nisn": "0131927156", "tgl_lahir": "2015-08-24", "link": "https://iwansutiawan9-tech.github.io/nilai-sumatif/koding/bab-1/raena-putri-pratiwi/index.html", "status_ujian": "Selesai", "skor_pg": 4, "skor_bs": 9, "skor_esai": 9, "total_skor": 22, "nilai": 88, "status_tuntas": "Mahir (Tuntas Sangat Baik)", "tp1_capaian": "Mahir", "tp2_capaian": "Mahir", "hal_dikuasai": "Definisi komputasi sangat ilmiah dan dialog reflektif saat menyadari tempat tidur berantakan sangat matang dan terstruktur.", "hal_ditingkatkan": "Mengembangkan kreativitas pemecahan masalah dengan bahasa sendiri tanpa perlu menyalin kalimat dari wacana stimulus.", "miskonsepsi": "Tidak ditemukan miskonsepsi; kemampuan metakognisi dan nalar komputasinya berkembang sangat optimal."},
+  {"nama": "SABIQ MUDHOFFAR", "nisn": "3153458423", "tgl_lahir": "2015-01-30", "link": "https://iwansutiawan9-tech.github.io/nilai-sumatif/koding/bab-1/sabiq-mudhoffar/index.html", "status_ujian": "Selesai", "skor_pg": 3, "skor_bs": 6, "skor_esai": 3, "total_skor": 12, "nilai": 48, "status_tuntas": "Perlu Bimbingan Intensif (Remedial)", "tp1_capaian": "Perlu Bimbingan", "tp2_capaian": "Perlu Bimbingan", "hal_dikuasai": "Mengenali konsep awal bahwa penyelesaian masalah membutuhkan langkah yang terencana.", "hal_ditingkatkan": "Membutuhkan pendampingan personal secara menyeluruh mulai dari pemahaman konsep 4 pilar hingga penyusunan urutan logis suatu aktivitas nyata.", "miskonsepsi": "Menganggap berpikir komputasional adalah berpikir seperti robot, meyakini robot tidak butuh tahu masalah, serta mengalami kebingungan menyusun langkah berurutan."}
+];
+
+function handleLogin(e) {
+  e.preventDefault();
+  const nisn = document.getElementById("inputNisn").value.trim();
+  const tgl = document.getElementById("inputTgl").value.trim();
+  const err = document.getElementById("errorAlert");
+
+  const found = DB_SISWA.find(s => s.nisn === nisn && s.tgl_lahir === tgl);
+
+  if (!found) {
+    err.style.display = "block";
+    return;
+  }
+
+  err.style.display = "none";
+  showDashboard(found);
+}
+
+function showDashboard(s) {
+  document.getElementById("loginCard").style.display = "none";
+  const dash = document.getElementById("dashboardCard");
+  dash.style.display = "block";
+
+  document.getElementById("dispNama").textContent = s.nama;
+  document.getElementById("dispIdentitas").textContent = "NISN: " + s.nisn + " • Tanggal Lahir: " + formatDateIndo(s.tgl_lahir);
+
+  // Status khusus Azhar
+  const isPending = s.status_ujian === "Dalam Proses Susulan";
+  const banner = document.getElementById("azharPendingBanner");
+  const scoreGrid = document.getElementById("scoreGrid");
+
+  if (isPending) {
+    banner.style.display = "block";
+    scoreGrid.style.display = "none";
+  } else {
+    banner.style.display = "none";
+    scoreGrid.style.display = "grid";
+
+    document.getElementById("dispNilai").textContent = s.nilai;
+    document.getElementById("dispSkorObjektif").textContent = (s.skor_pg + s.skor_bs) + " / 15";
+    document.getElementById("dispSkorEsai").textContent = s.skor_esai + " / 10";
+
+    const badge = document.getElementById("dispStatusBadge");
+    badge.textContent = s.status_tuntas;
+    if (s.nilai >= 75) {
+      badge.style.background = "var(--green-badge)";
+      badge.style.color = "var(--green-text)";
+    } else if (s.nilai >= 60) {
+      badge.style.background = "var(--yellow-badge)";
+      badge.style.color = "var(--yellow-text)";
+    } else {
+      badge.style.background = "var(--red-badge)";
+      badge.style.color = "var(--red-text)";
+    }
+  }
+
+  // TP Badges
+  const b1 = document.getElementById("dispTp1Badge");
+  b1.textContent = "Status Capaian: " + s.tp1_capaian;
+  b1.style.background = (s.tp1_capaian.includes("Mahir") || s.tp1_capaian === "Cakap") ? "var(--green-badge)" : "var(--yellow-badge)";
+  b1.style.color = (s.tp1_capaian.includes("Mahir") || s.tp1_capaian === "Cakap") ? "var(--green-text)" : "var(--yellow-text)";
+
+  const b2 = document.getElementById("dispTp2Badge");
+  b2.textContent = "Status Capaian: " + s.tp2_capaian;
+  b2.style.background = (s.tp2_capaian.includes("Mahir") || s.tp2_capaian === "Cakap") ? "var(--green-badge)" : "var(--yellow-badge)";
+  b2.style.color = (s.tp2_capaian.includes("Mahir") || s.tp2_capaian === "Cakap") ? "var(--green-text)" : "var(--yellow-text)";
+
+  // Evaluasi
+  document.getElementById("dispHalDikuasai").textContent = s.hal_dikuasai;
+  document.getElementById("dispHalDitingkatkan").textContent = s.hal_ditingkatkan;
+  document.getElementById("dispMiskonsepsi").textContent = s.miskonsepsi;
+
+  // Tautan
+  const btnHasil = document.getElementById("btnLinkHasil");
+  btnHasil.href = s.link;
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function handleLogout() {
+  document.getElementById("loginForm").reset();
+  document.getElementById("loginCard").style.display = "block";
+  document.getElementById("dashboardCard").style.display = "none";
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function formatDateIndo(dateStr) {
+  if (!dateStr || dateStr.length < 10) return dateStr;
+  const parts = dateStr.split("-");
+  const bln = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+  return parseInt(parts[2]) + " " + bln[parseInt(parts[1]) - 1] + " " + parts[0];
+}
+</script>
+
+</body>
+</html>
