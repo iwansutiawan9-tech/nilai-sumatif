@@ -35,7 +35,7 @@
   }
 
   .wrapper {
-    max-width: 1200px;
+    max-width: 1220px;
     margin: 0 auto;
   }
 
@@ -100,7 +100,7 @@
   /* KARTU STATISTIK */
   .stat-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 14px;
     margin-bottom: 24px;
   }
@@ -205,13 +205,12 @@
   }
   .badge-tuntas { background: var(--green-badge); color: var(--green-text); }
   .badge-remedial { background: var(--red-badge); color: var(--red-text); }
-  .badge-susulan { background: var(--yellow-badge); color: var(--yellow-text); }
   
   .btn-link-hasil {
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    background: var(--highlight);
+    background: #f0fdf4;
     color: var(--primary);
     border: 1px solid #a7f3d0;
     padding: 4px 10px;
@@ -313,24 +312,24 @@
   <!-- STATISTIK KELAS -->
   <div class="stat-grid">
     <div class="stat-card">
-      <div class="stat-label">Total Siswa</div>
+      <div class="stat-label">Total Peserta Didik</div>
       <div class="stat-val">22</div>
-      <div class="stat-sub">19 Dinilai • 3 Susulan</div>
+      <div class="stat-sub">100% Mengikuti Asesmen</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Rata-Rata Nilai</div>
-      <div class="stat-val" style="color:#0369a1">44.6</div>
-      <div class="stat-sub">Dari 19 Siswa Mengikuti Ujian</div>
+      <div class="stat-label">Rata-Rata Kelas</div>
+      <div class="stat-val" style="color:#0369a1">39.7</div>
+      <div class="stat-sub">Skala 100 (Total Poin: 30)</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Siswa Tuntas (≥ 75)</div>
+      <div class="stat-label">Peserta Tuntas (≥ 75)</div>
       <div class="stat-val" style="color:var(--green-text)">2</div>
       <div class="stat-sub">Vania (100) & Yuda (80)</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Perlu Intervensi / Susulan</div>
+      <div class="stat-label">Peserta Remedial (&lt; 75)</div>
       <div class="stat-val" style="color:var(--red-text)">20</div>
-      <div class="stat-sub">17 Remedial • 3 Terjadwal Susulan</div>
+      <div class="stat-sub">Memerlukan Remedial Terpadu</div>
     </div>
   </div>
 
@@ -341,7 +340,6 @@
       <option value="ALL">Semua Status Ketuntasan</option>
       <option value="Tuntas">Hanya Tuntas (≥ 75)</option>
       <option value="Remedial">Hanya Remedial (&lt; 75)</option>
-      <option value="Susulan">Hanya Susulan</option>
     </select>
   </div>
 
@@ -353,11 +351,11 @@
           <th style="width:4%">No</th>
           <th style="width:24%">Nama Lengkap Siswa</th>
           <th style="width:10%">Skor Objektif<br><small>(Maks: 20)</small></th>
-          <th style="width:13%">Rincian Skor Esai<br><small>(S16–S20 / Maks: 10)</small></th>
+          <th style="width:14%">Rincian Skor Esai<br><small>(S16–S20 / Maks: 10)</small></th>
           <th style="width:8%">Total Skor<br><small>(Maks: 30)</small></th>
           <th style="width:8%">Nilai Akhir<br><small>(Skala 100)</small></th>
           <th style="width:12%">Status Ketuntasan</th>
-          <th style="width:21%">Analisis Diagnostik & Tautan Berkas</th>
+          <th style="width:20%">Analisis Diagnostik & Tautan Berkas</th>
         </tr>
       </thead>
       <tbody id="tableBody"></tbody>
@@ -418,7 +416,7 @@ const DATA_SISWA = [
     nama: "ALVARD MORENO ZENA",
     link: "https://iwansutiawan9-tech.github.io/nilai-sumatif/ipas/bab-1/alvard-moreno-zena/index.html",
     obj: 7, es: [0, 0, 0, 0, 0], tot: 7, nilai: 23.3, status: "Remedial",
-    diag: "Miskonsepsi berat: menganggap tanaman mati di lemari karena 'daun bisa bernapas'. Perlu bimbingan remedial awal.",
+    diag: "Miskonsepsi: menganggap tanaman mati di lemari karena 'daun bisa bernapas'. Perlu bimbingan remedial awal.",
     ans: [
       { q: "S16 (Motor Listrik)", a: "energi gerak", s: 0, n: "Hanya menyebutkan satu kata, tidak ada uraian perbandingan polusi." },
       { q: "S17 (Alat Rumah & Hemat)", a: "energi lisrik dan energi gerakkar", s: 0, n: "Tidak menyebutkan nama alat dan aksi hemat." },
@@ -473,9 +471,15 @@ const DATA_SISWA = [
     no: 7,
     nama: "JIHAN TALITA ULFA",
     link: "https://iwansutiawan9-tech.github.io/nilai-sumatif/ipas/bab-1/jihan-talita-ulfa/index.html",
-    obj: "-", es: ["-", "-", "-", "-", "-"], tot: "-", nilai: "-", status: "Susulan",
-    diag: "Peserta didik belum mengikuti asesmen sumatif karena berhalangan hadir. Terjadwal mengikuti asesmen susulan.",
-    ans: []
+    obj: 13, es: [0, 1, 1, 1, 0], tot: 16, nilai: 53.3, status: "Remedial",
+    diag: "Capaian objektif baik (13/20). Pada esai memahami ketiadaan sinar matahari pada tanaman dan aksi hemat rice cooker, namun arah perubahan energi masih tertukar.",
+    ans: [
+      { q: "S16 (Motor Listrik)", a: "energi listrik-energi cahaya", s: 0, n: "Keliru menyebutkan hasil energi motor listrik (seharusnya energi gerak, bukan cahaya)." },
+      { q: "S17 (Alat Rumah & Hemat)", a: "rice cooker energi panas-energi listrik  kita HARUS menghemat listrik agar tidak ke abisan listrik  kita harus MENJAGA dengan baik", s: 1, n: "Menyebutkan alat rice cooker dan konsep hemat, namun arah perubahan energi terbalik (listrik ke panas)." },
+      { q: "S18 (Alur PLTMH)", a: "energi listrik-energi cahaya", s: 1, n: "Mengetahui ujung alur listrik ke cahaya, namun melewatkan energi kinetik air terjun dan turbin." },
+      { q: "S19 (Tanaman Stroberi)", a: "Karna pot b TIDAK mengenai sinar matahari jadi dia akan mati jika TIDAK mengenai sinar matahari", s: 1, n: "Tepat mengidentifikasi faktor ketiadaan sinar matahari, belum mengaitkan fotosintesis klorofil." },
+      { q: "S20 (Fotosintesis Kota)", a: "menyebabkan tumbuhan menjadi mati Dan kekeringan", s: 0, n: "Keluar dari konteks fungsi fotosintesis membersihkan udara kota." }
+    ]
   },
   {
     no: 8,
@@ -523,9 +527,15 @@ const DATA_SISWA = [
     no: 11,
     nama: "KINANTI ASMARANDANA SETIAWAN",
     link: "https://iwansutiawan9-tech.github.io/nilai-sumatif/ipas/bab-1/kinanti-asmarandana-setiawan/index.html",
-    obj: "-", es: ["-", "-", "-", "-", "-"], tot: "-", nilai: "-", status: "Susulan",
-    diag: "Peserta didik belum mengikuti asesmen sumatif karena berhalangan hadir. Terjadwal mengikuti asesmen susulan.",
-    ans: []
+    obj: 8, es: [1, 1, 0, 1, 0], tot: 11, nilai: 36.7, status: "Remedial",
+    diag: "Memahami motor listrik bebas asap dan fungsi pemanas setrika. Pada PLTMH dan fotosintesis kota masih mengalami miskonsepsi.",
+    ans: [
+      { q: "S16 (Motor Listrik)", a: "karena motor biasa menggunakan energi kimia berhasap sedangkan motor listrik tidak mengngandung asap", s: 1, n: "Tepat pada aspek bebas asap vs motor bensin, belum merinci alur energi listrik ke gerak." },
+      { q: "S17 (Alat Rumah & Hemat)", a: "setrika energi panas", s: 1, n: "Menyebutkan alat setrika dan energi panas, belum ada tindakan hemat listrik." },
+      { q: "S18 (Alur PLTMH)", a: "karena untuk menghemat listrik", s: 0, n: "Miskonsepsi: tidak menguraikan alur transformasi energi PLTMH." },
+      { q: "S19 (Tanaman Stroberi)", a: "karena kekurangan cahaya matahari", s: 1, n: "Tepat pada faktor ketiadaan cahaya matahari, belum menguraikan fotosintesis klorofil." },
+      { q: "S20 (Fotosintesis Kota)", a: "membuat tunbuhan menjadi tidak setabil karena asap mengandung energi kimia", s: 0, n: "Keluar dari konteks penyerapan CO2 dan pelepasan oksigen." }
+    ]
   },
   {
     no: 12,
@@ -657,9 +667,15 @@ const DATA_SISWA = [
     no: 21,
     nama: "ZULFI SYABANI ZULFIKAR",
     link: "https://iwansutiawan9-tech.github.io/nilai-sumatif/ipas/bab-1/zulfi-syabani-zulfikar/index.html",
-    obj: "-", es: ["-", "-", "-", "-", "-"], tot: "-", nilai: "-", status: "Susulan",
-    diag: "Peserta didik belum mengikuti asesmen sumatif karena berhalangan hadir. Terjadwal mengikuti asesmen susulan.",
-    ans: []
+    obj: 6, es: [0, 1, 0, 1, 0], tot: 8, nilai: 26.7, status: "Remedial",
+    diag: "Memahami ketiadaan cahaya matahari pada Pot B dan perilaku hemat pada pengisian daya gawai. Belum memahami alur PLTMH dan fotosintesis perkotaan.",
+    ans: [
+      { q: "S16 (Motor Listrik)", a: "DAN MOBIL", s: 0, n: "Tidak menjawab konsep transformasi energi maupun polusi." },
+      { q: "S17 (Alat Rumah & Hemat)", a: "HP DI CAS SECARA DI BIARKAN", s: 1, n: "Menyebutkan perilaku boros/hemat membiarkan casan HP, belum menuliskan bentuk energinya." },
+      { q: "S18 (Alur PLTMH)", a: "kita", s: 0, n: "Tidak menjawab alur konversi energi." },
+      { q: "S19 (Tanaman Stroberi)", a: "karena tidak ada cahaya matahari", s: 1, n: "Mengenali penyebab fisik kematian tanaman karena ketiadaan cahaya matahari." },
+      { q: "S20 (Fotosintesis Kota)", a: "tumbuhan bisa tumbuh cepat", s: 0, n: "Tidak relevan dengan fungsi fotosintesis membersihkan udara kota." }
+    ]
   },
   {
     no: 22,
@@ -681,20 +697,13 @@ function renderTable(data) {
   const tbody = document.getElementById("tableBody");
   tbody.innerHTML = "";
 
-  data.forEach((s, idx) => {
+  data.forEach((s) => {
     const tr = document.createElement("tr");
     tr.id = "row-" + s.no;
     
-    let esaiBreakdown = "-";
-    let esaiSum = "-";
-    if (Array.isArray(s.es) && s.status !== "Susulan") {
-      esaiBreakdown = s.es.map((score, i) => `<span style="font-weight:700;color:${score===2?'#166534':(score===1?'#b45309':'#991b1b')}">S${16+i}:${score}</span>`).join(" ");
-      esaiSum = s.es.reduce((a,b)=>a+b, 0);
-    }
-    
-    let badgeClass = "badge-remedial";
-    if (s.status === "Tuntas") badgeClass = "badge-tuntas";
-    else if (s.status === "Susulan") badgeClass = "badge-susulan";
+    const esaiBreakdown = s.es.map((score, i) => `<span style="font-weight:700;color:${score===2?'#166534':(score===1?'#b45309':'#991b1b')}">S${16+i}:${score}</span>`).join(" ");
+    const esaiSum = s.es.reduce((a,b)=>a+b, 0);
+    const badgeClass = s.status === "Tuntas" ? "badge-tuntas" : "badge-remedial";
 
     tr.innerHTML = `
       <td align="center"><b>${s.no}</b></td>
@@ -702,51 +711,49 @@ function renderTable(data) {
         <div style="font-weight:800;color:var(--text-main)">${s.nama}</div>
         <a href="${s.link}" target="_blank" class="btn-link-hasil">🔗 Lembar Hasil Ujian</a>
       </td>
-      <td align="center"><b>${s.obj}</b> ${s.status!=='Susulan'?'/ 20':''}</td>
-      <td align="center"><small>${esaiBreakdown}</small><br><b>${esaiSum}</b> ${s.status!=='Susulan'?'/ 10':''}</td>
-      <td align="center"><b>${s.tot}</b> ${s.status!=='Susulan'?'/ 30':''}</td>
-      <td align="center"><span style="font-size:1.1rem;font-weight:900;color:${s.nilai>=75?'var(--primary)':(s.status==='Susulan'?'#b45309':'var(--red-text)')}">${s.nilai}</span></td>
+      <td align="center"><b>${s.obj}</b> / 20</td>
+      <td align="center"><small>${esaiBreakdown}</small><br><b>${esaiSum}</b> / 10</td>
+      <td align="center"><b>${s.tot}</b> / 30</td>
+      <td align="center"><span style="font-size:1.1rem;font-weight:900;color:${s.nilai>=75?'var(--primary)':'var(--red-text)'}">${s.nilai}</span></td>
       <td align="center"><span class="badge-status ${badgeClass}">${s.status}</span></td>
       <td>
-        ${s.status !== 'Susulan' ? `<button class="badge-btn-detail" onclick="toggleDetail(${s.no})">🔍 Detail Jawaban</button>` : '<span style="font-size:0.8rem;color:#b45309;font-weight:700">⏳ Terjadwal Susulan</span>'}
+        <button class="badge-btn-detail" onclick="toggleDetail(${s.no})">🔍 Detail Jawaban</button>
         <div style="font-size:0.78rem;color:var(--text-muted);margin-top:4px">${s.diag.substring(0, 52)}...</div>
       </td>
     `;
     tbody.appendChild(tr);
 
-    // Detail Panel Row jika bukan susulan
-    if (s.status !== "Susulan") {
-      const trDetail = document.createElement("tr");
-      trDetail.id = "detail-row-" + s.no;
-      trDetail.style.display = "none";
-      
-      let answersHtml = s.ans.map(ans => `
-        <div class="essay-answer-item">
-          <div class="essay-q-header">
-            <span>${ans.q}</span>
-            <span style="color:${ans.s===2?'#166534':(ans.s===1?'#b45309':'#991b1b')}">Skor: ${ans.s} / 2</span>
-          </div>
-          <div class="ans-text">"${ans.a}"</div>
-          <div class="analysis-note"><b>Catatan Guru:</b> ${ans.n}</div>
+    // Detail Panel Row
+    const trDetail = document.createElement("tr");
+    trDetail.id = "detail-row-" + s.no;
+    trDetail.style.display = "none";
+    
+    let answersHtml = s.ans.map(ans => `
+      <div class="essay-answer-item">
+        <div class="essay-q-header">
+          <span>${ans.q}</span>
+          <span style="color:${ans.s===2?'#166534':(ans.s===1?'#b45309':'#991b1b')}">Skor: ${ans.s} / 2</span>
         </div>
-      `).join("");
+        <div class="ans-text">"${ans.a}"</div>
+        <div class="analysis-note"><b>Catatan Guru:</b> ${ans.n}</div>
+      </div>
+    `).join("");
 
-      trDetail.innerHTML = `
-        <td colspan="8" style="background:#f8fafc;padding:12px 18px">
-          <div class="student-detail-panel" style="display:block;margin:0">
-            <div class="detail-title">
-              <span>📋 Lembar Jawaban Uraian & Catatan Khusus Guru: <b>${s.nama}</b></span>
-              <span style="font-size:0.82rem;color:var(--text-muted)">Nomor Urut: ${s.no}</span>
-            </div>
-            <div style="background:#fff;border-left:4px solid ${s.status==='Tuntas'?'#10b981':'#ef4444'};padding:10px 14px;border-radius:8px;font-size:0.85rem;margin-bottom:12px">
-              <b>Diagnostik Pembelajaran:</b> ${s.diag}
-            </div>
-            ${answersHtml}
+    trDetail.innerHTML = `
+      <td colspan="8" style="background:#f8fafc;padding:12px 18px">
+        <div class="student-detail-panel" style="display:block;margin:0">
+          <div class="detail-title">
+            <span>📋 Lembar Jawaban Uraian & Catatan Khusus Guru: <b>${s.nama}</b></span>
+            <span style="font-size:0.82rem;color:var(--text-muted)">Nomor Urut: ${s.no}</span>
           </div>
-        </td>
-      `;
-      tbody.appendChild(trDetail);
-    }
+          <div style="background:#fff;border-left:4px solid ${s.status==='Tuntas'?'#10b981':'#ef4444'};padding:10px 14px;border-radius:8px;font-size:0.85rem;margin-bottom:12px">
+            <b>Diagnostik Pembelajaran:</b> ${s.diag}
+          </div>
+          ${answersHtml}
+        </div>
+      </td>
+    `;
+    tbody.appendChild(trDetail);
   });
 }
 
