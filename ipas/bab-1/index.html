@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analisis Hasil Penilaian Sumatif IPAS Bab 1 - Kelas IV SDN 1 Sukahaji</title>
+<style>
+  :root {
+    --primary: #1e4d40;
+    --primary-light: #2d6a56;
+    --mint: #e9fbf5;
+    --accent: #d97706;
+    --bg-page: #f4f7f5;
+    --card-bg: #ffffff;
+    --text-main: #1f2937;
+    --text-muted: #64748b;
+    --border-color: #cbd5e1;
+    --green-badge: #dcfce7;
+    --green-text: #166534;
+    --yellow-badge: #fef3c7;
+    --yellow-text: #92400e;
+    --red-badge: #fee2e2;
+    --red-text: #991b1b;
+    --blue-badge: #e0f2fe;
+    --blue-text: #075985;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    background: linear-gradient(135deg, #eefcf7 0%, #f8fafc 50%, #eff6ff 100%);
+    color: var(--text-main);
+    padding: 24px 16px;
+    line-height: 1.5;
+  }
+
+  .wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* HEADER MODERN BERSIH DENGAN LOGO */
+  .header-card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 26px 28px;
+    box-shadow: 0 10px 30px rgba(30, 77, 64, 0.05);
+    border: 1px solid var(--border-color);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .school-logo {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    background: #f8fafc;
+    border-radius: 18px;
+    padding: 5px;
+    border: 1px solid var(--border-color);
+  }
+  .header-titles h1 {
+    font-size: clamp(1.2rem, 2.6vw, 1.5rem);
+    font-weight: 900;
+    color: var(--primary);
+    text-transform: uppercase;
+  }
+  .header-titles p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+  .btn-print {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: #ffffff;
+    border: none;
+    padding: 11px 22px;
+    border-radius: 12px;
+    font-size: 0.92rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(30, 77, 64, 0.2);
+    transition: all 0.2s;
+  }
+  .btn-print:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(30, 77, 64, 0.3);
+  }
+
+  /* KARTU STATISTIK */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .stat-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 18px 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.02);
+    text-align: center;
+  }
+  .stat-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .stat-val {
+    font-size: 2.1rem;
+    font-weight: 900;
+    color: var(--primary);
+    margin: 4px 0;
+  }
+  .stat-sub { font-size: 0.82rem; color: var(--text-muted); }
+
+  /* FILTER BAR */
+  .filter-bar {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 14px 20px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 24px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .search-input {
+    flex: 1;
+    min-width: 220px;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 0.9rem;
+    outline: none;
+  }
+  .search-input:focus { border-color: var(--primary-light); }
+  .filter-select {
+    padding: 10px 14px;
+    border: 1.5px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 0.9rem;
+    outline: none;
+    font-weight: 600;
+    color: var(--text-main);
+  }
+
+  /* TABEL UTAMA */
+  .table-box {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 24px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    margin-bottom: 30px;
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.86rem;
+    text-align: left;
+  }
+  th {
+    background: var(--mint);
+    color: var(--primary);
+    padding: 12px 10px;
+    font-weight: 800;
+    border-bottom: 2px solid #cbd5e1;
+    border-right: 1px solid #cbd5e1;
+    text-align: center;
+    white-space: nowrap;
+  }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    vertical-align: middle;
+  }
+  th:last-child, td:last-child { border-right: none; }
+  tr:nth-child(even) td { background-color: #fafcfb; }
+  tr:hover td { background-color: #f1f8f5; }
+
+  /* BADGES & BUTTONS */
+  .badge-status {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+  .badge-tuntas { background: var(--green-badge); color: var(--green-text); }
+  .badge-remedial { background: var(--red-badge); color: var(--red-text); }
+  .badge-susulan { background: var(--yellow-badge); color: var(--yellow-text); }
+  
+  .btn-link-hasil {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--highlight);
+    color: var(--primary);
+    border: 1px solid #a7f3d0;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.78rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    margin-top: 4px;
+  }
+  .btn-link-hasil:hover { background: #d1fae5; }
+  
+  .badge-btn-detail {
+    background: var(--blue-badge);
+    color: var(--blue-text);
+    padding: 4px 10px;
+    border-radius: 8px;
+    border: 1px solid #bae6fd;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.78rem;
+    transition: all 0.2s;
+  }
+  .badge-btn-detail:hover { background: #bae6fd; }
+
+  /* DETAIL CARD */
+  .student-detail-panel {
+    display: none;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 16px;
+    padding: 18px 22px;
+    margin: 10px 0 16px;
+  }
+  .detail-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .essay-answer-item {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 0.86rem;
+  }
+  .essay-q-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 800;
+    color: #334155;
+    margin-bottom: 4px;
+  }
+  .ans-text { color: #0f172a; font-style: italic; background: #f1f5f9; padding: 6px 10px; border-radius: 8px; margin: 4px 0 6px; }
+  .analysis-note { font-size: 0.82rem; color: #475569; }
+
+  /* SIGNATURES */
+  .sign-area {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    page-break-inside: avoid;
+  }
+  .sign-col { text-align: center; width: 280px; font-size: 0.88rem; }
+  .spacer { height: 65px; }
+  .nama { font-weight: 800; text-decoration: underline; }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .wrapper { max-width: 100%; }
+    .header-card { border: none; box-shadow: none; padding: 0; margin-bottom: 20px; }
+    .btn-print, .filter-bar { display: none; }
+    .table-box { border: none; box-shadow: none; padding: 0; }
+    .student-detail-panel { display: block !important; border: 1px dashed #999; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HEADER -->
+  <header class="header-card">
+    <div class="header-left">
+      <img src="https://raw.githubusercontent.com/iwansutiawan9-tech/asset/main/logo.23.png" alt="Logo SDN 1 Sukahaji" class="school-logo" onerror="this.style.display='none'">
+      <div class="header-titles">
+        <span style="font-size:0.8rem;font-weight:800;color:var(--primary-light);letter-spacing:1px">SD NEGERI 1 SUKAHAJI • KELAS IV</span>
+        <h1>Analisis Hasil Penilaian Sumatif IPAS</h1>
+        <p>Bab 1: Mengubah Bentuk Energi • KKM Satuan Pendidikan: 75 • Tahun Ajaran 2026/2027</p>
+      </div>
+    </div>
+    <button class="btn-print" onclick="window.print()">🖨️ Cetak / Simpan PDF</button>
+  </header>
+
+  <!-- STATISTIK KELAS -->
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-label">Total Siswa</div>
+      <div class="stat-val">22</div>
+      <div class="stat-sub">19 Dinilai • 3 Susulan</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Rata-Rata Nilai</div>
+      <div class="stat-val" style="color:#0369a1">44.6</div>
+      <div class="stat-sub">Dari 19 Siswa Mengikuti Ujian</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Siswa Tuntas (≥ 75)</div>
+      <div class="stat-val" style="color:var(--green-text)">2</div>
+      <div class="stat-sub">Vania (100) & Yuda (80)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Perlu Intervensi / Susulan</div>
+      <div class="stat-val" style="color:var(--red-text)">20</div>
+      <div class="stat-sub">17 Remedial • 3 Terjadwal Susulan</div>
+    </div>
+  </div>
+
+  <!-- FILTER & SEARCH BAR -->
+  <div class="filter-bar">
+    <input type="text" id="searchInput" class="search-input" placeholder="🔍 Cari nama siswa atau nomor urut..." onkeyup="filterTable()">
+    <select id="statusFilter" class="filter-select" onchange="filterTable()">
+      <option value="ALL">Semua Status Ketuntasan</option>
+      <option value="Tuntas">Hanya Tuntas (≥ 75)</option>
+      <option value="Remedial">Hanya Remedial (&lt; 75)</option>
+      <option value="Susulan">Hanya Susulan</option>
+    </select>
+  </div>
+
+  <!-- TABEL UTAMA REKAPITULASI -->
+  <div class="table-box">
+    <table id="mainTable">
+      <thead>
+        <tr>
+          <th style="width:4%">No</th>
+          <th style="width:24%">Nama Lengkap Siswa</th>
+          <th style="width:10%">Skor Objektif<br><small>(Maks: 20)</small></th>
+          <th style="width:13%">Rincian Skor Esai<br><small>(S16–S20 / Maks: 10)</small></th>
+          <th style="width:8%">Total Skor<br><small>(Maks: 30)</small></th>
+          <th style="width:8%">Nilai Akhir<br><small>(Skala 100)</small></th>
+          <th style="width:12%">Status Ketuntasan</th>
+          <th style="width:21%">Analisis Diagnostik & Tautan Berkas</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+  <!-- LEMBAR PENGESAHAN -->
+  <div class="sign-area">
+    <div class="sign-col">
+      <div>Mengetahui,<br>Kepala SD Negeri 1 Sukahaji</div>
+      <div class="spacer"></div>
+      <div class="nama">IIS GUSTINI RATNA NENGSIH, S.Pd.SD.</div>
+      <div>NIP. 197108172014082002</div>
+    </div>
+    <div class="sign-col">
+      <div>Sukahaji, September 2026</div>
+      <div>Guru Kelas IV / Pengampu IPAS</div>
+      <div class="spacer"></div>
+      <div class="nama">IWAN SUTIAWAN, S.Pd.I., Gr.</div>
+      <div>NIP. 198610132025211115</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Database Resmi 22 Siswa Lengkap dengan Skor, Uraian, dan Link Penilaian
+const DATA_SISWA = [
+  {
+    no: 1,
+    nama: "ALBY FAIZAN SULAEMAN",
+    link: "https://iwansutiawan9-tech.github.io/nilai-sumatif/ipas/bab-1/alby-faizan-sulaeman/index.html",
+    obj: 8, es: [1, 0, 0, 0, 0], tot: 9, nilai: 30.0, status: "Remedial",
+    diag: "Miskonsepsi pada PLTMH (dianggap membagi rata energi) dan fotosintesis (mengira daun mati karena air tersimpan).",
+    ans: [
+      { q: "S16 (Motor Listrik)", a: "Karena motor listrik memakai listrik kalo motor bensin megunakan bahan kimia", s: 1, n: "Memahami perbedaan sumber energi, belum menjelaskan ketiadaan asap knalpot." },
+      { q: "S17 (Alat Rumah & Hemat)", a: "Energi listrik energi panas energi gerakh", s: 0, n: "Tidak menyebutkan nama alat rumah tangga dan aksi penghematan." },
+      { q: "S18 (Alur PLTMH)", a: "Energi dibagi rata", s: 0, n: "Miskonsepsi: menafsirkan PLTMH sebagai pembagian jatah daya warga." },
+      { q: "S19 (Tanaman Stroberi)", a: "Karena di daunnya tersinpan air", s: 0, n: "Miskonsepsi: tidak mengaitkan ketiadaan sinar matahari dengan fotosintesis." },
+      { q: "S20 (Fotosintesis Kota)", a: "Karena cuaca di luarsana cuacanya panas", s: 0, n: "Mengulang stimulus tanpa menjelaskan penyerapan CO2 dan pelepasan oksigen." }
+    ]
+  },
+  {
+    no: 2,
+    nama: "ALMA PEBRIYANTI",
+    link: "https://iwansutiawan9-tech.github.io/nilai-sumatif/ipas/bab-1/alma-pebriyanti/index.html",
+    obj: 12, es: [0, 1, 0, 0, 1], tot: 14, nilai: 46.7, status: "Remedial",
+    diag: "Mengingat fenomena gelembung pada fotosintesis, namun belum memahami rantai transformasi energi terpadu.",
+    ans: [
+      { q: "S16 (Motor Listrik)", a: "energi gerak dan energi cahaya", s: 0, n: "Keliru menyebutkan perubahan energi motor listrik." },
+      { q: "S17 (Alat Rumah & Hemat)", a: "lampu energi cahaya", s: 1, n: "Alat dan perubahan energi benar, belum ada tindakan hemat listrik." },
+      { q: "S18 (Alur PLTMH)", a: "h2o", s: 0, n: "Hanya menuliskan rumus kimia air, tidak menjelaskan alur energi." },
+      { q: "S19 (Tanaman Stroberi)", a: "tidak ada energi", s: 0, n: "Terlalu singkat, tidak menjelaskan klorofil dan fotosintesis." },
+      { q: "S20 (Fotosintesis Kota)", a: "daun mengeluarkan gelembung dan air diserap oleh daun", s: 1, n: "Mengingat fakta praktikum pelepasan gas oksigen, belum menghubungkan dengan CO2." }
+    ]
+  },
+  {
+    no: 3,
+    nama: "ALVARD MORENO ZENA",
+    link: "https://iwansutiawan9-tech.github.io/nilai-sumatif/ipas/bab-1/alvard-moreno-zena/index.html",
+    obj: 7, es: [0, 0, 0, 0, 0], tot: 7, nilai: 23.3, status: "Remedial",
+    diag: "Miskonsepsi berat: menganggap tanaman mati di lemari karena 'daun bisa bernapas'. Perlu bimbingan remedial awal.",
+    ans: [
+      { q: "S16 (Motor Listrik)", a: "energi gerak", s: 0, n: "Hanya menyebutkan satu kata, tidak ada uraian perbandingan polusi." },
+      { q: "S17 (Alat Rumah & Hemat)", a: "energi lisrik dan energi gerakkar", s: 0, n: "Tidak menyebutkan nama alat dan aksi hemat." },
+      { q: "S18 (Alur PLTMH)", a: "karena energi lisrik", s: 0, n: "Belum memahami alur pembangkit listrik tenaga air." },
+      { q: "S19 (Tanaman Stroberi)", a: "karena daun bisa benapas", s: 0, n: "Miskonsepsi: mengira tanaman di lemari mati karena bisa bernapas." },
+      { q: "S20 (Fotosintesis Kota)", a: "karena daunnya gampang kering", s: 0, n: "Tidak relevan dengan fungsi fotosintesis membersihkan udara." }
+    ]
+  },
+  {
+    no: 4,
+    nama: "ARKHA RADITYA AKBAR",
+    link: "https://iwansutiawan9-tech.github.io/nilai-sumatif/ipas/bab-1/arkha-raditya-akbar/index.html",
+    obj: 15, es: [1, 1, 1, 0, 1], tot: 19, nilai: 63.3, status: "Remedial",
+    diag: "Pemikiran praktis baik (motor listrik tidak berasap, fungsi kulkas), perlu penguatan pada konsep fotosintesis.",
+    ans: [
+      { q: "S16 (Motor Listrik)", a: "motor listrik didak menluwarkan asap", s: 1, n: "Tepat pada aspek bebas asap, belum merinci alur energi listrik ke gerak." },
+      { q: "S17 (Alat Rumah & Hemat)", a: "kulkas bisa mendinginkan air", s: 1, n: "Menyebutkan alat dan fungsi, belum menyebutkan aksi hemat listrik." },
+      { q: "S18 (Alur PLTMH)", a: "sumber energi knetik alam mengubah energi listrik menjadi cahaya", s: 1, n: "Memahami perubahan kinetik ke listrik dan cahaya, melewatkan peran turbin/generator." },
+      { q: "S19 (Tanaman Stroberi)", a: "fotosintesis menyerap air di tanah", s: 0, n: "Keliru fokus pada air, mengabaikan faktor ketiadaan cahaya matahari." },
+      { q: "S20 (Fotosintesis Kota)", a: "menyerap cahaya matahari dan menyerap air", s: 1, n: "Menyebutkan bahan baku fotosintesis, belum menyebutkan penyerapan CO2 dan O2." }
+    ]
+  },
+  {
+    no: 5,
+    nama: "AULIA NAJMATUL HAYAH",
+    link: "https://iwansutiawan9-tech.github.io/nilai-sumatif/ipas/bab-1/aulia-najmatul-hayah/index.html",
+    obj: 3, es: [0, 0, 0, 0, 0], tot: 3, nilai: 10.0, status: "Remedial",
+    diag: "Terindikasi kendala literasi digital/mengetik karakter acak ('baseka sekana', 'selame kahakuta'). Butuh tes lisan.",
+    ans: [
+      { q: "S16 (Motor Listrik)", a: "baseka sekana", s: 0, n: "Teks acak tanpa makna (random typing)." },
+      { q: "S17 (Alat Rumah & Hemat)", a: "selame kahakuta", s: 0, n: "Teks acak tanpa makna." },
+      { q: "S18 (Alur PLTMH)", a: "kasebauka bakuse", s: 0, n: "Teks acak tanpa makna." },
+      { q: "S19 (Tanaman Stroberi)", a: "sebame   muyselasea", s: 0, n: "Teks acak tanpa makna." },
+      { q: "S20 (Fotosintesis Kota)", a: "sebakam sakaselauba", s: 0, n: "Teks acak tanpa makna." }
+    ]
+  },
+  {
+    no: 6,
+    nama: "BARZA SYAKIR ARIFIN",
+    link: "https://iwansutiawan9-tech.github.io/nilai-sumatif/ipas/bab-1/barza-syakir-arifin/index.html",
+    obj: 15, es: [1, 0, 2, 1, 2], tot: 21, nilai: 70.0, status: "Remedial",
+    diag: "Sangat unggul pada fotosintesis dan alur PLTMH. Remedial tipis hanya karena mengosongkan jawaban soal nomor 17.",
+    ans: [
+      { q: "S16 (Motor Listrik)", a: "DARI ENERGI KIMIA MENJADI LISTRIK", s: 1, n: "Benar pada baterai ke listrik, belum menyebutkan energi gerak dan bebas emisi." },
+      { q: "S17 (Alat Rumah & Hemat)", a: "(Kolom Dikosongkan)", s: 0, n: "Tidak menjawab." },
+      { q: "S18 (Alur PLTMH)", a: "ENRGI GERAK MENJADI ENERGI LISTRIK DAN MENJADI ENERGI CAHAYA", s: 2, n: "Alur konversi energi mikrohidro sangat tepat dan berurutan." },
+      { q: "S19 (Tanaman Stroberi)", a: "KARNA POT B TIDAK DAPAT ENERGI CAHAYA MATAHARI SEDANGKAN POT A DAPAT SINAR MATAHARI", s: 1, n: "Tepat pada faktor cahaya, belum menguraikan klorofil memasak makanan." },
+      { q: "S20 (Fotosintesis Kota)", a: "CAHAYA MATAHARI DISERAP OLEH KLOROFIL DAN AIR YANG ADA DI BAWAH TANAH DI SERAP OLEH AKAR BAHAN BAHAN TERSEBUT LALU DI MASAK DI DALAM KLOROPLAS DAN DAUN DAUN TERSEBUT MELEPASKAN OKSIGEN YANG DIHIRUP OLEH MANUSIA DAN HEWAN", s: 2, n: "Penjelasan proses fotosintesis dan pelepasan oksigen sangat komprehensif dan ilmiah." }
+    ]
+  },
+  {
+    no: 7,
+    nama: "JIHAN TALITA ULFA",
+    link: "https://iwansutiawan9-tech.github.io/nilai-sumatif/ipas/bab-1/jihan-talita-ulfa/index.html",
+    obj: "-", es: ["-", "-", "-", "-", "-"], tot: "-", nilai: "-", status: "Susulan",
+    diag: "Peserta didik belum mengikuti asesmen sumatif karena berhalangan hadir. Terjadwal mengikuti asesmen susulan.",
+    ans: []
+  },
+  {
+    no: 8,
+    nama: "KATRINA PUTRI",
+    link: "https://iwansutiawan9-tech.github.io/nilai-sumatif/ipas/bab-1/katrina-putri/index.html",
+    obj: 12, es: [2, 1, 0, 1, 0], tot: 16, nilai: 53.3, status: "Remedial",
+    diag: "Sangat matang menguraikan dampak polusi knalpot (S16), namun mengalami miskonsepsi air terjun dianggap energi kimia.",
+    ans: [
+      { q: "S16 (Motor Listrik)", a: "karena motor berbahan bakar bisa menyebabkan asap berlebihan saat berkendara dan membuat jalanan menjadi tercemari oleh asap dari motor dan merusak lingkungan sekitar membuat ekosistem menjadi tercemari  sedangkan motor listrik tidak mengeluarkan asap jadi motor listrik sangat aman bagi lingkungan sekitar", s: 2, n: "Penjelasan dampak polusi ekologis sangat lengkap dan analitis." },
+      { q: "S17 (Alat Rumah & Hemat)", a: "teko listrik karena teko lisrtrik jarang sekali di pakai dan di rumah lebih banyak warga menggunakan kompor", s: 1, n: "Menyebutkan alat dan aksi hemat alternatif, belum menyebutkan perubahan energinya." },
+      { q: "S18 (Alur PLTMH)", a: "energi kimia dan cahaya", s: 0, n: "Miskonsepsi: air terjun adalah kinetik/gerak, bukan kimia." },
+      { q: "S19 (Tanaman Stroberi)", a: "karena kurang cahaya matahari karena cahaya matahari sangat penting bagi tanaman", s: 1, n: "Benar pada faktor cahaya, belum menguraikan klorofil memasak makanan." },
+      { q: "S20 (Fotosintesis Kota)", a: "kota harus mengurangi kendaraan bermotor yang mengeluarkan asap", s: 0, n: "Menjawab kebijakan lalu lintas, bukan mekanisme fotosintesis daun." }
+    ]
+  },
+  {
+    no: 9,
+    nama: "KEISHA ATHIRA ASHSHABIRA",
+    link: "https://iwansutiawan9-tech.github.io/nilai-sumatif/ipas/bab-1/keisha-athira-ashshabira/index.html",
+    obj: 12, es: [0, 0, 1, 0, 0], tot: 13, nilai: 43.3, status: "Remedial",
+    diag: "Menjawab sepotong kata tanpa kalimat penalaran ('gerak kimia', 'tidak hemat', 'pot a'). Perlu bimbingan literasi sains.",
+    ans: [
+      { q: "S16 (Motor Listrik)", a: "gerak kimia", s: 0, n: "Urutan terbalik dan tidak menjelaskan kaitan dengan pengurangan polusi." },
+      { q: "S17 (Alat Rumah & Hemat)", a: "tidak hemat", s: 0, n: "Tidak menyebutkan alat dan perubahan energi." },
+      { q: "S18 (Alur PLTMH)", a: "listrik     cahaya", s: 1, n: "Mengetahui ujung alur listrik ke cahaya, melewatkan air dan turbin." },
+      { q: "S19 (Tanaman Stroberi)", a: "pot a", s: 0, n: "Hanya menuliskan nama pot tanpa alasan ilmiah." },
+      { q: "S20 (Fotosintesis Kota)", a: "{ co ;2 sehingga di udara tahu kota makin panas", s: 0, n: "Menuliskan simbol CO2 tanpa menjelaskan penyerapan oleh fotosintesis." }
+    ]
+  },
+  {
+    no: 10,
+    nama: "KENISHA AZKIYA DWI AQMAR",
+    link: "https://iwansutiawan9-tech.github.io/nilai-sumatif/ipas/bab-1/kenisha-azkiya-dwi-aqmar/index.html",
+    obj: 9, es: [0, 0, 0, 1, 0], tot: 10, nilai: 33.3, status: "Remedial",
+    diag: "Miskonsepsi pada batu bara dan PLTMH (dianggap energi panas). Memahami ketiadaan cahaya pada Pot B.",
+    ans: [
+      { q: "S16 (Motor Listrik)", a: "energi kimia", s: 0, n: "Potongan kata tanpa uraian alur dan alasan bebas polusi." },
+      { q: "S17 (Alat Rumah & Hemat)", a: "batu bara lebih hemat listrik      listrik lebih boros", s: 0, n: "Miskonsepsi: tidak menyebutkan alat rumah tangga, rancu konsep batu bara." },
+      { q: "S18 (Alur PLTMH)", a: "energi panas- menjadi energi cahaya", s: 0, n: "Miskonsepsi: air terjun bukan energi panas melainkan kinetik/gerak." },
+      { q: "S19 (Tanaman Stroberi)", a: "tanaman pot a ke sinar matahari lebih tidak layu    kalo tanaman pot b di simpan nya  di yang gelap jadi tanaman nya tidak ada energi karna tidak ada cahaya nya Dan tidak ada sinar mataharinya", s: 1, n: "Penalaran tepat pada faktor ketiadaan cahaya, belum mengaitkan klorofil fotosintesis." },
+      { q: "S20 (Fotosintesis Kota)", a: "knnalpotnya suka banyak ASAP Dan banyak nya  debu Dan kena mata orang", s: 0, n: "Menceritakan keluhan asap knalpot, bukan peran fotosintesis." }
+    ]
+  },
+  {
+    no: 11,
+    nama: "KINANTI ASMARANDANA SETIAWAN",
+    link: "https://iwansutiawan9-tech.github.io/nilai-sumatif/ipas/bab-1/kinanti-asmarandana-setiawan/index.html",
+    obj: "-", es: ["-", "-", "-", "-", "-"], tot: "-", nilai: "-", status: "Susulan",
+    diag: "Peserta didik belum mengikuti asesmen sumatif karena berhalangan hadir. Terjadwal mengikuti asesmen susulan.",
+    ans: []
+  },
+  {
+    no: 12,
+    nama: "MUHAMAD DAFFA ALGHIFARY",
+    link: "https://iwansutiawan9-tech.github.io/nilai-sumatif/ipas/bab-1/muhamad-daffa-alghifary/index.html",
+    obj: 5, es: [1, 0, 0, 0, 1], tot: 7, nilai: 23.3, status: "Remedial",
+    diag: "Hafal kosakata fotosintesis dengan baik (S20), namun mengalami miskonsepsi fantasi di S17 ('kekuatan listrik').",
+    ans: [
+      { q: "S16 (Motor Listrik)", a: "energi kimia cahaya dan energi gerak", s: 1, n: "Menyebutkan bentuk energi kimia baterai dan gerak." },
+      { q: "S17 (Alat Rumah & Hemat)", a: "orang-orang yang punya kekuatan listrik", s: 0, n: "Salah tafsir/menuliskan kalimat fiksi fantasi di luar konteks alat rumah tangga." },
+      { q: "S18 (Alur PLTMH)", a: "energi cahaya energi listrik", s: 0, n: "Miskonsepsi: air terjun bukan energi cahaya." },
+      { q: "S19 (Tanaman Stroberi)", a: "karena menyimpan nya salah harus luar rumah", s: 0, n: "Menjawab secara praktis tanpa alasan ilmiah fotosintesis." },
+      { q: "S20 (Fotosintesis Kota)", a: "cahaya matahari karbon dioksida kloroplas potosintesis  oksigen karbohidrat/makanan", s: 1, n: "Menyebutkan seluruh kata kunci fotosintesis lengkap, belum dirangkai dalam kalimat." }
+    ]
+  },
+  {
+    no: 13,
+    nama: "MUHAMMAD HILMY ALIFIANDRA",
+    link: "https://iwansutiawan9-tech.github.io/nilai-sumatif/ipas/bab-1/muhammad-hilmy-alifiandra/index.html",
+    obj: 5, es: [1, 0, 0, 0, 0], tot: 6, nilai: 20.0, status: "Remedial",
+    diag: "Miskonsepsi biaya PLTMH ('air gratis') dan fotosintesis ('sekuriti menyiram tanaman'). Perlu penguatan konsep sains.",
+    ans: [
+      { q: "S16 (Motor Listrik)", a: "bensin kimia motor gerak", s: 1, n: "Mengenali bentuk energi kimia dan gerak." },
+      { q: "S17 (Alat Rumah & Hemat)", a: "gas dan bensin kimia", s: 0, n: "Tidak menyebutkan alat elektronik rumah tangga dan aksi hemat." },
+      { q: "S18 (Alur PLTMH)", a: "air terjun bisa menjadi air geratis", s: 0, n: "Miskonsepsi: mengira PLTMH adalah fasilitas air gratis." },
+      { q: "S19 (Tanaman Stroberi)", a: "tanamannya nantinya layu", s: 0, n: "Mengulang stimulus tanpa alasan ilmiah fotosintesis." },
+      { q: "S20 (Fotosintesis Kota)", a: "diperkotaan ada sekuriti akan menyiran tanaman", s: 0, n: "Keluar konteks: menjawab kegiatan sekuriti menyiram tanaman." }
+    ]
+  },
+  {
+    no: 14,
+    nama: "NIZAM MUNTAHA SEPTIAN",
+    link: "https://iwansutiawan9-tech.github.io/nilai-sumatif/ipas/bab-1/nizam-muntaha-septian/index.html",
+    obj: 9, es: [0, 0, 0, 0, 0], tot: 9, nilai: 30.0, status: "Remedial",
+    diag: "Menjawab kata tunggal tanpa elaborasi ('gerak', 'energi cahaya', 'akan mati'). Pemahaman esai masih minim.",
+    ans: [
+      { q: "S16 (Motor Listrik)", a: "energi gerak dan panas", s: 0, n: "Tidak menjelaskan kaitan motor listrik dengan pengurangan polusi." },
+      { q: "S17 (Alat Rumah & Hemat)", a: "gerak", s: 0, n: "Kata tunggal tanpa nama alat dan tindakan hemat." },
+      { q: "S18 (Alur PLTMH)", a: "energi cahaya", s: 0, n: "Tidak menjelaskan alur konversi energi air terjun ke listrik." },
+      { q: "S19 (Tanaman Stroberi)", a: "akan mati", s: 0, n: "Mengulang stimulus soal." },
+      { q: "S20 (Fotosintesis Kota)", a: "akanmati", s: 0, n: "Tidak relevan dengan fungsi fotosintesis daun." }
+    ]
+  },
+  {
+    no: 15,
+    nama: "PEBY OKTAPIANI",
+    link: "https://iwansutiawan9-tech.github.io/nilai-sumatif/ipas/bab-1/peby-oktapiani/index.html",
+    obj: 9, es: [1, 0, 0, 0, 0], tot: 10, nilai: 33.3, status: "Remedial",
+    diag: "Mengetahui motor listrik pakai listrik dan motor bensin pakai bensin. Soal 17–20 belum mampu menguraikan konsep sains.",
+    ans: [
+      { q: "S16 (Motor Listrik)", a: "karena motor pakai bensin kalo sepedah pakai listrik", s: 1, n: "Mengetahui perbedaan sumber daya baterai vs bensin." },
+      { q: "S17 (Alat Rumah & Hemat)", a: "karena air pakai listrik", s: 0, n: "Tidak menyebutkan alat elektronik dan perubahan energinya." },
+      { q: "S18 (Alur PLTMH)", a: "cahaya", s: 0, n: "Hanya satu kata, belum memahami alur konversi PLTMH." },
+      { q: "S19 (Tanaman Stroberi)", a: "karena pot b disimpan di lemari", s: 0, n: "Menyebutkan tempat lemari tanpa mengaitkan ketiadaan energi cahaya." },
+      { q: "S20 (Fotosintesis Kota)", a: "karena panas", s: 0, n: "Mengulang kata stimulus tanpa penjelasan penyerapan CO2." }
+    ]
+  },
+  {
+    no: 16,
+    nama: "RINDI JULIYANI",
+    link: "https://iwansutiawan9-tech.github.io/nilai-sumatif/ipas/bab-1/rindi-juliyani/index.html",
+    obj: 6, es: [0, 1, 0, 1, 0], tot: 8, nilai: 26.7, status: "Remedial",
+    diag: "Miskonsepsi: menilai motor listrik menghamburkan listrik dan PLTMH terjadi karena warga hemat listrik.",
+    ans: [
+      { q: "S16 (Motor Listrik)", a: "tidak usah  karen  sepedah  motor  listrik  menghambur listrik", s: 0, n: "Miskonsepsi: menganggap motor listrik menghamburkan listrik." },
+      { q: "S17 (Alat Rumah & Hemat)", a: "listrik  cahaya  lampu di luar  matahari", s: 1, n: "Menyebutkan lampu listrik ke cahaya dan kaitan dengan sinar matahari." },
+      { q: "S18 (Alur PLTMH)", a: "karen war ga disan  pintar  sekali  pehemat  listik", s: 0, n: "Miskonsepsi: menafsirkan PLTMH sebagai perilaku hemat warga." },
+      { q: "S19 (Tanaman Stroberi)", a: "tanaman pot a  bisa mati karen bayak cahaya  tanaman pot b  bisa mati kalo tidak di sinar cahaya karin tertutup  limari", s: 1, n: "Tepat pada faktor tertutup lemari tanpa sinar, belum menjelaskan fotosintesis." },
+      { q: "S20 (Fotosintesis Kota)", a: "karen bayak debu  dikotaitu  menyembaka batuk  di kotaitu  dan  bayak orang sakit", s: 0, n: "Menceritakan penyakit batuk, bukan mekanisme fotosintesis daun." }
+    ]
+  },
+  {
+    no: 17,
+    nama: "ROFFI RHAMDANI",
+    link: "https://iwansutiawan9-tech.github.io/nilai-sumatif/ipas/bab-1/roffi-rhamdani/index.html",
+    obj: 6, es: [0, 0, 0, 0, 0], tot: 6, nilai: 20.0, status: "Remedial",
+    diag: "Menjawab kata lepas ('kaleng', 'air panas', 'energi panas'). Perlu pendampingan remedial konsep dasar energi.",
+    ans: [
+      { q: "S16 (Motor Listrik)", a: "ada listiknya", s: 0, n: "Terlalu singkat, tidak ada perbandingan emisi polusi." },
+      { q: "S17 (Alat Rumah & Hemat)", a: "kaleng", s: 0, n: "Kaleng bukan alat elektronik rumah tangga." },
+      { q: "S18 (Alur PLTMH)", a: "cahaya matahari", s: 0, n: "Miskonsepsi: air terjun bukan energi cahaya matahari." },
+      { q: "S19 (Tanaman Stroberi)", a: "air panas", s: 0, n: "Tidak relevan dengan percobaan pengaruh cahaya." },
+      { q: "S20 (Fotosintesis Kota)", a: "energi panas", s: 0, n: "Tidak menjelaskan fotosintesis tumbuhan hijau." }
+    ]
+  },
+  {
+    no: 18,
+    nama: "SHAKYLA NAILA PUTRI",
+    link: "https://iwansutiawan9-tech.github.io/nilai-sumatif/ipas/bab-1/shakyla-naila-putri/index.html",
+    obj: 2, es: [1, 0, 0, 1, 0], tot: 4, nilai: 13.3, status: "Remedial",
+    diag: "Mengetahui motor listrik 'tidak nebul' (tidak berasap) dan tanaman butuh sinar. Belum menguasai alur alat/energi; S20 kosong.",
+    ans: [
+      { q: "S16 (Motor Listrik)", a: "tidak nebul", s: 1, n: "Memahami fakta motor listrik tidak mengeluarkan asap (tidak mengebul)." },
+      { q: "S17 (Alat Rumah & Hemat)", a: "karena harus memakai listrik", s: 0, n: "Tidak menyebutkan alat, perubahan energi, dan aksi hemat." },
+      { q: "S18 (Alur PLTMH)", a: "karena memakai listrik", s: 0, n: "Tidak menguraikan tahapan perubahan energi PLTMH." },
+      { q: "S19 (Tanaman Stroberi)", a: "harus kena sinar matahari", s: 1, n: "Tepat pada kebutuhan sinar matahari, belum menguraikan fotosintesis." },
+      { q: "S20 (Fotosintesis Kota)", a: "(Kolom Dikosongkan)", s: 0, n: "Tidak menjawab." }
+    ]
+  },
+  {
+    no: 19,
+    nama: "VANIA CLARISSA PUTRI MULYADI",
+    link: "https://iwansutiawan9-tech.github.io/nilai-sumatif/ipas/bab-1/vania-clarissa-putri-mulyadi/index.html",
+    obj: 20, es: [2, 2, 2, 2, 2], tot: 30, nilai: 100.0, status: "Tuntas",
+    diag: "Istimewa (Sempurna 100). Menguasai 100% soal objektif dan uraian dengan bahasa ilmiah terstruktur dan sangat matang.",
+    ans: [
+      { q: "S16 (Motor Listrik)", a: "listrik menjadi gerak tidak membuat polusi jadinya dapat membentu mengurangi asap dari knalpot", s: 2, n: "Sangat tepat mengaitkan listrik ke gerak dan bebas asap knalpot." },
+      { q: "S17 (Alat Rumah & Hemat)", a: "lampu energi listrik menjadi energi cahhaya  untuk menghemat jika kita membuka pintu dan ada cahaya matahari yang masuk kita harus memetikannya", s: 2, n: "Alat, bentuk energi, dan tindakan hemat sangat spesifik dan logis." },
+      { q: "S18 (Alur PLTMH)", a: "cahaya dari air terjun air yang besasr membuat kincir angin bergerak jadinya jadi energi listrik lampu di rumah energi cahaya", s: 2, n: "Alur rantai energi kinetik air ke turbin, listrik, dan cahaya terurai runtut." },
+      { q: "S19 (Tanaman Stroberi)", a: "karena tanaman membutuhkan cahaya matahari bukan cuma air karena tanaman butuh proses fotosintesis,, sinar matahari diserap oleh kloroplas", s: 2, n: "Sangat ilmiah: menjelaskan peran fotosintesis dan kloroplas penyerap sinar." },
+      { q: "S20 (Fotosintesis Kota)", a: "sinar matahari diserap oleh kloroplas lalu air diiserap oleh tanah dan akar  terciptalah oksigen yang dihirup oleh manusia dan hewan dan", s: 2, n: "Menjelaskan bahan alami fotosintesis dan pelepasan oksigen bagi makhluk hidup." }
+    ]
+  },
+  {
+    no: 20,
+    nama: "ZALFA RAMELKHA AULLIYA",
+    link: "https://iwansutiawan9-tech.github.io/nilai-sumatif/ipas/bab-1/zalfa-ramelkha-aulliya/index.html",
+    obj: 10, es: [1, 0, 0, 0, 0], tot: 11, nilai: 36.7, status: "Remedial",
+    diag: "Membedakan aspek motor bensin yang menghabiskan bensin vs baterai listrik (S16). Soal 17–20 belum mampu menguraikan konsep sains.",
+    ans: [
+      { q: "S16 (Motor Listrik)", a: "karena motor bensin dapat menghabiskan bensinnya daripada yang motor listrik memakai baterai", s: 1, n: "Membedakan sumber bahan bakar bensin vs baterai." },
+      { q: "S17 (Alat Rumah & Hemat)", a: "listrik", s: 0, n: "Hanya satu kata tanpa nama alat dan aksi hemat." },
+      { q: "S18 (Alur PLTMH)", a: "harus memakai listrik", s: 0, n: "Belum memahami rantai alur konversi PLTMH." },
+      { q: "S19 (Tanaman Stroberi)", a: "harusnya pot yang b seharusnya di luar biar ke sinar matahari", s: 0, n: "Menjawab saran penempatan, belum menjelaskan alasan ilmiah tanaman mati." },
+      { q: "S20 (Fotosintesis Kota)", a: "membatunya untuk tumbuhkan tanaman", s: 0, n: "Belum menyentuh konsep penyerapan polusi CO2 dan pelepasan oksigen." }
+    ]
+  },
+  {
+    no: 21,
+    nama: "ZULFI SYABANI ZULFIKAR",
+    link: "https://iwansutiawan9-tech.github.io/nilai-sumatif/ipas/bab-1/zulfi-syabani-zulfikar/index.html",
+    obj: "-", es: ["-", "-", "-", "-", "-"], tot: "-", nilai: "-", status: "Susulan",
+    diag: "Peserta didik belum mengikuti asesmen sumatif karena berhalangan hadir. Terjadwal mengikuti asesmen susulan.",
+    ans: []
+  },
+  {
+    no: 22,
+    nama: "YUDA PUTRA HIDAYAT",
+    link: "https://iwansutiawan9-tech.github.io/nilai-sumatif/ipas/bab-1/yuda-putra-hidayat/index.html",
+    obj: 19, es: [2, 1, 1, 1, 0], tot: 24, nilai: 80.0, status: "Tuntas",
+    diag: "Sangat cakap pada alur transformasi energi (S16 membedakan baterai vs bensin secara detail). Perlu penguatan pada fotosintesis tingkat lanjut.",
+    ans: [
+      { q: "S16 (Motor Listrik)", a: "sepeda listrik energi kimia,energi listrik,menjadi energi gerak.sedangkan motor berbahan bensin energi kimia,energi panas,lalu menjadi energi gerak", s: 2, n: "Uraian sangat presisi membedakan rantai transformasi kimia-listrik-gerak vs kimia-panas-gerak." },
+      { q: "S17 (Alat Rumah & Hemat)", a: "laptop.energi kimia,energi baterai,Dan menjadi energi cahaya Dan energi bunyi", s: 1, n: "Menyebutkan alat dan perubahan energi dengan baik, belum mencantumkan aksi hemat." },
+      { q: "S18 (Alur PLTMH)", a: "energi turbin,energi listrik,energi cahaya", s: 1, n: "Mengetahui tahapan turbin ke listrik dan cahaya, melewatkan energi kinetik air terjun." },
+      { q: "S19 (Tanaman Stroberi)", a: "Karna dia berada di di tempat yang gelap,meskipun tercukupi airnya tetapi sama saja Karna dia tidak ada sinar matahari", s: 1, n: "Tepat pada faktor ketiadaan sinar matahari, belum menguraikan fotosintesis klorofil." },
+      { q: "S20 (Fotosintesis Kota)", a: "menanam tanaman yang bisa untuk menjaga suhu udara", s: 0, n: "Menyebutkan aksi menanam pohon, belum menjelaskan reaksi fotosintesis menyerap CO2." }
+    ]
+  }
+];
+
+function renderTable(data) {
+  const tbody = document.getElementById("tableBody");
+  tbody.innerHTML = "";
+
+  data.forEach((s, idx) => {
+    const tr = document.createElement("tr");
+    tr.id = "row-" + s.no;
+    
+    let esaiBreakdown = "-";
+    let esaiSum = "-";
+    if (Array.isArray(s.es) && s.status !== "Susulan") {
+      esaiBreakdown = s.es.map((score, i) => `<span style="font-weight:700;color:${score===2?'#166534':(score===1?'#b45309':'#991b1b')}">S${16+i}:${score}</span>`).join(" ");
+      esaiSum = s.es.reduce((a,b)=>a+b, 0);
+    }
+    
+    let badgeClass = "badge-remedial";
+    if (s.status === "Tuntas") badgeClass = "badge-tuntas";
+    else if (s.status === "Susulan") badgeClass = "badge-susulan";
+
+    tr.innerHTML = `
+      <td align="center"><b>${s.no}</b></td>
+      <td>
+        <div style="font-weight:800;color:var(--text-main)">${s.nama}</div>
+        <a href="${s.link}" target="_blank" class="btn-link-hasil">🔗 Lembar Hasil Ujian</a>
+      </td>
+      <td align="center"><b>${s.obj}</b> ${s.status!=='Susulan'?'/ 20':''}</td>
+      <td align="center"><small>${esaiBreakdown}</small><br><b>${esaiSum}</b> ${s.status!=='Susulan'?'/ 10':''}</td>
+      <td align="center"><b>${s.tot}</b> ${s.status!=='Susulan'?'/ 30':''}</td>
+      <td align="center"><span style="font-size:1.1rem;font-weight:900;color:${s.nilai>=75?'var(--primary)':(s.status==='Susulan'?'#b45309':'var(--red-text)')}">${s.nilai}</span></td>
+      <td align="center"><span class="badge-status ${badgeClass}">${s.status}</span></td>
+      <td>
+        ${s.status !== 'Susulan' ? `<button class="badge-btn-detail" onclick="toggleDetail(${s.no})">🔍 Detail Jawaban</button>` : '<span style="font-size:0.8rem;color:#b45309;font-weight:700">⏳ Terjadwal Susulan</span>'}
+        <div style="font-size:0.78rem;color:var(--text-muted);margin-top:4px">${s.diag.substring(0, 52)}...</div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+
+    // Detail Panel Row jika bukan susulan
+    if (s.status !== "Susulan") {
+      const trDetail = document.createElement("tr");
+      trDetail.id = "detail-row-" + s.no;
+      trDetail.style.display = "none";
+      
+      let answersHtml = s.ans.map(ans => `
+        <div class="essay-answer-item">
+          <div class="essay-q-header">
+            <span>${ans.q}</span>
+            <span style="color:${ans.s===2?'#166534':(ans.s===1?'#b45309':'#991b1b')}">Skor: ${ans.s} / 2</span>
+          </div>
+          <div class="ans-text">"${ans.a}"</div>
+          <div class="analysis-note"><b>Catatan Guru:</b> ${ans.n}</div>
+        </div>
+      `).join("");
+
+      trDetail.innerHTML = `
+        <td colspan="8" style="background:#f8fafc;padding:12px 18px">
+          <div class="student-detail-panel" style="display:block;margin:0">
+            <div class="detail-title">
+              <span>📋 Lembar Jawaban Uraian & Catatan Khusus Guru: <b>${s.nama}</b></span>
+              <span style="font-size:0.82rem;color:var(--text-muted)">Nomor Urut: ${s.no}</span>
+            </div>
+            <div style="background:#fff;border-left:4px solid ${s.status==='Tuntas'?'#10b981':'#ef4444'};padding:10px 14px;border-radius:8px;font-size:0.85rem;margin-bottom:12px">
+              <b>Diagnostik Pembelajaran:</b> ${s.diag}
+            </div>
+            ${answersHtml}
+          </div>
+        </td>
+      `;
+      tbody.appendChild(trDetail);
+    }
+  });
+}
+
+function toggleDetail(no) {
+  const row = document.getElementById("detail-row-" + no);
+  if (row) {
+    row.style.display = row.style.display === "none" ? "table-row" : "none";
+  }
+}
+
+function filterTable() {
+  const q = document.getElementById("searchInput").value.toLowerCase();
+  const st = document.getElementById("statusFilter").value;
+
+  const filtered = DATA_SISWA.filter(s => {
+    const matchName = s.nama.toLowerCase().includes(q) || String(s.no).includes(q);
+    const matchStatus = (st === "ALL") || (s.status === st);
+    return matchName && matchStatus;
+  });
+
+  renderTable(filtered);
+}
+
+// Initial render
+document.addEventListener("DOMContentLoaded", () => {
+  renderTable(DATA_SISWA);
+});
+</script>
+
+</body>
+</html>
