@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="id"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Remidial Sumatif Bab 1 Koding - Kelas V</title>
+<style>
+:root{--green:#0b9f75;--green2:#087f60;--mint:#e9fbf5;--pink:#ffdfe4;--ink:#24313a;--muted:#64748b;--yellow:#fff36a;--line:#e5e7eb;--white:#fff;--blue:#2563eb;--gold:#f59e0b;--orange:#ea580c;--red:#dc2626}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(135deg,#eefcf7,#fff7f8 55%,#eef6ff);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);overflow-x:hidden}
+body:before,body:after{content:"";position:fixed;z-index:-1;border-radius:50%;filter:blur(2px);opacity:.45;pointer-events:none}
+body:before{width:180px;height:180px;background:#bff4df;left:-70px;top:120px;animation:float1 7s ease-in-out infinite}
+body:after{width:150px;height:150px;background:#ffd4dc;right:-50px;bottom:100px;animation:float2 9s ease-in-out infinite}
+@keyframes float1{50%{transform:translate(25px,18px) scale(1.08)}} @keyframes float2{50%{transform:translate(-20px,-25px) scale(1.12)}}
+.appbar{position:sticky;top:0;z-index:20;display:flex;gap:10px;align-items:center;padding:12px 16px;background:#ffffffee;backdrop-filter:blur(12px);border-bottom:1px solid #dfe7e4}
+.brand{font-weight:900;color:var(--green2);margin-right:auto}
+button{border:0;border-radius:12px;padding:10px 15px;font-weight:800;cursor:pointer;transition:.2s transform,.2s box-shadow}
+button:hover{transform:translateY(-2px);box-shadow:0 8px 18px #00000012}
+button:active{transform:scale(.98)}
+.btn-light{background:#f1f5f9;color:#334155}.btn-green{background:var(--green);color:#fff}.btn-blue{background:var(--blue);color:#fff}.btn-gold{background:#fef3c7;color:#92400e}.btn-red{background:#fee2e2;color:var(--red)}
+.progress{height:5px;background:#dcefe9}.progress i{display:block;height:100%;width:0;background:var(--green);transition:.25s}
+.sheet{width:min(1000px,calc(100% - 24px));margin:18px auto;background:#fff;border-radius:24px;box-shadow:0 12px 35px #24483b16;padding:28px}
+.hero{display:grid;grid-template-columns:1.7fr .8fr;gap:20px;align-items:stretch}
+.hero-card{background:linear-gradient(135deg,#effcf7,#fff0f3);border-radius:22px;padding:28px}
+.badge{display:inline-block;background:var(--green);color:#fff;padding:7px 12px;border-radius:999px;font-weight:900;font-size:13px}
+h1{font-size:clamp(22px,3.8vw,38px);line-height:1.1;margin:16px 0 8px} h2{margin:0} p{line-height:1.75}
+.mission{background:#f7fafc;border-radius:20px;padding:22px;display:flex;flex-direction:column;justify-content:center;text-align:center;font-size:18px}
+.mission-icon{font-size:64px;animation:bob 2.8s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-9px) rotate(2deg)}}
+.idgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.field label{display:block;font-size:13px;font-weight:900;color:#475569;margin-bottom:6px}
+input,textarea,select{width:100%;font:inherit;border:2px solid #dbe4e1;border-radius:13px;padding:12px 14px;outline:none;background:#fff}
+input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0 0 3px #0b9f7520}
+.idgrid input{min-height:52px;min-width:0}.idgrid .field{min-width:0}
+.section-title{display:flex;align-items:center;gap:12px;border-bottom:3px solid var(--mint);padding-bottom:12px;margin-bottom:18px}
+.num{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--green);color:#fff;font-weight:900;flex:0 0 auto}
+.tip{background:#fff9d6;border-left:5px solid #f2d73a;padding:14px 16px;border-radius:12px;margin:18px 0}
+.stimulus-box{background:#f8fafc;border:2px solid #e2e8f0;border-left:5px solid var(--green);border-radius:12px;padding:16px;margin:12px 0;line-height:1.7}
+
+/* KARTU SOAL & METADATA */
+.question-card{background:#f8fafc;border:2px solid #e2e8f0;border-radius:18px;padding:20px;margin-bottom:20px}
+.question-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+.q-meta{display:flex;gap:8px;align-items:center}
+.q-number{font-weight:900;color:var(--green2);background:var(--mint);padding:5px 12px;border-radius:8px;font-size:13px}
+.q-tp{font-weight:800;color:var(--blue);background:#eff6ff;border:1px solid #bfdbfe;padding:4px 10px;border-radius:8px;font-size:12px}
+.q-weight{font-size:12px;font-weight:800;color:var(--muted);background:#e2e8f0;padding:4px 10px;border-radius:6px}
+.options-list{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.option-item{display:flex;align-items:center;gap:12px;background:#fff;border:2px solid #e2e8f0;padding:12px 14px;border-radius:12px;cursor:pointer;transition:.15s}
+.option-item:hover{border-color:var(--green);background:#f0fdf4}
+.option-item input{width:auto;min-height:auto}
+
+/* KUNCI PERMANEN JAWABAN SISWA */
+.locked-mode .option-item{cursor:default!important;pointer-events:none!important}
+.locked-mode #examForm input, .locked-mode #examForm textarea, .locked-mode #examForm select{pointer-events:none!important}
+/* PENGECUALIAN MUTLAK UNTUK KOTAK SKOR GURU */
+.locked-mode #examForm .grading-row input, #examForm .grading-row input {
+    pointer-events: auto !important;
+    background-color: #fff !important;
+    cursor: text !important;
+}
+
+/* VALIDASI GURU */
+.grading-row{display:none;gap:12px;align-items:center;margin-top:14px;background:#fff;padding:12px;border-radius:12px;border:2px dashed #cbd5e1}
+.grading-row.teacher-visible{display:flex}
+.grading-row input[type="number"]{width:110px;text-align:center;font-weight:900;color:var(--green2)}
+
+/* KARTU NILAI BESAR */
+.score-card-display{display:none;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:3px solid var(--green);border-radius:20px;padding:20px;text-align:center;margin-top:20px}
+.score-card-display.red-theme{background:linear-gradient(135deg,#fef2f2,#fee2e2);border-color:var(--red)}
+.score-big{font-size:56px;font-weight:900;color:var(--green2);line-height:1;margin:8px 0}
+.score-card-display.red-theme .score-big{color:var(--red)}
+
+.actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:22px 0 8px}
+.modal{position:fixed;inset:0;background:#0f172a88;display:none;place-items:center;z-index:50;padding:18px}
+.modal-card{width:min(560px,100%);background:#fff;border-radius:22px;padding:24px;text-align:center;box-shadow:0 20px 60px #0003}
+.spinner{width:42px;height:42px;border:5px solid #dbeee8;border-top-color:var(--green);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 14px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.submitted-banner{display:none;margin:16px auto;max-width:900px;background:var(--green2);color:#fff;padding:14px 18px;border-radius:16px;text-align:center;font-weight:900}
+.submitted-banner.show{display:block}
+.submitted-banner small{display:block;font-weight:600;margin-top:4px}
+.grade-panel{display:none;background:#f8fafc;border:2px solid #dbe4e1;border-radius:20px;padding:20px;margin:18px auto;max-width:900px}
+.grade-panel.show{display:block}
+.teacher-tools{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.teacher-status{background:#fff9d6;border-left:5px solid #f2d73a;border-radius:12px;padding:11px 14px;margin:0 0 16px;font-size:14px}
+
+.recap-box{background:#fff;border:2px solid #cbd5e1;border-radius:16px;padding:16px;margin-top:20px}
+.recap-table{width:100%;border-collapse:collapse;margin-top:10px}
+.recap-table th,.recap-table td{border:1px solid #e2e8f0;padding:10px 12px;font-size:14px;text-align:left}
+.recap-table th{background:var(--mint);color:var(--green2);font-weight:900}
+
+@media(max-width:700px){
+ .appbar{flex-wrap:wrap}.brand{width:100%;text-align:center}
+ .sheet{padding:18px;border-radius:18px}
+ .hero{grid-template-columns:1fr}.idgrid{grid-template-columns:1fr}
+ .actions button{width:100%}
+}
+@media print{
+ .appbar,.progress,.actions,.modal,.teacher-tools{display:none!important}
+ body{background:#fff}.sheet{box-shadow:none;width:210mm;margin:0;border-radius:0}
+ input,textarea,select{border:0!important;box-shadow:none!important}
+}
+</style>
+</head>
+<body class="locked-mode">
+
+
+
+
+<div class="submitted-banner show" id="submittedBanner">
+  ✅ JAWABAN REMIDIAL BERHASIL TERKIRIM
+  <small id="submittedInfo">Siswa: cahyan • 26/9/2026, 10.23.36 • ID: 59f314c7-de47-4a49-b978-906e3d744236</small>
+</div>
+
+<form id="examForm">
+<!-- HALAMAN 1: IDENTITAS -->
+<section class="sheet">
+  <div class="hero">
+    <div class="hero-card">
+      <span class="badge" style="background:var(--gold);color:#92400e">PROGRAM REMIDIAL SUMATIF</span>
+      <h1 id="examTitle">Remidial Sumatif BAB 1</h1>
+      <p><b>Mata Pelajaran:</b> <span id="labelMapel">Koding</span> • <span id="labelKelas">Kelas V (Lima)</span></p>
+      
+      <div style="font-size:13px;background:#fff;padding:12px;border-radius:12px;margin:10px 0;line-height:1.6">
+        <b>Tujuan Pembelajaran (TP):</b>
+        <ul style="margin:6px 0 0;padding-left:18px" id="tpList">
+          <li><b>TP1:</b> Memahami dan mengidentifikasi 4 fondasi berpikir komputasional (dekomposisi, pengenalan pola, abstraksi, dan algoritma).</li>
+          <li><b>TP2:</b> Menerapkan prinsip berpikir komputasional dalam menyelesaikan masalah, menganalisis aktivitas permainan tradisional engklek, serta merancang algoritma logika pemrograman.</li>
+        </ul>
+      </div>
+      
+      <!-- KARTU NILAI BESAR -->
+      <div class="score-card-display" id="scoreCardDisplay">
+        <div style="font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:1px">Nilai Perolehan Akhir</div>
+        <div class="score-big" id="displayFinalScore">0</div>
+        <div id="scoreStatusBadge" style="font-weight:800;font-size:14px"></div>
+      </div>
+
+      <div class="idgrid">
+        <div class="field"><label>Nama Lengkap Siswa <span style="color:var(--red)">*</span></label><input name="nama" placeholder="Tuliskan nama lengkap" required="" autocomplete="name" readonly="readonly" value="cahyan "></div>
+        <div class="field"><label>Hari / Tanggal <span style="color:var(--red)">*</span></label><input name="tanggal" placeholder="Contoh: Senin, 5 Oktober 2026" required="" readonly="readonly" value="SABTU 2026 26 september"></div>
+        <div class="field"><label>Nomor Absen</label><input name="absen" placeholder="Nomor absen" type="number" readonly="readonly" value=""></div>
+        <div class="field"><label>Kelas</label><input name="kelas" value="V (Lima)" readonly="readonly"></div>
+      </div>
+    </div>
+    <div class="mission">
+      <div class="mission-icon">🎯</div>
+      <b>🛡️ Mode Ujian Remidial Aktif</b>
+      <p>Gunakan logika berpikir komputasional secara mandiri dan teliti. Dilarang membuka tab lain!</p>
+    </div>
+  </div>
+</section>
+
+<!-- HALAMAN 2: PETUNJUK -->
+<section class="sheet">
+  <div class="section-title"><div class="num">2</div><h2>📋 Petunjuk Pengerjaan &amp; Sistem Penilaian</h2></div>
+  <div class="tip"><b>Ketentuan Pengerjaan:</b> Kerjakan setiap butir soal sesuai petunjuk. Kriteria Ketuntasan Minimal (KKM): <b><span id="kkmDisplay" style="color:var(--blue)">75</span></b>.</div>
+  
+  <h3 style="margin-top:20px">⚖️ Rincian Komposisi Soal (Total: 25 Poin):</h3>
+  <table style="width:100%;border-collapse:collapse;margin-top:10px;background:#f8fafc;border-radius:12px;overflow:hidden">
+    <thead>
+      <tr style="background:var(--mint);text-align:left">
+        <th style="padding:10px 14px">Jenis Soal</th><th style="padding:10px 14px">Nomor Soal</th><th style="padding:10px 14px">Bobot / Butir</th><th style="padding:10px 14px">Sistem Koreksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #e2e8f0"><td style="padding:10px 14px">Pilihan Ganda</td><td style="padding:10px 14px">No. 1 s.d. 5 (5 Soal)</td><td style="padding:10px 14px"><b>1 Poin</b></td><td style="padding:10px 14px">Koreksi Otomatis Sistem</td></tr>
+      <tr style="border-bottom:1px solid #e2e8f0"><td style="padding:10px 14px">Benar / Salah</td><td style="padding:10px 14px">No. 6 s.d. 10 (5 Soal)</td><td style="padding:10px 14px"><b>1 Poin</b></td><td style="padding:10px 14px">Koreksi Otomatis Sistem</td></tr>
+      <tr><td style="padding:10px 14px">Esai / Uraian Logika</td><td style="padding:10px 14px">No. 11 s.d. 13 (3 Soal)</td><td style="padding:10px 14px"><b>5 Poin</b></td><td style="padding:10px 14px">Validasi Manual Guru</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:14px;font-size:14px"><b>Rumus Nilai Akhir:</b> (Total Skor Perolehan / 25) × 100</p>
+</section>
+
+<!-- HALAMAN 3: LEMBAR SOAL -->
+<section class="sheet">
+  <div class="section-title"><div class="num">3</div><h2>✍️ Lembar Soal Remidial</h2></div>
+
+  <!-- BAGIAN I: PILIHAN GANDA (NO 1 - 5) -->
+  <h3 style="color:var(--green2);border-bottom:2px solid #e2e8f0;padding-bottom:6px;margin-bottom:16px">BAGIAN I: Pilihan Ganda (Nomor 1 - 5)</h3>
+
+  <!-- SOAL 1 -->
+  <div class="question-card" data-qnum="1" data-tp="TP1" data-type="PG" data-weight="1" data-scoring="auto" data-key="b">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 1 • Pilihan Ganda</span><span class="q-tp">Target: TP1</span></div>
+      <span class="q-weight">Bobot: 1 Poin</span>
+    </div>
+    <div class="stimulus-box">
+      <b>Stimulus:</b><br>
+      Sebelum memainkan engklek di halaman sekolah, Doni membagi rangkaian permainannya ke dalam langkah-langkah terpisah: pertama menyiapkan batu gaco, kedua melempar ke kotak sasaran, ketiga melompat melewati kotak-kotak, dan keempat mengambil kembali batu gaco sebelum keluar garis.
+    </div>
+    <p>Tindakan Doni yang menguraikan permainan besar menjadi tahapan-tahapan kecil yang berurutan merupakan penerapan fondasi berpikir komputasional, yaitu ....</p>
+    <div class="options-list">
+      <label class="option-item"><input type="radio" name="soal1" value="a" readonly="readonly"> a. Abstraksi</label>
+      <label class="option-item"><input type="radio" name="soal1" value="b" readonly="readonly" checked="checked"> b. Dekomposisi</label>
+      <label class="option-item"><input type="radio" name="soal1" value="c" readonly="readonly"> c. Pengenalan Pola</label>
+      <label class="option-item"><input type="radio" name="soal1" value="d" readonly="readonly"> d. Debugging</label>
+    </div>
+    <div class="grading-feedback-box" id="fb_soal1" style="display:none;margin-top:10px;font-weight:800"></div>
+  </div>
+
+  <!-- SOAL 2 -->
+  <div class="question-card" data-qnum="2" data-tp="TP1" data-type="PG" data-weight="1" data-scoring="auto" data-key="a">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 2 • Pilihan Ganda</span><span class="q-tp">Target: TP1</span></div>
+      <span class="q-weight">Bobot: 1 Poin</span>
+    </div>
+    <div class="stimulus-box">
+      <b>Stimulus:</b><br>
+      Saat bermain, Doni mengamati bentuk arena engklek. Ketika berada di depan 1 kotak tunggal, ia melompat dengan satu kaki. Namun, saat berada di depan 2 kotak bersebelahan (sayap), ia selalu mendarat dengan dua kaki secara bersamaan.
+    </div>
+    <p>Tindakan Doni yang mengaitkan bentuk kotak dengan cara mendaratkan kaki adalah contoh dari ....</p>
+    <div class="options-list">
+      <label class="option-item"><input type="radio" name="soal2" value="a" readonly="readonly"> a. Pengenalan Pola</label>
+      <label class="option-item"><input type="radio" name="soal2" value="b" readonly="readonly"> b. Abstraksi</label>
+      <label class="option-item"><input type="radio" name="soal2" value="c" readonly="readonly" checked="checked"> c. Dekomposisi</label>
+      <label class="option-item"><input type="radio" name="soal2" value="d" readonly="readonly"> d. Algoritma acak</label>
+    </div>
+    <div class="grading-feedback-box" id="fb_soal2" style="display:none;margin-top:10px;font-weight:800"></div>
+  </div>
+
+  <!-- SOAL 3 -->
+  <div class="question-card" data-qnum="3" data-tp="TP1" data-type="PG" data-weight="1" data-scoring="auto" data-key="c">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 3 • Pilihan Ganda</span><span class="q-tp">Target: TP1</span></div>
+      <span class="q-weight">Bobot: 1 Poin</span>
+    </div>
+    <div class="stimulus-box">
+      <b>Stimulus:</b><br>
+      Saat giliran melompat, Siti memusatkan perhatiannya hanya pada letak garis batas agar tidak terinjak dan mengingat posisi kotak yang dilarang diinjak. Siti sama sekali tidak memedulikan warna baju teman yang menonton maupun suara sorak di pinggir lapangan.
+    </div>
+    <p>Sikap Siti memilah informasi penting dan mengabaikan hal yang tidak penting disebut ....</p>
+    <div class="options-list">
+      <label class="option-item"><input type="radio" name="soal3" value="a" readonly="readonly"> a. Dekomposisi</label>
+      <label class="option-item"><input type="radio" name="soal3" value="b" readonly="readonly"> b. Pengenalan Pola</label>
+      <label class="option-item"><input type="radio" name="soal3" value="c" readonly="readonly" checked="checked"> c. Abstraksi</label>
+      <label class="option-item"><input type="radio" name="soal3" value="d" readonly="readonly"> d. Algoritma</label>
+    </div>
+    <div class="grading-feedback-box" id="fb_soal3" style="display:none;margin-top:10px;font-weight:800"></div>
+  </div>
+
+  <!-- SOAL 4 -->
+  <div class="question-card" data-qnum="4" data-tp="TP1" data-type="PG" data-weight="1" data-scoring="auto" data-key="c">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 4 • Pilihan Ganda</span><span class="q-tp">Target: TP1</span></div>
+      <span class="q-weight">Bobot: 1 Poin</span>
+    </div>
+    <div class="stimulus-box">
+      <b>Stimulus:</b><br>
+      Perhatikan potongan aturan permainan engklek berikut:<br>
+      <i>"JIKA kaki pemain menyentuh garis kotak, MAKA giliran melompat dinyatakan gugur dan digantikan pemain berikutnya."</i>
+    </div>
+    <p>Pernyataan sebab-akibat (kondisional) di atas dalam pemrograman dan berpikir komputasional merupakan bagian dari perancangan ....</p>
+    <div class="options-list">
+      <label class="option-item"><input type="radio" name="soal4" value="a" readonly="readonly"> a. Abstraksi</label>
+      <label class="option-item"><input type="radio" name="soal4" value="b" readonly="readonly" checked="checked"> b. Dekomposisi</label>
+      <label class="option-item"><input type="radio" name="soal4" value="c" readonly="readonly"> c. Algoritma</label>
+      <label class="option-item"><input type="radio" name="soal4" value="d" readonly="readonly"> d. Pengenalan Pola</label>
+    </div>
+    <div class="grading-feedback-box" id="fb_soal4" style="display:none;margin-top:10px;font-weight:800"></div>
+  </div>
+
+  <!-- SOAL 5 -->
+  <div class="question-card" data-qnum="5" data-tp="TP1" data-type="PG" data-weight="1" data-scoring="auto" data-key="b">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 5 • Pilihan Ganda</span><span class="q-tp">Target: TP1</span></div>
+      <span class="q-weight">Bobot: 1 Poin</span>
+    </div>
+    <div class="stimulus-box">
+      <b>Stimulus:</b><br>
+      Dalam permainan engklek, seorang pemain harus melempar gaco, melompat berurutan melewati petak, berputar arah, dan mengambil gaco sebelum keluar batas. Pemain tidak diperbolehkan mengambil gaco terlebih dahulu sebelum melompat.
+    </div>
+    <p>Mengapa langkah-langkah dalam permainan engklek harus disusun dan dilakukan secara urut (tidak boleh mengambil gaco terlebih dahulu sebelum melompat)?</p>
+    <div class="options-list">
+      <label class="option-item"><input type="radio" name="soal5" value="a" readonly="readonly"> a. Agar permainan menjadi lebih lama dan membosankan</label>
+      <label class="option-item"><input type="radio" name="soal5" value="b" readonly="readonly" checked="checked"> b. Karena algoritma membutuhkan urutan langkah yang logis agar tujuan tercapai dengan benar</label>
+      <label class="option-item"><input type="radio" name="soal5" value="c" readonly="readonly"> c. Supaya pemain lawan tidak bisa ikut bermain</label>
+      <label class="option-item"><input type="radio" name="soal5" value="d" readonly="readonly"> d. Agar pemain bisa melanggar garis tanpa terlihat</label>
+    </div>
+    <div class="grading-feedback-box" id="fb_soal5" style="display:none;margin-top:10px;font-weight:800"></div>
+  </div>
+
+  <!-- BAGIAN II: BENAR / SALAH (NO 6 - 10) -->
+  <h3 style="color:var(--green2);border-bottom:2px solid #e2e8f0;padding-bottom:6px;margin:28px 0 16px">BAGIAN II: Analisis Benar atau Salah (Nomor 6 - 10)</h3>
+
+  <!-- SOAL 6 -->
+  <div class="question-card" data-qnum="6" data-tp="TP1" data-type="BS" data-weight="1" data-scoring="auto" data-key="B">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 6 • Benar / Salah</span><span class="q-tp">Target: TP1</span></div>
+      <span class="q-weight">Bobot: 1 Poin</span>
+    </div>
+    <p><b>Pernyataan:</b> Membedah arena permainan engklek menjadi kotak 1, kotak 2, hingga kotak puncak/gunung adalah contoh dari penerapan prinsip Dekomposisi.</p>
+    <div class="options-list">
+      <label class="option-item"><input type="radio" name="soal6" value="B" readonly="readonly"> Benar (✓)</label>
+      <label class="option-item"><input type="radio" name="soal6" value="S" readonly="readonly" checked="checked"> Salah (✗)</label>
+    </div>
+    <div class="grading-feedback-box" id="fb_soal6" style="display:none;margin-top:10px;font-weight:800"></div>
+  </div>
+
+  <!-- SOAL 7 -->
+  <div class="question-card" data-qnum="7" data-tp="TP1" data-type="BS" data-weight="1" data-scoring="auto" data-key="S">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 7 • Benar / Salah</span><span class="q-tp">Target: TP1</span></div>
+      <span class="q-weight">Bobot: 1 Poin</span>
+    </div>
+    <p><b>Pernyataan:</b> Mengabaikan suara tawa penonton di luar arena agar tetap fokus menjaga keseimbangan tubuh merupakan penerapan prinsip Pengenalan Pola.</p>
+    <div class="options-list">
+      <label class="option-item"><input type="radio" name="soal7" value="B" readonly="readonly" checked="checked"> Benar (✓)</label>
+      <label class="option-item"><input type="radio" name="soal7" value="S" readonly="readonly"> Salah (✗)</label>
+    </div>
+    <div class="grading-feedback-box" id="fb_soal7" style="display:none;margin-top:10px;font-weight:800"></div>
+  </div>
+
+  <!-- SOAL 8 -->
+  <div class="question-card" data-qnum="8" data-tp="TP1" data-type="BS" data-weight="1" data-scoring="auto" data-key="B">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 8 • Benar / Salah</span><span class="q-tp">Target: TP1</span></div>
+      <span class="q-weight">Bobot: 1 Poin</span>
+    </div>
+    <p><b>Pernyataan:</b> Mengetahui bahwa setiap melempar gaco ke kotak yang lebih jauh membutuhkan tenaga dorongan tangan yang lebih besar adalah contoh Pengenalan Pola.</p>
+    <div class="options-list">
+      <label class="option-item"><input type="radio" name="soal8" value="B" readonly="readonly" checked="checked"> Benar (✓)</label>
+      <label class="option-item"><input type="radio" name="soal8" value="S" readonly="readonly"> Salah (✗)</label>
+    </div>
+    <div class="grading-feedback-box" id="fb_soal8" style="display:none;margin-top:10px;font-weight:800"></div>
+  </div>
+
+  <!-- SOAL 9 -->
+  <div class="question-card" data-qnum="9" data-tp="TP1" data-type="BS" data-weight="1" data-scoring="auto" data-key="S">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 9 • Benar / Salah</span><span class="q-tp">Target: TP1</span></div>
+      <span class="q-weight">Bobot: 1 Poin</span>
+    </div>
+    <p><b>Pernyataan:</b> Jika seorang pemain menulis urutan langkah bermain secara acak-acakan (tidak berurutan), ia tetap dikatakan telah menyusun Algoritma yang baik.</p>
+    <div class="options-list">
+      <label class="option-item"><input type="radio" name="soal9" value="B" readonly="readonly"> Benar (✓)</label>
+      <label class="option-item"><input type="radio" name="soal9" value="S" readonly="readonly" checked="checked"> Salah (✗)</label>
+    </div>
+    <div class="grading-feedback-box" id="fb_soal9" style="display:none;margin-top:10px;font-weight:800"></div>
+  </div>
+
+  <!-- SOAL 10 -->
+  <div class="question-card" data-qnum="10" data-tp="TP1" data-type="BS" data-weight="1" data-scoring="auto" data-key="B">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 10 • Benar / Salah</span><span class="q-tp">Target: TP1</span></div>
+      <span class="q-weight">Bobot: 1 Poin</span>
+    </div>
+    <p><b>Pernyataan:</b> Aturan: "JIKA kotak berisi batu gaco, MAKA lompati kotak tersebut tanpa menginjaknya" merupakan penerapan logika percabangan (conditional) dalam Algoritma.</p>
+    <div class="options-list">
+      <label class="option-item"><input type="radio" name="soal10" value="B" readonly="readonly" checked="checked"> Benar (✓)</label>
+      <label class="option-item"><input type="radio" name="soal10" value="S" readonly="readonly"> Salah (✗)</label>
+    </div>
+    <div class="grading-feedback-box" id="fb_soal10" style="display:none;margin-top:10px;font-weight:800"></div>
+  </div>
+
+  <!-- BAGIAN III: ESAI URAIAN (NO 11 - 13) -->
+  <h3 style="color:var(--green2);border-bottom:2px solid #e2e8f0;padding-bottom:6px;margin:28px 0 16px">BAGIAN III: Uraian &amp; Logika Pemrograman (Nomor 11 - 13)</h3>
+
+  <!-- SOAL 11 -->
+  <div class="question-card" data-qnum="11" data-tp="TP2" data-type="Esai" data-weight="5" data-scoring="manual">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 11 • Esai (Dekomposisi)</span><span class="q-tp">Target: TP2</span></div>
+      <span class="q-weight">Maks. Bobot: 5 Poin</span>
+    </div>
+    <p>Sebutkan 3 tahapan aktivitas utama yang dilakukan seorang pemain dalam satu putaran bermain engklek dari garis awal sampai kembali ke garis awal!</p>
+    <textarea name="soal11" rows="4" placeholder="Tuliskan 3 tahapan aktivitas utama..." readonly="readonly">buat garis terus taro kenteng baru main </textarea>
+  </div>
+
+  <!-- SOAL 12 -->
+  <div class="question-card" data-qnum="12" data-tp="TP2" data-type="Esai" data-weight="5" data-scoring="manual">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 12 • Esai (Abstraksi)</span><span class="q-tp">Target: TP2</span></div>
+      <span class="q-weight">Maks. Bobot: 5 Poin</span>
+    </div>
+    <p>Saat bermain engklek di lapangan sekolah yang ramai, sebutkan:<br>
+       a. 2 hal paling penting yang wajib diperhatikan pemain agar tidak gugur/kalah!<br>
+       b. 2 hal tidak penting di sekitar lapangan yang sebaiknya diabaikan oleh pemain!</p>
+    <textarea name="soal12" rows="4" placeholder="Tuliskan jawaban untuk bagian a dan b..." readonly="readonly">hal tidak meinjak garis kalo meinjak garis gugur/kalah </textarea>
+  </div>
+
+  <!-- SOAL 13 -->
+  <div class="question-card" data-qnum="13" data-tp="TP2" data-type="Esai" data-weight="5" data-scoring="manual">
+    <div class="question-header">
+      <div class="q-meta"><span class="q-number">Soal 13 • Esai (Algoritma)</span><span class="q-tp">Target: TP2</span></div>
+      <span class="q-weight">Maks. Bobot: 5 Poin</span>
+    </div>
+    <p>Bayangkan temanmu adalah sebuah Robot. Buatlah urutan algoritma langkah demi langkah yang logis dan runtut (minimal 4 langkah) yang harus dijalankan Robot saat gaco berada di Kotak Nomor 1!</p>
+    <textarea name="soal13" rows="5" placeholder="Tuliskan algoritma langkah demi langkah..." readonly="readonly">langkahi Lah Kotak yang ada kenteng nya</textarea>
+  </div>
+
+  
+</section>
+</form>
+
+<!-- PANEL PENILAIAN GURU -->
+<section class="sheet grade-panel show" id="gradePanel" style="display: block;">
+  <div class="section-title"><div class="num">★</div><h2>Panel Validasi &amp; Penilaian Guru</h2></div>
+  <div class="teacher-status" id="teacherStatus">🔄 Menghubungkan dan memeriksa status dari Google Sheet...</div>
+  
+  <div class="teacher-tools" style="margin-bottom:18px">
+    <button type="button" class="btn-blue" id="inspectExamBtn">🔍 Periksa Jawaban</button>
+  </div>
+
+  <div class="field" style="margin-bottom:16px">
+    <label>Catatan / Umpan Balik Guru untuk Siswa</label>
+    <textarea id="teacherNote" rows="3" placeholder="Tuliskan catatan apresiasi atau arahan perbaikan untuk siswa..." disabled=""></textarea>
+  </div>
+
+  <!-- TABEL REKAPITULASI -->
+  <div class="recap-box" id="recapBox" style="display:none">
+    <h3 style="margin:0 0 10px;color:var(--green2)">📊 Rekapitulasi Hasil Remidial Sumatif</h3>
+    <table class="recap-table" id="recapTable">
+      <thead>
+        <tr><th>Komponen Penilaian</th><th>Perolehan Skor</th><th>Keterangan</th></tr>
+      </thead>
+      <tbody id="recapTableBody"></tbody>
+      <tfoot>
+        <tr style="font-weight:900;background:#f8fafc"><td>Total Skor Perolehan</td><td id="recapTotalScore" colspan="2">0 / 0</td></tr>
+        <tr style="font-weight:900;background:#f8fafc"><td>Status Ketuntasan (KKM 75)</td><td id="recapStatus" colspan="2">-</td></tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="teacher-tools" style="margin-top:20px">
+    <button type="button" class="btn-gold" id="finalizeGradeBtn" disabled="">🔒 Akhiri Penilaian &amp; Kunci Permanen</button>
+  </div>
+</section>
+
+
+
+
+
+<script>(function(){
+    const ENDPOINT='https://script.google.com/macros/s/AKfycbyOM-aeLODahPaeBukqGKlUmOVkPRijBtTatFADL3pqgZB_OvUCZ9dzb5eaN2Fl7ABC/exec',SUBJECT='Koding',LKPD_ID='Remidial-Bab1-Koding-Kls5',EXAM_TITLE='Remidial Sumatif BAB 1',SUBMISSION_ID='59f314c7-de47-4a49-b978-906e3d744236',KKM=75;
+
+    document.body.classList.add('locked-mode');
+
+    document.querySelectorAll(".question-card[data-scoring='manual']").forEach(c=>{
+      const qnum=c.dataset.qnum, max=c.dataset.weight||2, tp=c.dataset.tp||"";
+      if(!document.getElementById('gradeRow_s'+qnum)){
+        const r=document.createElement('div');
+        r.className='grading-row teacher-visible';
+        r.id='gradeRow_s'+qnum;
+        r.innerHTML='<span style="font-size:13px;font-weight:900">Validasi Guru (Soal '+qnum+' • '+tp+'):</span>'+
+                    '<input type="number" id="score_s'+qnum+'" min="0" max="'+max+'" step="1" placeholder="Skor (0-'+max+')">'+
+                    '<span style="font-size:12px;color:var(--muted)">Maks: '+max+' Poin</span>';
+        c.appendChild(r);
+      }
+    });
+
+    const noteIn=document.getElementById('teacherNote'),finBtn=document.getElementById('finalizeGradeBtn'),status=document.getElementById('teacherStatus');
+    const inspectBtn=document.getElementById('inspectExamBtn'),recapBox=document.getElementById('recapBox');
+    const scoreCard=document.getElementById('scoreCardDisplay'),finalScoreEl=document.getElementById('displayFinalScore'),scoreBadge=document.getElementById('scoreStatusBadge');
+
+    let isLockedPermanently = false;
+
+    function evaluateAllItems(){
+      const itemScores=[];
+      let earnedScore=0, maxTotalScore=0;
+
+      document.querySelectorAll(".question-card").forEach(c=>{
+        const qnum=c.dataset.qnum, tp=c.dataset.tp||"TP", weight=parseInt(c.dataset.weight||1);
+        const scoring=c.dataset.scoring;
+        const label="S"+qnum+" ("+tp+")";
+        maxTotalScore+=weight;
+
+        if(scoring==="auto"){
+          const key=c.dataset.key;
+          let val="";
+          const isCheck=document.querySelector('input[name="soal'+qnum+'"][type="checkbox"]');
+          const sels=[...document.querySelectorAll('select[data-group="soal'+qnum+'"]')];
+          
+          if(isCheck){
+            val=[...document.querySelectorAll('input[name="soal'+qnum+'"]:checked')].map(e=>e.value).sort().join(",");
+          }else if(sels.length>0){
+            val=sels.map(e=>e.value).join(",");
+          }else{
+            const chk=document.querySelector('input[name="soal'+qnum+'"]:checked');
+            val=chk?chk.value:"";
+          }
+          
+          const s=(val===key)?weight:0;
+          earnedScore+=s;
+
+          const fb=document.getElementById("fb_soal"+qnum);
+          if(fb){
+            fb.style.display="block";
+            fb.innerHTML=(s===weight)?"<span style='color:var(--green)'>✅ Benar (+"+s+" Poin)</span>":"<span style='color:var(--red)'>❌ Salah (Kunci: "+key+")</span>";
+          }
+          itemScores.push({qnum,label,tp,score:s,scoring});
+        } else {
+          const inp=document.getElementById("score_s"+qnum);
+          const s=parseInt(inp?.value||0);
+          earnedScore+=s;
+          itemScores.push({qnum,label,tp,score:s,scoring});
+        }
+      });
+
+      const finalScore=maxTotalScore>0?Math.round((earnedScore/maxTotalScore)*100):0;
+      return {itemScores,earnedScore,maxTotalScore,finalScore};
+    }
+
+    function renderRecapTable(res){
+      const tbody=document.getElementById("recapTableBody");
+      if(!tbody) return;
+      tbody.innerHTML="";
+
+      const tpMap={};
+      res.itemScores.forEach(i=>{
+        if(!tpMap[i.tp]) tpMap[i.tp]={earned:0,max:0};
+        const c=document.querySelector('.question-card[data-qnum="'+i.qnum+'"]');
+        const w=parseInt(c?.dataset.weight||1);
+        tpMap[i.tp].earned+=i.score;
+        tpMap[i.tp].max+=w;
+      });
+
+      for(const tp in tpMap){
+        const tr=document.createElement("tr");
+        const persentase=tpMap[tp].max>0?Math.round((tpMap[tp].earned/tpMap[tp].max)*100):0;
+        tr.innerHTML='<td>Capaian '+tp+'</td><td>'+tpMap[tp].earned+' / '+tpMap[tp].max+'</td><td>'+persentase+'% Penguasaan Materi</td>';
+        tbody.appendChild(tr);
+      }
+
+      document.getElementById('recapTotalScore').textContent=res.earnedScore+" / "+res.maxTotalScore+" ("+res.finalScore+"%)";
+      const tuntas=res.finalScore>=KKM;
+      document.getElementById('recapStatus').innerHTML=tuntas?"<span style='color:var(--green2)'>TUNTAS</span>":"<span style='color:var(--red)'>REMEDIAL</span>";
+
+      if(finalScoreEl) finalScoreEl.textContent=res.finalScore;
+      if(scoreCard) scoreCard.style.display='block';
+      if(!tuntas){
+        scoreCard.classList.add('red-theme');
+        if(scoreBadge) scoreBadge.innerHTML="<span style='color:var(--red)'>⚠️ Belum Mencapai KKM ("+KKM+")</span>";
+      } else {
+        scoreCard.classList.remove('red-theme');
+        if(scoreBadge) scoreBadge.innerHTML="<span style='color:var(--green2)'>🎉 Tuntas / Mencapai KKM ("+KKM+")</span>";
+      }
+    }
+
+    function lockEverythingPermanently(){
+      isLockedPermanently=true;
+      document.querySelectorAll(".question-card[data-scoring='manual'] input").forEach(inp=>inp.disabled=true);
+      if(noteIn) noteIn.disabled=true;
+      if(inspectBtn) inspectBtn.style.display='none';
+      if(finBtn) finBtn.style.display='none';
+      recapBox.style.display='block';
+      const evalRes=evaluateAllItems();
+      renderRecapTable(evalRes);
+    }
+
+    async function syncFromCloudSheet(){
+      try{
+        const resp=await fetch(ENDPOINT,{
+          method:'POST',
+          headers:{'Content-Type':'text/plain;charset=utf-8'},
+          body:JSON.stringify({action:'getSumatifGrade',lkpdId:LKPD_ID,submissionId:SUBMISSION_ID})
+        });
+        const res=await resp.json();
+
+        if(res.found && res.graded){
+          const row=res.rowData;
+          const manualCards=[...document.querySelectorAll(".question-card[data-scoring='manual']")];
+          
+          manualCards.forEach(c=>{
+            const qnum=parseInt(c.dataset.qnum);
+            const scoreVal=row[7 + qnum]; // Menyesuaikan index kolom dari G.Sheet
+            const inp=document.getElementById('score_s'+qnum);
+            if(inp && scoreVal!==undefined) inp.value=scoreVal;
+          });
+
+          if(noteIn) noteIn.value=row[row.length - 1] || '';
+
+          lockEverythingPermanently();
+          status.innerHTML='🔒 <b>Penilaian Telah Dikunci Permanen.</b> Data tersinkronisasi otomatis dari Google Sheet.';
+        } else {
+          status.innerHTML='🔓 <b>Belum Diperiksa.</b> Klik tombol <b>"Periksa Jawaban"</b> untuk mulai menilai.';
+          if(inspectBtn) inspectBtn.disabled=false;
+        }
+      }catch(e){
+        status.innerHTML='⚠️ <i>Offline Mode</i> (Tidak dapat terhubung ke Google Sheet).';
+      }
+    }
+
+    if(inspectBtn) inspectBtn.onclick=()=>{
+      if(isLockedPermanently) return;
+      document.querySelectorAll(".question-card[data-scoring='manual'] input").forEach(inp=>{
+          inp.disabled=false;
+          inp.removeAttribute("readonly");
+      });
+      if(noteIn) noteIn.disabled=false;
+      if(finBtn) finBtn.disabled=false;
+      status.innerHTML='✏️ <b>Mode Pemeriksaan Aktif.</b> Soal objektif dinilai otomatis. Silakan periksa soal uraian lalu klik Akhiri Penilaian.';
+      recapBox.style.display='block';
+      const evalRes=evaluateAllItems();
+      renderRecapTable(evalRes);
+    };
+
+    document.querySelectorAll(".question-card[data-scoring='manual'] input").forEach(inp=>{
+      inp.oninput=()=>{
+        const evalRes=evaluateAllItems();
+        renderRecapTable(evalRes);
+      };
+    });
+
+    if(finBtn) finBtn.onclick=async()=>{
+      if(isLockedPermanently) return;
+      const res=evaluateAllItems();
+      const payload={
+        action:'saveSumatifGrade',
+        submissionId:SUBMISSION_ID,
+        studentName:(document.querySelector("input[name=nama]")||{}).value||'Siswa',
+        subject:SUBJECT,
+        lkpdId:LKPD_ID,
+        itemScores:res.itemScores,
+        earnedScore:res.earnedScore,
+        finalScore:res.finalScore,
+        status:(res.finalScore>=KKM)?'Tuntas':'Remedial',
+        note:noteIn?.value||''
+      };
+
+      status.innerHTML='⏳ Menyimpan penilaian ke Google Sheet...';
+      try{
+        await fetch(ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
+      }catch(e){}
+
+      lockEverythingPermanently();
+      status.innerHTML='🔒 <b>Penilaian Selesai & Dikunci Permanen.</b> Nilai berhasil diperbarui di Google Sheet.';
+      alert('Penilaian berhasil diakhiri dan dikunci permanen!');
+    };
+
+    syncFromCloudSheet();
+  })();</script></body></html>
